@@ -2,13 +2,66 @@
   font-family: "Inter", sans-serif, Tahoma, Geneva, Verdana;
   box-sizing: border-box;
 }
+
 body {
   background-color: #fafafa;
 }
 
+h3 {
+  font-size: 0.3rem;
+}
+
+.nav {
+  background-color: #fff2f2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav__logo {
+  max-width: 50px;
+  max-height: 50px;
+  width: 180px;
+  clip-path: inset(30% 0 30% 0);
+}
+.nav__button--hamburger {
+  background-color: #fff2f2;
+  color: #292929;
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+
+.carousel {
+}
+
+.readmore__button {
+  width: 50px;
+  height: 10px;
+  border-radius: 60px;
+  border: 1px solid #b84269;
+  color: #b84269;
+  font-size: 0.3rem;
+  background: #fff2f2;
+  box-shadow:
+    0 4px 30px 3px rgba(41, 41, 41, 0.2),
+    0 1px 9.8px 1px rgba(0, 0, 0, 0.3) inset;
+}
+
+.leaderboard {
+  background-color: #f7f7f7;
+}
+
+.leaderboard__button {
+}
+
+.leaderboard__card {
+}
+.pink {
+  background-color: #fff2f2;
+}
 .footer {
   background-color: #fff2f2;
-  font-size: 0.875rem;
+  font-size: 0.3rem;
   color: #b84269;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -18,5 +71,10 @@ body {
 }
 
 .footer p {
-  padding-top: 5px;
+  padding-top: px;
+}
+
+.footer img {
+  display: flex;
+  justify-content: center;
 }
