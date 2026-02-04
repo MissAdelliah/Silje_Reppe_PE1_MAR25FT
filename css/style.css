@@ -1,0 +1,22 @@
+* {
+  font-family: "Inter", sans-serif, Tahoma, Geneva, Verdana;
+  box-sizing: border-box;
+}
+body {
+  background-color: #fafafa;
+}
+
+.footer {
+  background-color: #fff2f2;
+  font-size: 0.875rem;
+  color: #b84269;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer p {
+  padding-top: 5px;
+}
