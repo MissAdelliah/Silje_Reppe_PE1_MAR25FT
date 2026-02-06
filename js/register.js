@@ -9,13 +9,11 @@ async function registerUser(userDetails) {
       method: 'POST',
       body: JSON.stringify(userDetails),
       headers: {
-        'content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
     };
     const response = await fetch(AUTH_REGISTER_URL, fetchOptions);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 function onRegisterFormSubmit(event) {
   event.preventDefault();
@@ -23,6 +21,5 @@ function onRegisterFormSubmit(event) {
   const formData = new FormData(event.target);
   const formFields = Object.fromEntries(formData);
   registerUser(formFields);
-  console.log(formFields);
 }
 registerForm.addEventListener('submit', onRegisterFormSubmit);

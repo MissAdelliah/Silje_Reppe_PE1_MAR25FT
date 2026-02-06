@@ -20,21 +20,37 @@ async function loginUser(userDetails) {
         'Content-Type': 'application/json',
       },
     };
+
     const response = await fetch(AUTH_REGISTER_URL, fetchOptions);
     const json = await response.json();
-    const accessToken = json.accessToken;
+
+    // handle login errors (401 etc.)
+    if (!response.ok) {
+      console.log('Login failed:', json.errors?.[0]?.message || json);
+      return;
+    }
+
+    //Noroff v2 token is usually here:
+    const accessToken = json.data?.accessToken ?? json.accessToken;
+
+    // stop if token missing
+    if (!accessToken) {
+      return;
+    }
+
     addToLocalStorage('accessToken', accessToken);
-    console.log(json);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
+
 function onRegisterFormSubmit(event) {
   event.preventDefault();
 
   const formData = new FormData(event.target);
   const formFields = Object.fromEntries(formData);
-  console.log('Submitting:', formFields);
+
+  //prevent invisible spaces
+  if (formFields.email) formFields.email = formFields.email.trim();
+
   loginUser(formFields);
 }
 
