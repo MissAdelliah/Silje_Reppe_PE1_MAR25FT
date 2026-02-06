@@ -8,42 +8,52 @@
     <script type="module" src="./js/login.js" defer></script>
   </head>
   <body>
-    <header> <nav class="nav" aria-label="#">
-    <a class="nav__brand" href="#/">
-      <img
-        class="nav__logo"
-        src="/logo/logo.png"
-        alt="Brand the archives logo "
-      />
-    </a> 
-    <button class="nav__button--hamburger">☰</button></header>
+    <header>
+      <nav class="nav" aria-label="#">
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
+        <button class="nav__button--hamburger">☰</button>
+      </nav>
+    </header>
     <main>
-   <section class="pink"></section>
-   <form id="login-form">
-      <label for="email">Your email</label>
-      <input id="email" 
-      name="email" 
-      type="email"
-      required autocomplete="email"
-      value="silje.reppe@stud.noroff.no" />
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" 
-       autocomplete="new-password"
-      value="UzI1NiIsInR5cVV" />
-      <p>or continue with</p>
-      <button>Submit</button>
-      <a href="/register.html">Create an account here</a>
-    </form>
+      <section class="pink"></section>
+      <form id="login-form">
+        <label for="email">Your email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          value="test@stud.noroff.no"
+        />
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          value="Test123456Silje"
+        />
+        <p>or continue with</p>
+        <button>Submit</button>
+        <a href="/register.html">Create an account here</a>
+      </form>
     </main>
     <footer class="footer">
       <div class="footer__middle">
-      <a class="nav__brand" href="#/">
-      <img
-        class="nav__logo"
-        src="/logo/logo.png"
-        alt="Brand the archives logo "
-      />
-    </a> 
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
         <p>Terms & conditions</p>
         <p>Contact us</p>
         <p>Archivesupport@gmail.com</p>

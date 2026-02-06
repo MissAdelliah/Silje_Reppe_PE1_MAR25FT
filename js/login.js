@@ -8,7 +8,7 @@ function addToLocalStorage(key, value) {
 }
 
 function getFromLocalStorage(key) {
-  return localDtorage.getItem(key);
+  return localStorage.getItem(key);
 }
 
 async function loginUser(userDetails) {
@@ -17,13 +17,14 @@ async function loginUser(userDetails) {
       method: 'POST',
       body: JSON.stringify(userDetails),
       headers: {
-        'content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
     };
     const response = await fetch(AUTH_REGISTER_URL, fetchOptions);
     const json = await response.json();
     const accessToken = json.accessToken;
     addToLocalStorage('accessToken', accessToken);
+    console.log(json);
   } catch (error) {
     console.log(error);
   }
@@ -33,7 +34,8 @@ function onRegisterFormSubmit(event) {
 
   const formData = new FormData(event.target);
   const formFields = Object.fromEntries(formData);
+  console.log('Submitting:', formFields);
   loginUser(formFields);
-  console.log(formFields);
 }
+
 loginForm.addEventListener('submit', onRegisterFormSubmit);
