@@ -1,5 +1,5 @@
 * {
-  font-family: "Inter", sans-serif, Tahoma, Geneva, Verdana;
+  font-family: 'Inter', sans-serif, Tahoma, Geneva, Verdana;
   box-sizing: border-box;
 }
 
@@ -59,6 +59,7 @@ h3 {
 .pink {
   background-color: #fff2f2;
 }
+
 .footer {
   background-color: #fff2f2;
   font-size: 0.3rem;
