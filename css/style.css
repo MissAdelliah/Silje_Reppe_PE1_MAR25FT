@@ -1,68 +1,505 @@
+/* =========================
+   GLOBAL / RESET
+   ========================= */
+
 * {
   font-family: 'Inter', sans-serif, Tahoma, Geneva, Verdana;
   box-sizing: border-box;
 }
 
-body {
-  background-color: #fafafa;
+:root {
+  --ink: #292929;
+  --bg: #fafafa;
+  --pink-100: #fff2f2;
+  --pink-500: #b84269;
+  --gray-400: #6e6e6e;
+  --gray-200: #d9d9d9;
+  --gray-100: #f0f0f0;
+  --gray-050: #f7f7f7;
 }
 
-h3 {
-  font-size: 0.3rem;
+body {
+  background: var(--bg);
+  color: var(--ink);
+
+  /* Makes room for the fixed bottom nav on mobile */
+  padding-bottom: 80px;
+  margin: 0;
 }
+
+/* =========================
+   NAV
+   ========================= */
 
 .nav {
-  background-color: #fff2f2;
+  background-color: var(--pink-100);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 8px 12px;
 }
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .nav__logo {
   max-width: 50px;
   max-height: 50px;
   width: 180px;
+
+  /* Crops logo like you had */
   clip-path: inset(30% 0 30% 0);
 }
+
 .nav__button--hamburger {
-  background-color: #fff2f2;
-  color: #292929;
+  background-color: var(--pink-100);
+  color: var(--ink);
   border: none;
   width: 50px;
   height: 50px;
+  cursor: pointer;
 }
 
+/* =========================
+   BUTTONS
+   ========================= */
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.btn--primary {
+  background: var(--pink-500);
+  color: var(--bg);
+}
+
+.btn--ghost {
+  background: var(--pink-100);
+  color: var(--ink);
+  border: 1px solid var(--gray-200);
+}
+
+/* =========================
+   MOBILE BOTTOM NAV
+   ========================= */
+
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--pink-100);
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.mobile-nav__item {
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+
+.mobile-nav__item--active {
+  color: var(--pink-500);
+}
+
+/* Hide bottom nav on desktop (optional) */
+@media (min-width: 900px) {
+  .mobile-nav {
+    display: none;
+  }
+
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* =========================
+   STATUS / MESSAGES
+   ========================= */
+
+.status {
+  text-align: center;
+  color: var(--gray-400);
+  padding: 14px;
+}
+
+.message {
+  margin: 10px 0 0;
+  color: var(--pink-500);
+  font-size: 0.9rem;
+}
+
+/* =========================
+   INDEX (FEED)
+   ========================= */
+
+.feed {
+  padding: 16px 12px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Carousel area */
 .carousel {
+  background: var(--pink-100);
+  border-radius: 16px;
+  padding: 12px;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
-.leaderboard {
-  background-color: #f7f7f7;
+.carousel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
-.leaderboard__button {
+.carousel__title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--pink-500);
 }
 
-.leaderboard__card {
+.carousel__controls {
+  display: flex;
+  gap: 8px;
 }
-.pink {
-  background-color: #fff2f2;
+
+.carousel__control {
+  border: 1px solid var(--gray-200);
+  background: var(--bg);
+  border-radius: 999px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
 }
+
+.carousel__slide {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.carousel__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Dots */
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.carousel__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--gray-200);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.carousel__dot--active {
+  background: var(--pink-500);
+  border-color: var(--pink-500);
+}
+
+/* Post card media styling (used in both carousel + list) */
+.post-card__media {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.post-card__img {
+  width: 100%;
+  display: block;
+}
+
+.post-card__tag-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 2px solid var(--pink-500);
+  color: var(--pink-500);
+  background: rgba(255, 242, 242, 0.95);
+  font-size: 0.85rem;
+}
+
+/* Post list */
+.post-list {
+  max-width: 420px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.post-card {
+  background: var(--pink-100);
+  border-radius: 16px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.post-card__title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.post-card__btn {
+  justify-self: start;
+}
+
+/* =========================
+   LOGIN / REGISTER (simple)
+   ========================= */
+
+.auth {
+  padding: 20px 12px;
+  max-width: 420px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+
+.auth__card {
+  background: var(--pink-100);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.auth__title {
+  margin: 0;
+  color: var(--pink-500);
+  font-size: 1.1rem;
+}
+
+.auth__input {
+  width: 100%;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--bg);
+}
+
+.auth__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.auth__link {
+  color: var(--pink-500);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   CREATE PAGE
+   ========================= */
+
+.create {
+  padding: 16px 12px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Profile header card */
+.create__profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  width: min(385px, 100%);
+  height: 85px;
+
+  margin: 0 auto;
+  padding: 10px 20px;
+
+  border-radius: 16px;
+  background-color: var(--pink-100);
+}
+
+.box__profile-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create__profile-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.create__profile-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.create__profile-name {
+  font-size: 1.25rem;
+  color: var(--pink-500);
+  margin: 0;
+}
+
+.create__profile-subtitle {
+  margin: 0;
+  padding: 3px 0;
+  color: var(--ink);
+  font-size: 0.8rem; /* small but readable */
+  font-weight: 300;
+  line-height: 1.3; /* nicer spacing for sentences */
+}
+
+.create__profile-stats {
+  margin: 0;
+  padding-bottom: 3px;
+  color: var(--gray-400);
+}
+
+/* Create form card */
+.create__card {
+  background-color: var(--pink-100);
+  border-radius: 16px;
+  width: min(385px, 100%);
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.create__form {
+  display: grid;
+  gap: 12px;
+}
+
+.create__media {
+  display: flex;
+  justify-content: center;
+}
+
+.create__media-preview {
+  width: 100%;
+  max-width: 335px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+  display: block;
+  background: var(--gray-050);
+}
+
+.create__label {
+  font-size: 0.5rem;
+}
+
+.create__input,
+.create__textarea {
+  width: 100%;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--bg);
+}
+
+.create__textarea {
+  resize: vertical;
+}
+
+.create__planned {
+  display: grid;
+  gap: 8px;
+}
+
+.create__planned-title {
+  font-size: 0.5rem;
+  margin: 0;
+  color: var(--gray-400);
+}
+
+.create__planned-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.create__planned-pill {
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  padding: 12px;
+  background: var(--bg);
+}
+
+.create__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.create__message {
+  margin: 0;
+  color: var(--pink-500);
+  font-size: 0.9rem;
+  min-height: 20px;
+}
+
+/* =========================
+   FOOTER (logged-out pages / general)
+   ========================= */
 
 .footer {
-  background-color: #fff2f2;
-  font-size: 0.3rem;
-  color: #b84269;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  background-color: var(--pink-100);
+  font-size: 0.8rem; /* your old 0.3rem was extremely tiny */
+  color: var(--pink-500);
+  padding: 20px 12px;
+
   display: flex;
   justify-content: center;
   text-align: center;
 }
 
-.footer p {
-  padding-top: px;
+.footer__middle {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
 }
 
-.footer img {
-  display: flex;
-  justify-content: center;
+.footer p {
+  margin: 0;
+}
+
+.footer__link {
+  color: var(--pink-500);
+  text-decoration: none;
 }

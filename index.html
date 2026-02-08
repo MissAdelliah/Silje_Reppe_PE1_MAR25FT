@@ -3,58 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog</title>
+    <title>Login</title>
     <link rel="stylesheet" href="./css/style.css" />
-    <script type="module" src="./js/index.js" defer></script>
+    <script type="module" src="./js/login.js" defer></script>
   </head>
+
   <body>
     <header>
       <nav class="nav" aria-label="Main navigation">
-        <a class="nav__brand" href="#/">
+        <a class="nav__brand" href="/index.html">
           <img
             class="nav__logo"
             src="/logo/logo.png"
-            alt="Brand the archives logo "
+            alt="Brand The Archive logo"
           />
         </a>
-        <button class="nav__button--hamburger">☰</button>
+        <button class="nav__button--hamburger" type="button" aria-label="Menu">
+          ☰
+        </button>
       </nav>
     </header>
-    <main>
-      <section class="carousel">
-        <button id="carousel-prev" aria-label="Previous post">‹</button>
-        <div id="carousel"></div>
-        <button id="carousel-next" aria-label="Next post">›</button>
-        <div id="carousel-dots"></div>
-      </section>
 
-      <div id="display-container"></div>
+    <main class="auth">
+      <section class="auth__card" aria-label="Login form">
+        <h1 class="auth__title">Log in</h1>
 
-      <div id="display-container"></div>
-      <section class="leaderboard">
-        <div class="leaderboard__card">
-          <div>
-            <h3>Top Bloggers</h3>
+        <form id="login-form" class="auth__form">
+          <input
+            class="auth__input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            class="auth__input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            minlength="8"
+          />
+
+          <div class="auth__actions">
+            <button class="btn btn--primary" type="submit">Login</button>
+            <a class="btn btn--ghost" href="/register.html">Register</a>
           </div>
-          <button class="leaderboard__button"></button>
-        </div>
+
+          <p class="message" id="message"></p>
+        </form>
       </section>
     </main>
-    <footer class="footer">
-      <div class="footer__middle">
-        <a class="nav__brand" href="#/">
-          <img
-            class="nav__logo"
-            src="/logo/logo.png"
-            alt="Brand the archives logo "
-          />
-        </a>
-        <p>Terms & conditions</p>
-        <p>Contact us</p>
-        <p>Archivesupport@gmail.com</p>
-        <p>Placeholder for SoMe icons</p>
-        <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
-      </div>
-    </footer>
+
+    <!-- Logged-out bottom footer can be different later (keeping empty for exam simplicity) -->
+    <footer></footer>
   </body>
 </html>

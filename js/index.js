@@ -1,276 +1,175 @@
-/*
 import { getFromLocalStorage } from './utils.js';
-const displayContainer = document.getElementById('display-container');
-console.log(displayContainer);
-
-const BASE_API_URL = 'https://v2.api.noroff.dev';
-const BLOG_POSTS_URL = `${BASE_API_URL}/blog/posts/FitwithMalene`;
-const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
-async function fetchPosts() {
-  try {
-    const accessToken = getFromLocalStorage('accessToken');
-    console.log(accessToken);
-    const fetchOptions = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'X-Noroff-API-Key': NOROFF_API_KEY,
-      },
-    };
-    const response = await fetch(BLOG_POSTS_URL, fetchOptions);
-    const json = await response.json();
-    const posts = json.data;
-    console.log('Posts:', posts);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-function main() {
-  fetchPosts();
-}
-
-main();
-*/
-// index.js
-// Blog Feed Page logic: fetch posts, render carousel (3 latest), render list (12+)
-
-import { getFromLocalStorage } from './utils.js';
-
-// --- DOM references (must exist in your HTML) ---
-const displayContainer = document.getElementById('display-container'); // list container
-const carouselContainer = document.getElementById('carousel'); // carousel area (single slide rendered at a time)
-const carouselPrevBtn = document.getElementById('carousel-prev');
-const carouselNextBtn = document.getElementById('carousel-next');
-const carouselDots = document.getElementById('carousel-dots');
 
 // --- API constants ---
 const BASE_API_URL = 'https://v2.api.noroff.dev';
-const BLOG_NAME = 'FitwithMalene'; // IMPORTANT: replace with your blog profile name if different
-const BLOG_POSTS_URL = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-// --- State (data stored in memory while the page is open) ---
-let allPosts = []; // all posts from API
-let carouselPosts = []; // top 3 latest posts
-let carouselIndex = 0; // current slide index
+// If user is logged out, we show this demo client feed
+const DEFAULT_BLOG_NAME = 'fitwithMalene';
 
-// Builds request headers.
-// We always send X-Noroff-API-Key.
-// We only send Authorization IF the user has a token (so public users can still read posts).
-function buildHeaders() {
-  const accessToken = getFromLocalStorage('accessToken');
+// If user is logged in, show THEIR feed instead (more personal)
+const profileName = getFromLocalStorage('profileName');
+const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 
-  const headers = {
-    'X-Noroff-API-Key': NOROFF_API_KEY,
-  };
+// --- DOM ---
+const carouselEl = document.getElementById('carousel');
+const postListEl = document.getElementById('post-list');
+const prevBtn = document.getElementById('carousel-prev');
+const nextBtn = document.getElementById('carousel-next');
+const dotsEl = document.getElementById('carousel-dots');
 
-  // Only attach Authorization when logged in
-  if (accessToken) {
-    headers.Authorization = `Bearer ${accessToken}`;
-  }
+// --- Local state ---
+let allPosts = [];
+let carouselPosts = [];
+let carouselIndex = 0;
 
-  return headers;
+// Helper: simple status text
+function renderStatus(text) {
+  if (!postListEl) return;
+  postListEl.innerHTML = `<p class="status">${text}</p>`;
 }
 
-// Fetches posts from the Noroff API
+// Fetch all posts from Noroff Blog API
 async function fetchPosts() {
-  try {
-    // show a loading message in the list container
-    if (displayContainer) displayContainer.innerHTML = `<p>Loading posts…</p>`;
+  const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 
-    const response = await fetch(BLOG_POSTS_URL, { headers: buildHeaders() });
-    const json = await response.json();
+  const response = await fetch(url, {
+    headers: {
+      'X-Noroff-API-Key': NOROFF_API_KEY,
+    },
+  });
 
-    // If something fails, show message + log details for debugging
-    if (!response.ok) {
-      console.log('Fetch posts error:', json);
-      if (displayContainer)
-        displayContainer.innerHTML = `<p>Could not load posts.</p>`;
-      return [];
-    }
+  const json = await response.json();
 
-    // Noroff v2 usually returns data inside json.data
-    return json.data ?? [];
-  } catch (error) {
-    console.log('Fetch posts exception:', error);
-    if (displayContainer)
-      displayContainer.innerHTML = `<p>Network error. Try again.</p>`;
-    return [];
+  if (!response.ok) {
+    console.log('Fetch posts error:', json);
+    throw new Error(json?.errors?.[0]?.message || 'Failed to load posts');
   }
+
+  return json?.data || [];
 }
 
-// Safely extract an image url (posts might not have media)
-function getPostImage(post) {
-  // Noroff posts often have post.media.url
-  const url = post?.media?.url;
-
-  // Return a placeholder if missing
-  return url || 'https://placehold.co/800x450?text=No+image';
-}
-
-// Safely extract tag
-function getPostTag(post) {
-  // tags is often an array
-  const tag = post?.tags?.[0];
-  return tag || 'Blog';
-}
-
-// Sort posts by newest first (based on updated or created)
+// Sort newest first using "created"
 function sortNewestFirst(posts) {
-  return [...posts].sort((a, b) => {
-    const dateA = new Date(a?.updated || a?.created || 0).getTime();
-    const dateB = new Date(b?.updated || b?.created || 0).getTime();
+  return posts.slice().sort((a, b) => {
+    const dateA = new Date(a.created).getTime();
+    const dateB = new Date(b.created).getTime();
     return dateB - dateA;
   });
 }
 
-// Renders the list of posts (at least 12)
-function renderPostsList(posts) {
-  if (!displayContainer) return;
+// Render carousel slide for current carouselIndex
+function renderCarouselSlide() {
+  if (!carouselEl) return;
+  if (carouselPosts.length === 0) return;
 
-  // Take at least 12 posts for the list requirement
+  const post = carouselPosts[carouselIndex];
+
+  const imgUrl =
+    post?.media?.url || 'https://placehold.co/900x400?text=No+image';
+  const imgAlt = post?.media?.alt || post?.title || 'Post image';
+
+  carouselEl.innerHTML = `
+    <article class="carousel__slide">
+      <div class="post-card__media">
+        <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
+        ${post?.tags?.[0] ? `<p class="post-card__tag-badge">${post.tags[0]}</p>` : ''}
+      </div>
+
+      <div class="carousel__content">
+        <h3 class="post-card__title">${post.title || 'Untitled'}</h3>
+        <!-- Post page comes later: we keep link format ready -->
+        <a class="btn btn--primary" href="/post.html?id=${post.id}">Read more</a>
+      </div>
+    </article>
+  `;
+
+  renderDots();
+}
+
+// Render dots for 3 slides (optional)
+function renderDots() {
+  if (!dotsEl) return;
+  if (carouselPosts.length === 0) return;
+
+  dotsEl.innerHTML = carouselPosts
+    .map((_, i) => {
+      const active = i === carouselIndex ? 'carousel__dot--active' : '';
+      return `<button class="carousel__dot ${active}" type="button" aria-label="Go to slide ${i + 1}" data-index="${i}"></button>`;
+    })
+    .join('');
+
+  // Wire dot click
+  dotsEl.querySelectorAll('button[data-index]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      carouselIndex = Number(btn.dataset.index);
+      renderCarouselSlide();
+    });
+  });
+}
+
+// Carousel next/prev with looping
+function goNext() {
+  if (carouselPosts.length === 0) return;
+  carouselIndex = (carouselIndex + 1) % carouselPosts.length;
+  renderCarouselSlide();
+}
+
+function goPrev() {
+  if (carouselPosts.length === 0) return;
+  carouselIndex =
+    (carouselIndex - 1 + carouselPosts.length) % carouselPosts.length;
+  renderCarouselSlide();
+}
+
+// Render 12 posts in the list (requirement)
+function renderPostList(posts) {
+  if (!postListEl) return;
+
   const listPosts = posts.slice(0, 12);
 
-  // Build HTML string for performance
-  const html = listPosts
+  postListEl.innerHTML = listPosts
     .map((post) => {
-      const imageUrl = getPostImage(post);
-      const tag = getPostTag(post);
-      const title = post?.title || 'Untitled post';
-      const id = post?.id;
+      const imgUrl =
+        post?.media?.url || 'https://placehold.co/600x400?text=No+image';
+      const imgAlt = post?.media?.alt || post?.title || 'Post image';
 
       return `
         <article class="post-card">
-          <img class="post-card__img" src="${imageUrl}" alt="${title}" />
-          <div class="post-card__content">
-            <p class="post-card__tag">${tag}</p>
-            <h2 class="post-card__title">${title}</h2>
-            <button class="readmore__button" data-id="${id}">
-              Read More
-            </button>
+          <div class="post-card__media">
+            <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
+            ${post?.tags?.[0] ? `<p class="post-card__tag-badge">${post.tags[0]}</p>` : ''}
           </div>
+
+          <h3 class="post-card__title">${post.title || 'Untitled'}</h3>
+          <a class="btn btn--ghost post-card__btn" href="/post.html?id=${post.id}">Read post</a>
         </article>
       `;
     })
     .join('');
-
-  // Put the cards into the container
-  displayContainer.innerHTML = html;
-
-  // Event delegation: one click listener for all Read More buttons
-  displayContainer.addEventListener('click', (event) => {
-    const button = event.target.closest('.readmore__button');
-    if (!button) return;
-
-    const id = button.dataset.id;
-    if (!id) return;
-
-    // Navigate to a post page with query param
-    // Create post.html later (or whatever your post page is called)
-    window.location.href = `/post.html?id=${id}`;
-  });
 }
 
-// Build the top 3 latest posts for the carousel
-function buildCarouselPosts(posts) {
-  const newest = sortNewestFirst(posts);
-  return newest.slice(0, 3);
-}
+// Startup
+async function init() {
+  try {
+    renderStatus('Loading posts…');
 
-// Render one carousel slide by index
-function renderCarousel() {
-  if (!carouselContainer) return;
+    allPosts = await fetchPosts();
+    const sorted = sortNewestFirst(allPosts);
 
-  if (carouselPosts.length === 0) {
-    carouselContainer.innerHTML = `<p>No posts</p>`;
-    return;
+    // Carousel needs 3 latest posts
+    carouselPosts = sorted.slice(0, 3);
+    carouselIndex = 0;
+
+    renderCarouselSlide();
+    renderPostList(sorted);
+
+    prevBtn?.addEventListener('click', goPrev);
+    nextBtn?.addEventListener('click', goNext);
+  } catch (error) {
+    console.log(error);
+    renderStatus('Could not load posts. Try again.');
   }
-
-  // Keep index inside bounds
-  if (carouselIndex < 0) carouselIndex = carouselPosts.length - 1;
-  if (carouselIndex >= carouselPosts.length) carouselIndex = 0;
-
-  const post = carouselPosts[carouselIndex];
-  const imageUrl = getPostImage(post);
-  const title = post?.title || 'Untitled post';
-  const tag = getPostTag(post);
-  const id = post?.id;
-
-  // Single slide layout (you can style with CSS)
-  carouselContainer.innerHTML = `
-    <div class="carousel-slide">
-      <img class="carousel-slide__img" src="${imageUrl}" alt="${title}" />
-      <div class="carousel-slide__overlay">
-        <p class="carousel-slide__tag">${tag}</p>
-        <h2 class="carousel-slide__title">${title}</h2>
-        <button class="readmore__button" data-id="${id}">
-          Read More
-        </button>
-      </div>
-    </div>
-  `;
-
-  // Update dots if they exist
-  renderDots();
-
-  // Make Read More work on the carousel too
-  const btn = carouselContainer.querySelector('.readmore__button');
-  btn?.addEventListener('click', () => {
-    window.location.href = `/post.html?id=${id}`;
-  });
 }
 
-// Render dots to show what slide is active
-function renderDots() {
-  if (!carouselDots) return;
-
-  // Create one dot per slide
-  carouselDots.innerHTML = carouselPosts
-    .map((_, i) => {
-      const activeClass = i === carouselIndex ? 'dot dot--active' : 'dot';
-      return `<button class="${activeClass}" data-index="${i}" aria-label="Go to slide ${i + 1}"></button>`;
-    })
-    .join('');
-
-  // Clicking a dot jumps to that slide
-  carouselDots.addEventListener('click', (event) => {
-    const dot = event.target.closest('.dot');
-    if (!dot) return;
-
-    const index = Number(dot.dataset.index);
-    if (Number.isNaN(index)) return;
-
-    carouselIndex = index;
-    renderCarousel();
-  });
-}
-
-// Setup carousel button listeners (prev/next)
-function setupCarouselControls() {
-  carouselPrevBtn?.addEventListener('click', () => {
-    // move left and wrap
-    carouselIndex -= 1;
-    renderCarousel();
-  });
-
-  carouselNextBtn?.addEventListener('click', () => {
-    // move right and wrap
-    carouselIndex += 1;
-    renderCarousel();
-  });
-}
-
-// Main app start
-async function main() {
-  allPosts = await fetchPosts();
-
-  // Render list (12 posts)
-  renderPostsList(sortNewestFirst(allPosts));
-
-  // Setup carousel (3 latest)
-  carouselPosts = buildCarouselPosts(allPosts);
-  setupCarouselControls();
-  renderCarousel();
-}
-
-main();
+init();

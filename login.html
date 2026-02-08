@@ -3,48 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./js/login.js" defer></script>
   </head>
+
   <body>
     <header>
-      <nav class="nav" aria-label="#">
-        <a class="nav__brand" href="#/">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav__brand" href="/index.html">
           <img
             class="nav__logo"
             src="/logo/logo.png"
-            alt="Brand the archives logo "
+            alt="Brand The Archive logo"
           />
         </a>
-        <button class="nav__button--hamburger">☰</button>
+        <button class="nav__button--hamburger" type="button" aria-label="Menu">
+          ☰
+        </button>
       </nav>
     </header>
-    <main>
-      <section class="pink"></section>
-      <form id="login-form">
-        <label for="email">Your email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autocomplete="email"
-          value="Malene1@stud.noroff.no"
-        />
-        <label for="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autocomplete="current-password"
-          value="Test123Malene"
-        />
-        <p>or continue with</p>
-        <button>Submit</button>
-        <a href="/register.html">Create an account here</a>
-      </form>
+
+    <main class="auth">
+      <section class="auth__card" aria-label="Login form">
+        <h1 class="auth__title">Log in</h1>
+
+        <form id="login-form" class="auth__form">
+          <input
+            class="auth__input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            class="auth__input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            minlength="8"
+          />
+
+          <div class="auth__actions">
+            <button class="btn btn--primary" type="submit">Login</button>
+            <a class="btn btn--ghost" href="/register.html">Register</a>
+          </div>
+
+          <p class="message" id="message"></p>
+        </form>
+      </section>
     </main>
+
+    <!-- Logged-out bottom footer can be different later (keeping empty for exam simplicity) -->
     <footer class="footer">
       <div class="footer__middle">
         <a class="nav__brand" href="#/">
