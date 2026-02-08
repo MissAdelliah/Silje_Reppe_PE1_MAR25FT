@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>The Archive – Feed</title>
     <link rel="stylesheet" href="./css/style.css" />
-    <script type="module" src="./js/login.js" defer></script>
+    <script type="module" src="./js/index.js" defer></script>
   </head>
 
   <body>
@@ -23,39 +23,65 @@
         </button>
       </nav>
     </header>
+    <main class="feed">
+      <!-- ========================= -->
+      <!-- HERO CAROUSEL -->
+      <!-- ========================= -->
+      <section class="carousel" aria-label="Latest posts carousel">
+        <div class="carousel__controls">
+          <button
+            class="carousel__control"
+            id="carousel-prev"
+            type="button"
+            aria-label="Previous post"
+          >
+            ‹
+          </button>
 
-    <main class="auth">
-      <section class="auth__card" aria-label="Login form">
-        <h1 class="auth__title">Log in</h1>
+          <button
+            class="carousel__control"
+            id="carousel-next"
+            type="button"
+            aria-label="Next post"
+          >
+            ›
+          </button>
+        </div>
 
-        <form id="login-form" class="auth__form">
-          <input
-            class="auth__input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <input
-            class="auth__input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            minlength="8"
-          />
+        <!-- This is where JS injects the hero slide -->
+        <div class="carousel__viewport" id="carousel"></div>
 
-          <div class="auth__actions">
-            <button class="btn btn--primary" type="submit">Login</button>
-            <a class="btn btn--ghost" href="/register.html">Register</a>
-          </div>
+        <!-- Navigation dots -->
+        <div
+          class="carousel__dots"
+          id="carousel-dots"
+          aria-label="Carousel position"
+        ></div>
+      </section>
 
-          <p class="message" id="message"></p>
-        </form>
+      <!-- ========================= -->
+      <!-- POST LIST (12+ POSTS) -->
+      <!-- ========================= -->
+      <section class="post-list" id="post-list" aria-label="Post list">
+        <p class="status">Loading posts…</p>
       </section>
     </main>
 
-    <!-- Logged-out bottom footer can be different later (keeping empty for exam simplicity) -->
-    <footer></footer>
+    <footer class="footer">
+      <div class="footer__middle">
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
+        <p>Terms & conditions</p>
+        <p>Contact us</p>
+        <p>Archivesupport@gmail.com</p>
+        <p>Placeholder for SoMe icons</p>
+        <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,6 +1,9 @@
 import { getFromLocalStorage } from './utils.js';
 
-// --- API constants ---
+/* =========================================================
+   API constants
+   ========================================================= */
+
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
@@ -11,25 +14,57 @@ const DEFAULT_BLOG_NAME = 'fitwithMalene';
 const profileName = getFromLocalStorage('profileName');
 const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 
-// --- DOM ---
+/* =========================================================
+   DOM
+   ========================================================= */
+
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
 const prevBtn = document.getElementById('carousel-prev');
 const nextBtn = document.getElementById('carousel-next');
 const dotsEl = document.getElementById('carousel-dots');
 
-// --- Local state ---
+/* =========================================================
+   Local state
+   ========================================================= */
+
 let allPosts = [];
 let carouselPosts = [];
 let carouselIndex = 0;
 
-// Helper: simple status text
+/* =========================================================
+   Helpers
+   ========================================================= */
+
 function renderStatus(text) {
   if (!postListEl) return;
   postListEl.innerHTML = `<p class="status">${text}</p>`;
 }
 
-// Fetch all posts from Noroff Blog API
+// Simple “time ago” formatter (published time)
+function formatTimeAgo(isoString) {
+  if (!isoString) return 'Unknown time';
+
+  const now = Date.now();
+  const then = new Date(isoString).getTime();
+
+  if (Number.isNaN(then)) return 'Unknown time';
+
+  const diffMs = now - then;
+  const diffMin = Math.floor(diffMs / (1000 * 60));
+  const diffHr = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDay = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffMin < 1) return 'Just now';
+  if (diffMin < 60) return `${diffMin} min ago`;
+  if (diffHr < 24) return `${diffHr} hours ago`;
+  return `${diffDay} days ago`;
+}
+
+/* =========================================================
+   Data fetching
+   ========================================================= */
+
 async function fetchPosts() {
   const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 
@@ -49,7 +84,6 @@ async function fetchPosts() {
   return json?.data || [];
 }
 
-// Sort newest first using "created"
 function sortNewestFirst(posts) {
   return posts.slice().sort((a, b) => {
     const dateA = new Date(a.created).getTime();
@@ -58,7 +92,10 @@ function sortNewestFirst(posts) {
   });
 }
 
-// Render carousel slide for current carouselIndex
+/* =========================================================
+   CAROUSEL (NEW HERO SLIDE)
+   ========================================================= */
+
 function renderCarouselSlide() {
   if (!carouselEl) return;
   if (carouselPosts.length === 0) return;
@@ -66,40 +103,46 @@ function renderCarouselSlide() {
   const post = carouselPosts[carouselIndex];
 
   const imgUrl =
-    post?.media?.url || 'https://placehold.co/900x400?text=No+image';
+    post?.media?.url || 'https://placehold.co/900x1400?text=No+image';
   const imgAlt = post?.media?.alt || post?.title || 'Post image';
 
+  const tag = post?.tags?.[0] || '';
+  const author = post?.author?.name || 'Unknown';
+  const category = tag || 'Travel';
+
   carouselEl.innerHTML = `
-    <article class="carousel__slide">
-      <div class="post-card__media">
-        <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
-        ${post?.tags?.[0] ? `<p class="post-card__tag-badge">${post.tags[0]}</p>` : ''}
+    <article class="hero" aria-label="Carousel post">
+      <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <p class="hero__hint" aria-hidden="true">SWIPE</p>
+
+      <div class="hero__text">
+        <p class="hero__category">${category}</p>
+        <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
+        <p class="hero__meta">Published by: ${author}</p>
       </div>
 
-      <div class="carousel__content">
-        <h3 class="post-card__title">${post.title || 'Untitled'}</h3>
-        <!-- Post page comes later: we keep link format ready -->
-        <a class="btn btn--primary" href="/post.html?id=${post.id}">Read more</a>
-      </div>
+      <a class="hero__cta" href="/post.html?id=${post.id}">Read More</a>
     </article>
   `;
 
   renderDots();
 }
 
-// Render dots for 3 slides (optional)
 function renderDots() {
   if (!dotsEl) return;
   if (carouselPosts.length === 0) return;
 
   dotsEl.innerHTML = carouselPosts
     .map((_, i) => {
-      const active = i === carouselIndex ? 'carousel__dot--active' : '';
-      return `<button class="carousel__dot ${active}" type="button" aria-label="Go to slide ${i + 1}" data-index="${i}"></button>`;
+      const active = i === carouselIndex ? 'active' : '';
+      return `<button class="carousel__dot ${active}" type="button" aria-label="Go to slide ${
+        i + 1
+      }" data-index="${i}"></button>`;
     })
     .join('');
 
-  // Wire dot click
   dotsEl.querySelectorAll('button[data-index]').forEach((btn) => {
     btn.addEventListener('click', () => {
       carouselIndex = Number(btn.dataset.index);
@@ -108,7 +151,6 @@ function renderDots() {
   });
 }
 
-// Carousel next/prev with looping
 function goNext() {
   if (carouselPosts.length === 0) return;
   carouselIndex = (carouselIndex + 1) % carouselPosts.length;
@@ -122,7 +164,12 @@ function goPrev() {
   renderCarouselSlide();
 }
 
-// Render 12 posts in the list (requirement)
+/* =========================================================
+   POST LIST (UPDATED AS REQUESTED)
+   - Show username + publish time instead of title
+   - Make image clickable -> post.html?id=...
+   ========================================================= */
+
 function renderPostList(posts) {
   if (!postListEl) return;
 
@@ -134,22 +181,42 @@ function renderPostList(posts) {
         post?.media?.url || 'https://placehold.co/600x400?text=No+image';
       const imgAlt = post?.media?.alt || post?.title || 'Post image';
 
+      const author = post?.author?.name || 'Unknown';
+      const avatar = post?.author?.avatar?.url || '/avatar-placeholder.png';
+      const timeAgo = formatTimeAgo(post?.created);
+
       return `
         <article class="post-card">
-          <div class="post-card__media">
-            <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
-            ${post?.tags?.[0] ? `<p class="post-card__tag-badge">${post.tags[0]}</p>` : ''}
-          </div>
 
-          <h3 class="post-card__title">${post.title || 'Untitled'}</h3>
-          <a class="btn btn--ghost post-card__btn" href="/post.html?id=${post.id}">Read post</a>
+          <a class="post-card__media" href="/post.html?id=${post.id}">
+            <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
+
+            ${
+              post?.tags?.[0]
+                ? `<p class="post-card__tag-badge">${post.tags[0]}</p>`
+                : ''
+            }
+
+            <!-- WHITE TRANSPARENT BAR -->
+            <div class="post-card__overlay-bar">
+              <img class="post-card__avatar" src="${avatar}" alt="${author}">
+              <div class="post-card__meta">
+                <p class="post-card__author">${author}</p>
+                <p class="post-card__time">${timeAgo}</p>
+              </div>
+            </div>
+          </a>
+
         </article>
       `;
     })
     .join('');
 }
 
-// Startup
+/* =========================================================
+   Startup
+   ========================================================= */
+
 async function init() {
   try {
     renderStatus('Loading posts…');
@@ -157,7 +224,6 @@ async function init() {
     allPosts = await fetchPosts();
     const sorted = sortNewestFirst(allPosts);
 
-    // Carousel needs 3 latest posts
     carouselPosts = sorted.slice(0, 3);
     carouselIndex = 0;
 
