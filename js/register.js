@@ -1,19 +1,15 @@
-// --- DOM ---
 const registerForm = document.querySelector('#register-form');
 const messageBox = document.querySelector('#message');
 
-// --- API ---
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const AUTH_REGISTER_URL = `${BASE_API_URL}/auth/register`;
+
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-// Helper: show message
 function showMessage(text) {
-  if (!messageBox) return;
-  messageBox.textContent = text;
+  if (messageBox) messageBox.textContent = text;
 }
 
-// Main: register request
 async function registerUser(userDetails) {
   try {
     showMessage('Creating account…');
@@ -30,28 +26,29 @@ async function registerUser(userDetails) {
     const json = await response.json();
 
     if (!response.ok) {
-      const serverMessage =
-        json?.errors?.[0]?.message || 'Failed to register your user.';
-      showMessage(serverMessage);
+      showMessage(json?.errors?.[0]?.message || 'Registration failed.');
       console.log('Register error:', json);
       return;
     }
 
-    showMessage('Successful! You can now log in.');
-    window.location.href = '/login.html';
+    showMessage('Successful! Redirecting to login…');
+
+    setTimeout(() => {
+      window.location.href = '/login.html';
+    }, 500);
   } catch (error) {
     console.log('Register exception:', error);
     showMessage('Network error. Try again.');
   }
 }
 
-// Event handler
 function onRegisterFormSubmit(event) {
   event.preventDefault();
 
   const formData = new FormData(event.target);
   const formFields = Object.fromEntries(formData);
 
+  if (formFields.name) formFields.name = formFields.name.trim();
   if (formFields.email) formFields.email = formFields.email.trim();
 
   if (!formFields.password || formFields.password.length < 8) {
