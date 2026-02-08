@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Archive – Feed</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script type="module" src="./js/index.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav__brand" href="/index.html">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand The Archive logo"
+          />
+        </a>
+        <button class="nav__button--hamburger" type="button" aria-label="Menu">
+          ☰
+        </button>
+      </nav>
+    </header>
+    <main class="feed">
+      <!-- ========================= -->
+      <!-- HERO CAROUSEL -->
+      <!-- ========================= -->
+      <section class="carousel" aria-label="Latest posts carousel">
+        <div class="carousel__controls">
+          <button
+            class="carousel__control"
+            id="carousel-prev"
+            type="button"
+            aria-label="Previous post"
+          >
+            ‹
+          </button>
+
+          <button
+            class="carousel__control"
+            id="carousel-next"
+            type="button"
+            aria-label="Next post"
+          >
+            ›
+          </button>
+        </div>
+
+        <!-- This is where JS injects the hero slide -->
+        <div class="carousel__viewport" id="carousel"></div>
+
+        <!-- Navigation dots -->
+        <div
+          class="carousel__dots"
+          id="carousel-dots"
+          aria-label="Carousel position"
+        ></div>
+      </section>
+
+      <!-- ========================= -->
+      <!-- POST LIST (12+ POSTS) -->
+      <!-- ========================= -->
+      <section class="post-list" id="post-list" aria-label="Post list">
+        <p class="status">Loading posts…</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__middle">
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
+        <p>Terms & conditions</p>
+        <p>Contact us</p>
+        <p>Archivesupport@gmail.com</p>
+        <p>Placeholder for SoMe icons</p>
+        <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
+      </div>
+    </footer>
+  </body>
+</html>
