@@ -8,37 +8,47 @@
     <script type="module" src="./js/index.js" defer></script>
   </head>
   <body>
-    <header> <nav class="nav" aria-label="#">
-    <a class="nav__brand" href="#/">
-      <img
-        class="nav__logo"
-        src="/logo/logo.png"
-        alt="Brand the archives logo "
-      />
-    </a> 
-    <button class="nav__button--hamburger">☰</button></header>
+    <header>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
+        <button class="nav__button--hamburger">☰</button>
+      </nav>
+    </header>
     <main>
       <section class="carousel">
-        <button class="readmore__button">Read More</button>
+        <button id="carousel-prev" aria-label="Previous post">‹</button>
+        <div id="carousel"></div>
+        <button id="carousel-next" aria-label="Next post">›</button>
+        <div id="carousel-dots"></div>
       </section>
+
+      <div id="display-container"></div>
+
+      <div id="display-container"></div>
       <section class="leaderboard">
         <div class="leaderboard__card">
-<div>
-  <h3>Top Bloggers</h3>
-</div>
-<button class="leaderboard__button"></button>
-</div>
+          <div>
+            <h3>Top Bloggers</h3>
+          </div>
+          <button class="leaderboard__button"></button>
+        </div>
       </section>
     </main>
     <footer class="footer">
       <div class="footer__middle">
-      <a class="nav__brand" href="#/">
-      <img
-        class="nav__logo"
-        src="/logo/logo.png"
-        alt="Brand the archives logo "
-      />
-    </a> 
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
         <p>Terms & conditions</p>
         <p>Contact us</p>
         <p>Archivesupport@gmail.com</p>

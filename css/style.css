@@ -34,19 +34,6 @@ h3 {
 .carousel {
 }
 
-.readmore__button {
-  width: 50px;
-  height: 10px;
-  border-radius: 60px;
-  border: 1px solid #b84269;
-  color: #b84269;
-  font-size: 0.3rem;
-  background: #fff2f2;
-  box-shadow:
-    0 4px 30px 3px rgba(41, 41, 41, 0.2),
-    0 1px 9.8px 1px rgba(0, 0, 0, 0.3) inset;
-}
-
 .leaderboard {
   background-color: #f7f7f7;
 }
