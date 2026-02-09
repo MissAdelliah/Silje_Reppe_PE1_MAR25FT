@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Archive – Feed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./js/index.js" defer></script>
   </head>
@@ -57,6 +64,89 @@
           id="carousel-dots"
           aria-label="Carousel position"
         ></div>
+      </section>
+      <section class="leaderboard" aria-label="Top bloggers leaderboard">
+        <div class="leaderboard__card">
+          <h2 class="leaderboard__title">Top bloggers</h2>
+
+          <ol class="leaderboard__list">
+            <li class="leaderboard__item">
+              <span class="leaderboard__rank">1.</span>
+              <img
+                class="leaderboard__avatar"
+                src="https://images.unsplash.com/photo-1654806389957-f8ca19bb7b1a?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
+                alt="FitwithMalene avatar"
+              />
+              <div class="leaderboard__info">
+                <p class="leaderboard__name leaderboard__name--top">
+                  FitwithMalene
+                </p>
+                <p class="leaderboard__readers">
+                  <strong class="leaderboard__readers-number">25678</strong>
+                  <span class="leaderboard__readers-label">Readers</span>
+                </p>
+              </div>
+            </li>
+
+            <li class="leaderboard__item">
+              <span class="leaderboard__rank">2.</span>
+              <img
+                class="leaderboard__avatar"
+                src="https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
+                alt="Sophia92 avatar"
+              />
+              <div class="leaderboard__info">
+                <p class="leaderboard__name">Sophia92</p>
+                <p class="leaderboard__readers">
+                  <strong class="leaderboard__readers-number">24978</strong>
+                  <span class="leaderboard__readers-label">Readers</span>
+                </p>
+              </div>
+            </li>
+
+            <li class="leaderboard__item">
+              <span class="leaderboard__rank">3.</span>
+              <img
+                class="leaderboard__avatar"
+                src="https://images.unsplash.com/photo-1590330297626-d7aff25a0431?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
+                alt="Aurorasworld avatar"
+              />
+              <div class="leaderboard__info">
+                <p class="leaderboard__name">Aurorasworld</p>
+                <p class="leaderboard__readers">
+                  <strong class="leaderboard__readers-number">18746</strong>
+                  <span class="leaderboard__readers-label">Readers</span>
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <a class="leaderboard__cta btn btn--pink" href="/leaderboard.html"
+            >View Leaderboard</a
+          >
+        </div>
+      </section>
+
+      <section class="about">
+        <h1>ABOUT</h1>
+        <p>
+          The Archive is a place for stories that deserve to be remembered. In a
+          world that moves fast and forgets even faster, we believe in slowing
+          down long enough to notice, reflect, and document. A blog is more than
+          posts on a screen — it’s a living record of thoughts, ideas, growth,
+          mistakes, victories, and the quiet moments in between. It’s where
+          experience turns into insight, and where words become something that
+          can outlive the moment they were written in.
+        </p>
+      </section>
+      <section class="feed-controls" aria-label="Filter posts">
+        <div class="feed-controls__row">
+          <h3 class="feed-controls__title">Filter</h3>
+
+          <nav class="filter-buttons" id="tag-nav" aria-label="Tag filters">
+            <!-- JS injects filter buttons here -->
+          </nav>
+        </div>
       </section>
 
       <!-- ========================= -->
