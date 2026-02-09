@@ -7,10 +7,7 @@ import { getFromLocalStorage } from './utils.js';
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-// If user is logged out, we show this demo client feed
 const DEFAULT_BLOG_NAME = 'fitwithMalene';
-
-// If user is logged in, show THEIR feed instead (more personal)
 const profileName = getFromLocalStorage('profileName');
 const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 
@@ -24,6 +21,9 @@ const prevBtn = document.getElementById('carousel-prev');
 const nextBtn = document.getElementById('carousel-next');
 const dotsEl = document.getElementById('carousel-dots');
 
+// ✅ NEW: tag filter nav
+const tagNavEl = document.getElementById('tag-nav');
+
 /* =========================================================
    Local state
    ========================================================= */
@@ -31,6 +31,9 @@ const dotsEl = document.getElementById('carousel-dots');
 let allPosts = [];
 let carouselPosts = [];
 let carouselIndex = 0;
+
+// ✅ NEW: current active tag filter ("" means All)
+let activeTag = '';
 
 /* =========================================================
    Helpers
@@ -41,13 +44,11 @@ function renderStatus(text) {
   postListEl.innerHTML = `<p class="status">${text}</p>`;
 }
 
-// Simple “time ago” formatter (published time)
 function formatTimeAgo(isoString) {
   if (!isoString) return 'Unknown time';
 
   const now = Date.now();
   const then = new Date(isoString).getTime();
-
   if (Number.isNaN(then)) return 'Unknown time';
 
   const diffMs = now - then;
@@ -59,6 +60,14 @@ function formatTimeAgo(isoString) {
   if (diffMin < 60) return `${diffMin} min ago`;
   if (diffHr < 24) return `${diffHr} hours ago`;
   return `${diffDay} days ago`;
+}
+
+function sortNewestFirst(posts) {
+  return posts.slice().sort((a, b) => {
+    const dateA = new Date(a.created).getTime();
+    const dateB = new Date(b.created).getTime();
+    return dateB - dateA;
+  });
 }
 
 /* =========================================================
@@ -84,16 +93,76 @@ async function fetchPosts() {
   return json?.data || [];
 }
 
-function sortNewestFirst(posts) {
-  return posts.slice().sort((a, b) => {
-    const dateA = new Date(a.created).getTime();
-    const dateB = new Date(b.created).getTime();
-    return dateB - dateA;
+/* =========================================================
+   TAG FILTER NAV (NEW)
+   ========================================================= */
+
+function buildTagNav(posts) {
+  if (!tagNavEl) return;
+
+  const tagSet = new Set();
+  posts.forEach((post) => {
+    (post?.tags || []).forEach((t) => {
+      const tag = String(t || '').trim();
+      if (tag) tagSet.add(tag);
+    });
   });
+
+  const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+
+  tagNavEl.innerHTML = '';
+
+  function addTagButton(label, value) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'filter-btn';
+    btn.textContent = label;
+    btn.dataset.tag = value;
+
+    // Set active class based on activeTag
+    if (value === activeTag) btn.classList.add('filter-btn--active');
+
+    btn.addEventListener('click', () => {
+      // Update activeTag
+      activeTag = btn.dataset.tag || '';
+
+      // Toggle active class for all buttons
+      tagNavEl.querySelectorAll('.filter-btn').forEach((b) => {
+        b.classList.remove('filter-btn--active');
+      });
+      btn.classList.add('filter-btn--active');
+
+      // Re-render ONLY the grid/list
+      renderFilteredPostList();
+    });
+
+    tagNavEl.appendChild(btn);
+  }
+
+  // Default active = "All"
+  if (activeTag === null || activeTag === undefined) activeTag = '';
+  addTagButton('All', '');
+
+  tags.forEach((tag) => addTagButton(tag, tag));
+
+  // If nothing active yet, ensure "All" is active
+  if (!tagNavEl.querySelector('.filter-btn--active')) {
+    const first = tagNavEl.querySelector('.filter-btn');
+    first?.classList.add('filter-btn--active');
+    activeTag = '';
+  }
+}
+
+function getFilteredPostsSorted() {
+  const sorted = sortNewestFirst(allPosts);
+
+  if (!activeTag) return sorted;
+
+  return sorted.filter((post) => (post?.tags || []).includes(activeTag));
 }
 
 /* =========================================================
-   CAROUSEL (NEW HERO SLIDE)
+   CAROUSEL
    ========================================================= */
 
 function renderCarouselSlide() {
@@ -165,15 +234,19 @@ function goPrev() {
 }
 
 /* =========================================================
-   POST LIST (UPDATED AS REQUESTED)
-   - Show username + publish time instead of title
-   - Make image clickable -> post.html?id=...
+   POST LIST (your existing renderer)
    ========================================================= */
 
 function renderPostList(posts) {
   if (!postListEl) return;
 
   const listPosts = posts.slice(0, 12);
+
+  // ✅ helpful empty state after filtering
+  if (listPosts.length === 0) {
+    postListEl.innerHTML = `<p class="status">No posts found for this filter.</p>`;
+    return;
+  }
 
   postListEl.innerHTML = listPosts
     .map((post) => {
@@ -187,7 +260,6 @@ function renderPostList(posts) {
 
       return `
         <article class="post-card">
-
           <a class="post-card__media" href="/post.html?id=${post.id}">
             <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
 
@@ -197,7 +269,6 @@ function renderPostList(posts) {
                 : ''
             }
 
-            <!-- WHITE TRANSPARENT BAR -->
             <div class="post-card__overlay-bar">
               <img class="post-card__avatar" src="${avatar}" alt="${author}">
               <div class="post-card__meta">
@@ -206,11 +277,15 @@ function renderPostList(posts) {
               </div>
             </div>
           </a>
-
         </article>
       `;
     })
     .join('');
+}
+
+function renderFilteredPostList() {
+  const filteredSorted = getFilteredPostsSorted();
+  renderPostList(filteredSorted);
 }
 
 /* =========================================================
@@ -222,13 +297,18 @@ async function init() {
     renderStatus('Loading posts…');
 
     allPosts = await fetchPosts();
-    const sorted = sortNewestFirst(allPosts);
 
+    // Keep carousel as “latest 3 overall” (not filtered)
+    const sorted = sortNewestFirst(allPosts);
     carouselPosts = sorted.slice(0, 3);
     carouselIndex = 0;
 
+    // Build tag buttons from ALL posts, then render filtered list
+    activeTag = ''; // default "All"
+    buildTagNav(allPosts);
+
     renderCarouselSlide();
-    renderPostList(sorted);
+    renderFilteredPostList();
 
     prevBtn?.addEventListener('click', goPrev);
     nextBtn?.addEventListener('click', goNext);
