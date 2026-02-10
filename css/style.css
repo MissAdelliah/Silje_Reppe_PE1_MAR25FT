@@ -448,6 +448,7 @@ body {
 .leaderboard__readers-label {
   font-size: 1rem;
   font-weight: 600;
+  font-weight: 700;
   font-style: italic;
   color: var(--ink);
 }
@@ -459,11 +460,6 @@ body {
   margin: 2.5rem auto 0;
   width: min(280px, 100%);
   height: 64px;
-  .carousel,
-  .about {
-    width: 100%;
-    max-width: 100%;
-  }
   font-size: 1.5rem;
   color: var(--pink-500);
   border: 2px solid rgba(184, 66, 105, 0.35);
@@ -471,6 +467,13 @@ body {
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
   text-decoration: none;
 }
+
+.carousel,
+.about {
+  width: 100%;
+  max-width: 100%;
+}
+
 .filter-buttons {
   display: flex;
   gap: 8px;
