@@ -34,7 +34,7 @@
 
   --fs-body-desk: 1.75rem; /* 28px */
   --fs-readers-desk: 2rem; /* 32px */
-  --fs-meta-desk: 1rem; /* 16px (range handled with clamp if needed) */
+  --fs-meta-desk: 1rem; /* 16px  */
   --fs-username-desk: 1rem; /* 16px */
   --fs-leader-desk: 1.5rem; /* 24px */
   --fs-footer-desk: 1.5rem; /* 24px */
@@ -60,9 +60,7 @@ body {
   margin: 0;
 }
 
-/* =========================================================
-   NAV
-   ========================================================= */
+/******NAV******/
 .nav {
   background-color: var(--pink-100);
   display: flex;
@@ -71,17 +69,20 @@ body {
   padding: 8px 12px;
   max-height: 100px;
 }
+
 .nav__brand {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
 }
+
 .nav__logo {
   max-width: 150px;
   max-height: 150px;
-  width: 180px; /* Crops logo like you had */
+  width: 180px;
   clip-path: inset(30% 0 30% 0);
 }
+
 .nav__button--hamburger {
   background-color: var(--pink-100);
   color: var(--ink);
@@ -102,10 +103,6 @@ body {
 .nav__hamburger-line + .nav__hamburger-line {
   margin-top: 5px;
 }
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
 
 .btn {
   border: none;
@@ -129,10 +126,6 @@ body {
   color: var(--ink);
   border: 1px solid var(--gray-200);
 }
-
-/* =========================================================
-   MOBILE BOTTOM NAV
-   ========================================================= */
 
 .mobile-nav {
   position: fixed;
@@ -168,10 +161,6 @@ body {
   }
 }
 
-/* =========================================================
-   STATUS / MESSAGES
-   ========================================================= */
-
 .status {
   text-align: center;
   color: var(--gray-400);
@@ -184,19 +173,13 @@ body {
   font-size: 0.9rem;
 }
 
-/* =========================================================
-   INDEX (FEED)
-   ========================================================= */
-
 .feed {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* =========================================================
-   CAROUSEL (NEW HERO DESIGN)
-   ========================================================= */
+/*****CAROUSEL ******/
 
 .carousel {
   width: 100%;
@@ -317,33 +300,35 @@ body {
 }
 
 /* CTA button near bottom */
-.hero__cta {
+
+.btn--primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   left: 50%;
   bottom: 120px;
   transform: translateX(-50%);
   z-index: 2;
-
   width: min(260px, 75%);
-  height: 50px;
-
+  border: 1px solid var(--pink-500);
+  height: 65px;
   border-radius: 999px;
-  border: 2px solid rgba(184, 66, 105, 0.25);
-  background: rgba(255, 242, 242, 0.92);
+  background: var(--pink-100);
   color: var(--pink-500);
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 1.25rem; /* 20px */
+  box-shadow:
+    0 4px 30px 3px rgba(41, 41, 41, 0.2),
+    0 1px 9.8px 1px rgba(0, 0, 0, 0.3) inset;
   text-decoration: none;
 }
+
 .carousel__dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 /***** INACTIVE ****/
