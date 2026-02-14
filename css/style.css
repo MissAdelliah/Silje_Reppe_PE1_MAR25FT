@@ -828,10 +828,10 @@ body {
 }
 
 .feed-controls {
-  width: min(1100px, 100%); /* same width as your content area */
-  margin: 0 auto; /* centers it */
-  padding: 30px; /* keeps it away from edges on mobile */
-  border-radius: 0; /* if your design is flat */
+  width: min(1100px, 100%); 
+  margin: 0 auto; 
+  padding: 30px; 
+  border-radius: 0; 
 }
 
 /******* FOOTER *******/
@@ -860,3 +860,5 @@ body {
   color: var(--pink-500);
   text-decoration: none;
 }
+
+/**** SPES POST PAGE ****

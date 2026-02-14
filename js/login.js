@@ -20,8 +20,6 @@ function showMessage(text) {
 async function loginUser(userDetails) {
   try {
     showMessage('Logging in…');
-    console.log('AUTH_LOGIN_URL:', AUTH_LOGIN_URL);
-    console.log('userDetails:', userDetails);
 
     const response = await fetch(AUTH_LOGIN_URL, {
       method: 'POST',
@@ -33,8 +31,6 @@ async function loginUser(userDetails) {
     });
 
     const json = await response.json();
-    console.log('LOGIN STATUS:', response.status);
-    console.log('LOGIN JSON:', json);
 
     if (!response.ok) {
       showMessage(json?.errors?.[0]?.message || 'Login failed.');
@@ -64,7 +60,6 @@ async function loginUser(userDetails) {
       window.location.href = '/index.html';
     }, 300);
   } catch (error) {
-    console.log('Login exception:', error);
     showMessage('Network error. Try again.');
   }
 }

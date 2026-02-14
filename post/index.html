@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create post</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="module" src="../js/post.js" defer></script>
+  </head>
+  <body class="page--white">
+    <header>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav__brand" href="./index.html">
+          <img
+          class="nav__logo"
+          src="../logo/logo.png"
+          alt="Brand The Archive logo"
+          />
+        </a>
+        <button class="nav__button--hamburger" type="button" aria-label="Menu">
+          ☰
+        </button>
+      </nav>
+    </header>
+    <main class="create">
+      <section class="create__profile-card" aria-label="Profile summary">
+        <div class="box__profile-avatar">
+          <img
+          class="create__profile-avatar"
+          id="create-profile-avatar"
+          src="https://placehold.co/120x120?text=User"
+          alt="Profile image"
+          />
+        </div>
+        
+        <div class="create__profile-text">
+          <!-- based on the logged-in user -->
+          <p class="create__profile-name" id="create-profile-name">Loading…</p>
+          <p class="create__profile-subtitle" id="create-profile-subtitle"></p>
+          <p class="create__profile-stats" id="create-profile-stats">
+            25K READERS
+          </p>
+        </div>
+      </section>
+      
+      <!-- CREATE POST -->
+      <section class="create__post" aria-label="Create a new post">
+        <div class="create__card">
+        <form class="create__form" id="create-form">
+          <!-- Image area -->
+          <div class="create__media">
+            <!--JS swaps src when user pastes a URL -->
+            <img
+            class="create__media-preview"
+            id="media-preview"
+            src="https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Post image preview"
+            />
+          </div>
+          
+           <footer class="footer">
+      <div class="footer__middle">
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
+        <p>Terms & conditions</p>
+        <p>Contact us</p>
+        <p>Archivesupport@gmail.com</p>
+        <p>Placeholder for SoMe icons</p>
+        <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
+      </div>
+      <!-- MOBILE BOTTOM NAV (logged-in footer) -->
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a class="mobile-nav__item" href="../index.html" aria-label="Home">
+        <img
+          class="mobile-nav__icon"
+          src="../icons/home.png"
+          alt="home icon from flaticon"
+        />
+      </a>
+      <a class="mobile-nav__item" href="#" aria-label="Saved">
+        <img
+          class="mobile-nav__icon"
+          src="../icons/save.png"
+          alt="bookmark icon from flaticon"
+        />
+      </a>
+
+      <!-- Create is active/current here -->
+      <a class="mobile-nav__item" href="../create.html" aria-label="Create">
+        <img
+          class="mobile-nav__icon"
+          src="../icons/create.png"
+          alt="post icon from flaticon"
+        />
+      </a>
+      <a class="mobile-nav__item" href="#" aria-label="Search">
+        <img
+          class="mobile-nav__icon"
+          src="../icons/search.png"
+          alt="search icon from flaticon"
+        />
+      </a>
+      <a class="mobile-nav__item" href="../create.html" aria-label="Create">
+        <img
+          class="mobile-nav__icon"
+          src="../icons/user.png"
+          alt="user icon from flaticon"
+        />
+      </a>
+    </nav>
+      </main>
+    </footer>
+  </body>
+</html>

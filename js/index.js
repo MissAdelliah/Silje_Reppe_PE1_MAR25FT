@@ -221,7 +221,6 @@ function renderPostList(posts) {
       const imgUrl =
         post?.media?.url || 'https://placehold.co/600x400?text=No+image';
       const imgAlt = post?.media?.alt || post?.title || 'Post image';
-
       const author = post?.author?.name || 'Unknown';
       const avatar = post?.author?.avatar?.url || '/avatar-placeholder.png';
       const timeAgo = formatTimeAgo(post?.created);
@@ -279,7 +278,6 @@ async function init() {
     prevBtn?.addEventListener('click', goPrev);
     nextBtn?.addEventListener('click', goNext);
   } catch (error) {
-    console.log(error);
     renderStatus('Could not load posts. Try again.');
   }
 }
