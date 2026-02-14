@@ -11,4 +11,15 @@ const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 //DOM
 
 const titleEl = document.getElementById('post-title');
-const author;
+const authorEl = document.getElementById('post-author');
+const dateEl = document.getElementById('post-date');
+const bannerWrapEl = document.getElementById('post-bnner-wrap');
+const bannerEl = document.getElementById('post-banner');
+const bodyEl = document.getElementById('post-body');
+const messageEl = document.getElementById('message');
+const shareBtn = document.getElementById('share-btn');
+const saveBtn = document.getElementById('save-btn');
+
+function showMessage(text) {
+  if (messageEl) messageEl.textContent = text;
+}
