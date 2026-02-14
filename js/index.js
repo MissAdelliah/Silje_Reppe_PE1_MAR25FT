@@ -157,13 +157,12 @@ function renderCarouselSlide() {
     <article class="hero" aria-label="Carousel post">
       <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
       <div class="hero__overlay" aria-hidden="true"></div>
-      <p class="hero__hint" aria-hidden="true">SWIPE</p>
       <div class="hero__text">
         <p class="hero__category">${category}</p>
         <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
         <p class="hero__meta">Published by: ${author}</p>
       </div>
-      <a class="btn--primary" href="/post.html?id=${post.id}">Read More</a>
+      <a class="btn--primary" href="/post/index.html?id=${post.id}">Read More</a>
     </article>
   `;
 
@@ -227,7 +226,7 @@ function renderPostList(posts) {
 
       return `
         <article class="post-card">
-          <a class="post-card__media" href="/post.html?id=${post.id}">
+          <a class="post-card__media" href="/post/index.html?id=${post.id}">
             <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
 
             ${

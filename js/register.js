@@ -12,7 +12,7 @@ function showMessage(text) {
 
 async function registerUser(userDetails) {
   try {
-    showMessage('Creating account…');
+    showMessage('Creating account...');
 
     const response = await fetch(AUTH_REGISTER_URL, {
       method: 'POST',

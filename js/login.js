@@ -38,7 +38,6 @@ async function loginUser(userDetails) {
       return;
     }
 
-    // Noroff v2: token is in data.accessToken
     const accessToken = json?.data?.accessToken;
     if (!accessToken) {
       showMessage('Login succeeded but accessToken was missing.');
@@ -46,16 +45,13 @@ async function loginUser(userDetails) {
       return;
     }
 
-    // Save for later authenticated requests
     addToLocalStorage('accessToken', accessToken);
 
-    // Blog endpoints require /blog/posts/<name>
     const profileName = json?.data?.name;
     if (profileName) addToLocalStorage('profileName', profileName);
 
     showMessage('Success! Redirecting…');
 
-    // MPA redirect (small delay so message is visible)
     setTimeout(() => {
       window.location.href = '/index.html';
     }, 300);
@@ -64,7 +60,7 @@ async function loginUser(userDetails) {
   }
 }
 
-// ---------- Submit handler ----------
+//Submit handler
 function onLoginFormSubmit(event) {
   event.preventDefault();
 

@@ -11,3 +11,4 @@ const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 //DOM
 
 const titleEl = document.getElementById('post-title');
+const author;

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create post</title>
+    <title>View post</title>
     <link rel="stylesheet" href="../css/style.css" />
     <script type="module" src="../js/post.js" defer></script>
   </head>
@@ -22,16 +22,13 @@
         </button>
       </nav>
     </header>
-    <main class="create">
-      <section class="create__profile-card" aria-label="Profile summary">
-        <div class="box__profile-avatar">
-          <img
-          class="create__profile-avatar"
-          id="create-profile-avatar"
-          src="https://placehold.co/120x120?text=User"
-          alt="Profile image"
-          />
-        </div>
+    <main class="post-page">
+      <section class="post" aria-label="write">
+        <header class="post__header">
+          <div class="post__meta">
+            <p class= "post__author" id="post-author"> </p>
+            <time class="post__date" id="post-date"></time>
+          </div>
         
         <div class="create__profile-text">
           <!-- based on the logged-in user -->
