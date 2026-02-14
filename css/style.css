@@ -121,7 +121,7 @@ body {
   color: var(--bg);
 }
 
-.btn--pink {
+.btn--secondary {
   background: var(--pink-100);
   color: var(--ink);
   border: 1px solid var(--gray-200);

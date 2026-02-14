@@ -1,27 +1,27 @@
 import { getFromLocalStorage, addToLocalStorage } from './utils.js';
 
-// --- DOM: form elements ---
+// DOM
 const form = document.getElementById('create-form'); // form used to publish
 const messageBox = document.getElementById('message'); // shows feedback
 const mediaUrlInput = document.getElementById('mediaUrl'); // user pastes image URL
 const mediaPreview = document.getElementById('media-preview'); // preview image
 const draftBtn = document.getElementById('draft-btn'); // saves draft
 
-// --- DOM: profile card elements (dynamic user, not hardcoded Malene) ---
+// DOM: profile card elements
 const profileAvatarEl = document.getElementById('create-profile-avatar');
 const profileNameEl = document.getElementById('create-profile-name');
 const profileSubtitleEl = document.getElementById('create-profile-subtitle');
 const profileStatsEl = document.getElementById('create-profile-stats');
 
-// --- API constants ---
+// API
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-// --- Auth from localStorage ---
+//  Auth from localStorage
 const accessToken = getFromLocalStorage('accessToken'); // proves login
 const profileName = getFromLocalStorage('profileName'); // used in endpoint /blog/posts/<name>
 
-// --- Draft key ---
+// Draft key
 const DRAFT_KEY = 'createPostDraft';
 
 // Helper: show message
@@ -37,7 +37,7 @@ function requireLogin() {
   }
 }
 
-// Convert "Fitness, Travel" to ["Fitness","Travel"]
+// mmm
 function parseTags(tagsString) {
   if (!tagsString) return [];
   return tagsString
@@ -73,9 +73,9 @@ function renderProfileCard() {
   const safeName = (displayName || profileName || 'User').toString();
   profileNameEl.textContent = safeName.toUpperCase();
 
-  // ---- BIO (instead of niche/type) ----
-  // Try to get a saved bio from localStorage.
-  // If none exists, show a friendly default.
+  // BIO (instead of niche/type)
+  // Try to get a saved bio from localStorage
+  // If none exists, show a default
   const bio = getFromLocalStorage('profileBio');
 
   if (profileSubtitleEl) {
@@ -87,7 +87,7 @@ function renderProfileCard() {
   profileAvatarEl.src = avatarUrl || 'https://placehold.co/120x120?text=User';
 }
 
-// Fallback if avatar link is broken
+// if avatar link is broken
 profileAvatarEl?.addEventListener('error', () => {
   profileAvatarEl.src = 'https://placehold.co/120x120?text=User';
 });
@@ -181,9 +181,7 @@ async function publishPost() {
   }
 }
 
-/* =========================
-   EVENTS
-   ========================= */
+/***** EVENTS****/
 
 // Live preview when user types/pastes URL
 mediaUrlInput?.addEventListener('input', (event) => {
@@ -200,10 +198,6 @@ form?.addEventListener('submit', (event) => {
   event.preventDefault();
   publishPost();
 });
-
-/* =========================
-   STARTUP
-   ========================= */
 
 requireLogin();
 renderProfileCard();
