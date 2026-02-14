@@ -102,13 +102,12 @@ function buildTagNav(posts) {
       // Update activeTag
       activeTag = btn.dataset.tag || '';
 
-      // Toggle active class for all buttons
       tagNavEl.querySelectorAll('.filter-btn').forEach((b) => {
         b.classList.remove('filter-btn--active');
       });
       btn.classList.add('filter-btn--active');
 
-      // Re-render ONLY the grid/list
+      // Re-render the grid
       renderFilteredPostList();
     });
 
