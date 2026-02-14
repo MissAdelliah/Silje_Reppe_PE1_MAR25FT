@@ -1,6 +1,4 @@
-/* =========================================================
-   GLOBAL RESET + TOKENS
-   ========================================================= */
+/****** GLOBAL RESET + TOKENS *****/
 
 * {
   font-family: 'Inter', sans-serif, Tahoma, Geneva, Verdana;
@@ -27,7 +25,7 @@
   --fs-footer-mobile: 1rem; /* 16px */
   --fs-button-mobile: 1rem; /* 16px */
 
-  /* ---------- DESKTOP SIZES ---------- */
+  /***** DESKTOP SIZES *****/
   --fs-h1-desk: 4rem; /* 64px */
   --fs-h2-desk: 2.25rem; /* 36px */
   --fs-h3-desk: 2rem; /* 32px */
@@ -356,7 +354,7 @@ body {
 }
 
 .leaderboard__card {
-  width: min(420px, 100%);
+  width: min(300px, 100%);
   background: #fff;
   border-radius: 24px;
   padding: 2rem 1.5rem;
@@ -385,17 +383,16 @@ body {
   display: grid;
   grid-template-columns: 2rem 5rem 1fr;
   align-items: center;
-  gap: 1rem;
 }
 
 .leaderboard__rank {
-  font-size: 1.25rem;
+  font-size: var(--fs-body-mobile);
   color: var(--pink-500);
 }
 
 .leaderboard__avatar {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 999px;
   object-fit: cover;
 }
@@ -407,7 +404,7 @@ body {
 
 .leaderboard__name {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: var(--fs-leader-mobile);
   font-weight: 400;
   color: var(--ink);
 }
@@ -424,7 +421,7 @@ body {
 }
 
 .leaderboard__readers-number {
-  font-size: 2rem;
+  font-size: var(--fs-readers-mobile);
   font-weight: 700;
   font-style: italic;
   color: var(--ink);
@@ -652,9 +649,7 @@ body {
   font-size: 0.95rem;
 }
 
-/* =========================================================
-   CREATE PAGE (kept from your file)
-   ========================================================= */
+/***** CREATE PAGE *****/
 
 .create {
   display: flex;

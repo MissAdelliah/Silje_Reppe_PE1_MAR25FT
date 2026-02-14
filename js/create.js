@@ -109,7 +109,7 @@ function loadDraft() {
     if (draft.plannedDate) form.plannedDate.value = draft.plannedDate;
 
     updateMediaPreview(draft.mediaUrl || '');
-    showMessage('Draft loaded.');
+    showMessage('Saved to drafts');
   } catch (error) {
     console.log('Draft parse error:', error);
   }
@@ -127,7 +127,7 @@ function saveDraft() {
   };
 
   addToLocalStorage(DRAFT_KEY, JSON.stringify(draft));
-  showMessage('Draft saved.');
+  showMessage('Saved to drafts');
 }
 
 // Publish post to Noroff API
