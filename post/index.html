@@ -10,7 +10,7 @@
   <body class="page--white">
     <header>
       <nav class="nav" aria-label="Main navigation">
-        <a class="nav__brand" href="./index.html">
+        <a class="nav__brand" href="../index.html">
           <img
           class="nav__logo"
           src="../logo/logo.png"
@@ -23,16 +23,19 @@
       </nav>
     </header>
     <main class="post-page">
-      <section class="post" aria-label="write">
+      <section class="post" aria-label="polite">
         <header class="post__header">
           <div class="post__meta">
             <p class= "post__author" id="post-author"> </p>
             <time class="post__date" id="post-date"></time>
           </div>
-        
+        <div class="post__title-row">
+          <h2 class="post__title" id=post-title>
+          </h2>
+        </div>
         <div class="create__profile-text">
           <!-- based on the logged-in user -->
-          <p class="create__profile-name" id="create-profile-name">Loading…</p>
+          <p class="create__profile-name" id="create-profile-name">Loadin...</p>
           <p class="create__profile-subtitle" id="create-profile-subtitle"></p>
           <p class="create__profile-stats" id="create-profile-stats">
             25K READERS
@@ -43,33 +46,20 @@
       <!-- CREATE POST -->
       <section class="create__post" aria-label="Create a new post">
         <div class="create__card">
-        <form class="create__form" id="create-form">
-          <!-- Image area -->
-          <div class="create__media">
-            <!--JS swaps src when user pastes a URL -->
-            <img
-            class="create__media-preview"
-            id="media-preview"
-            src="https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Post image preview"
-            />
-          </div>
-          
-           <footer class="footer">
-      <div class="footer__middle">
-        <a class="nav__brand" href="#/">
-          <img
-            class="nav__logo"
-            src="/logo/logo.png"
-            alt="Brand the archives logo "
-          />
-        </a>
-        <p>Terms & conditions</p>
-        <p>Contact us</p>
-        <p>Archivesupport@gmail.com</p>
-        <p>Placeholder for SoMe icons</p>
-        <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
-      </div>
+          <form class="create__form" id="create-form">
+            <!-- Image area -->
+            <div class="create__media">
+              <!--JS swaps src when user pastes a URL -->
+              <img
+              class="create__media-preview"
+              id="media-preview"
+              src="https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Post image preview"
+              />
+            </div>
+            
+            <button class="post__share" id="share-btn" aria-label="Share post"></button>
+            <button class="post__save" id="save-btn" aria-label="Save post"></button>
       <!-- MOBILE BOTTOM NAV (logged-in footer) -->
     <nav class="mobile-nav" aria-label="Mobile navigation">
       <a class="mobile-nav__item" href="../index.html" aria-label="Home">
@@ -111,6 +101,21 @@
       </a>
     </nav>
       </main>
-    </footer>
+        <footer class="footer">
+      <div class="footer__middle">
+        <a class="nav__brand" href="#/">
+          <img
+            class="nav__logo"
+            src="/logo/logo.png"
+            alt="Brand the archives logo "
+          />
+        </a>
+        <p>Terms & conditions</p>
+        <p>Contact us</p>
+        <p>Archivesupport@gmail.com</p>
+        <p>Placeholder for SoMe icons</p>
+        <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
+      </div>
+        </footer>
   </body>
 </html>
