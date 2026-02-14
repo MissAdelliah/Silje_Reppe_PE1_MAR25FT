@@ -6,11 +6,6 @@
     <title>The Archive – Feed</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./js/index.js" defer></script>
   </head>
@@ -31,9 +26,7 @@
       </nav>
     </header>
     <main class="feed">
-      <!-- ========================= -->
       <!-- HERO CAROUSEL -->
-      <!-- ========================= -->
       <section class="carousel" aria-label="Latest posts carousel">
         <div class="carousel__controls">
           <button
@@ -44,7 +37,6 @@
           >
             ‹
           </button>
-
           <button
             class="carousel__control"
             id="carousel-next"
@@ -54,11 +46,7 @@
             ›
           </button>
         </div>
-
-        <!-- This is where JS injects the hero slide -->
         <div class="carousel__viewport" id="carousel"></div>
-
-        <!-- Navigation dots -->
         <div
           class="carousel__dots"
           id="carousel-dots"
@@ -68,7 +56,6 @@
       <section class="leaderboard" aria-label="Top bloggers leaderboard">
         <div class="leaderboard__card">
           <h2 class="leaderboard__title">Top bloggers</h2>
-
           <ol class="leaderboard__list">
             <li class="leaderboard__item">
               <span class="leaderboard__rank">1.</span>
@@ -87,13 +74,12 @@
                 </p>
               </div>
             </li>
-
             <li class="leaderboard__item">
-              <span class="leaderboard__rank">2.</span>
+              <span class="leaderboard__rank">3.</span>
               <img
                 class="leaderboard__avatar"
                 src="https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
-                alt="Sophia92 avatar"
+                alt="Aurorasworld avatar"
               />
               <div class="leaderboard__info">
                 <p class="leaderboard__name">Sophia92</p>
@@ -103,13 +89,12 @@
                 </p>
               </div>
             </li>
-
             <li class="leaderboard__item">
-              <span class="leaderboard__rank">3.</span>
+              <span class="leaderboard__rank">2.</span>
               <img
                 class="leaderboard__avatar"
                 src="https://images.unsplash.com/photo-1590330297626-d7aff25a0431?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
-                alt="Aurorasworld avatar"
+                alt="Sophia92 avatar"
               />
               <div class="leaderboard__info">
                 <p class="leaderboard__name">Aurorasworld</p>
@@ -149,9 +134,7 @@
         </div>
       </section>
 
-      <!-- ========================= -->
-      <!-- POST LIST (12+ POSTS) -->
-      <!-- ========================= -->
+      <!-- THUMBNAIL GRID -->
       <section class="post-list" id="post-list" aria-label="Post list">
         <p class="status">Loading posts…</p>
       </section>

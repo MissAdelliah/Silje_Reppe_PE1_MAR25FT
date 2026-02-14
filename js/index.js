@@ -1,9 +1,5 @@
 import { getFromLocalStorage } from './utils.js';
 
-/* =========================================================
-   API constants
-   ========================================================= */
-
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
@@ -11,33 +7,19 @@ const DEFAULT_BLOG_NAME = 'fitwithMalene';
 const profileName = getFromLocalStorage('profileName');
 const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 
-/* =========================================================
-   DOM
-   ========================================================= */
+/**** DOM ****/
 
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
 const prevBtn = document.getElementById('carousel-prev');
 const nextBtn = document.getElementById('carousel-next');
 const dotsEl = document.getElementById('carousel-dots');
-
-// ✅ NEW: tag filter nav
 const tagNavEl = document.getElementById('tag-nav');
-
-/* =========================================================
-   Local state
-   ========================================================= */
 
 let allPosts = [];
 let carouselPosts = [];
 let carouselIndex = 0;
-
-// ✅ NEW: current active tag filter ("" means All)
 let activeTag = '';
-
-/* =========================================================
-   Helpers
-   ========================================================= */
 
 function renderStatus(text) {
   if (!postListEl) return;
@@ -70,10 +52,6 @@ function sortNewestFirst(posts) {
   });
 }
 
-/* =========================================================
-   Data fetching
-   ========================================================= */
-
 async function fetchPosts() {
   const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 
@@ -93,9 +71,7 @@ async function fetchPosts() {
   return json?.data || [];
 }
 
-/* =========================================================
-   TAG FILTER NAV (NEW)
-   ========================================================= */
+/***** TAG FILTER NAV ****/
 
 function buildTagNav(posts) {
   if (!tagNavEl) return;
@@ -161,9 +137,7 @@ function getFilteredPostsSorted() {
   return sorted.filter((post) => (post?.tags || []).includes(activeTag));
 }
 
-/* =========================================================
-   CAROUSEL
-   ========================================================= */
+/***** CAROUSEL *****/
 
 function renderCarouselSlide() {
   if (!carouselEl) return;
@@ -183,16 +157,13 @@ function renderCarouselSlide() {
     <article class="hero" aria-label="Carousel post">
       <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
       <div class="hero__overlay" aria-hidden="true"></div>
-
       <p class="hero__hint" aria-hidden="true">SWIPE</p>
-
       <div class="hero__text">
         <p class="hero__category">${category}</p>
         <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
         <p class="hero__meta">Published by: ${author}</p>
       </div>
-
-      <a class="hero__cta" href="/post.html?id=${post.id}">Read More</a>
+      <a class="btn--primary" href="/post.html?id=${post.id}">Read More</a>
     </article>
   `;
 
@@ -233,16 +204,13 @@ function goPrev() {
   renderCarouselSlide();
 }
 
-/* =========================================================
-   POST LIST (your existing renderer)
-   ========================================================= */
+/****** POST LIST ******/
 
 function renderPostList(posts) {
   if (!postListEl) return;
 
   const listPosts = posts.slice(0, 12);
 
-  // ✅ helpful empty state after filtering
   if (listPosts.length === 0) {
     postListEl.innerHTML = `<p class="status">No posts found for this filter.</p>`;
     return;
@@ -288,9 +256,7 @@ function renderFilteredPostList() {
   renderPostList(filteredSorted);
 }
 
-/* =========================================================
-   Startup
-   ========================================================= */
+/***** Startup *****/
 
 async function init() {
   try {
@@ -298,7 +264,7 @@ async function init() {
 
     allPosts = await fetchPosts();
 
-    // Keep carousel as “latest 3 overall” (not filtered)
+    // “latest 3”
     const sorted = sortNewestFirst(allPosts);
     carouselPosts = sorted.slice(0, 3);
     carouselIndex = 0;
