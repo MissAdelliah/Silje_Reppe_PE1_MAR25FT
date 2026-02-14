@@ -62,4 +62,22 @@ function renderPost(post) {
     dateEl.textContent = formatDate(post.created);
     dateEl.setAttribute = ('datetime', post.created);
   }
+
+  if (post.media?url) {
+    bannerEl.src = post.media.url;
+    bannerEl.src = post.media.alt || post.title || 'post image';
+    bannerWrapEl.style.display = '';
+  } else {
+    bannerWrapEl.style.display = 'none';
+    bodyEl.textContent =post.body || ''; 
+  }
+  //Sharable url 
+  shareBtn?.addEventListener('click', async () =>{
+    try {
+      if (navigator.share) {
+        title: post.title,
+        url: shareUrl,
+      }
+  });
+}
 }
