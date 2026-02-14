@@ -16,7 +16,7 @@ const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 const titleEl = document.getElementById('post-title');
 const authorEl = document.getElementById('post-author');
 const dateEl = document.getElementById('post-date');
-const bannerWrapEl = document.getElementById('post-bnner-wrap');
+const bannerWrapEl = document.getElementById('post-banner-wrap');
 const bannerEl = document.getElementById('post-banner');
 const bodyEl = document.getElementById('post-body');
 const messageEl = document.getElementById('message');
@@ -30,9 +30,10 @@ function getIdFromUrl() {
   return params.get('id');
 }
 function formatDate(isoString) {
-  const d = new date(isoString);
+  const d = new Date(isoString);
+
   return d.toLocaleDateString(undefined, {
-    day: 'numeric',
+    year: 'numeric',
     month: 'short',
     day: 'numeric',
   });
@@ -59,17 +60,17 @@ function renderPost(post) {
 
   if (post.created) {
     dateEl.textContent = formatDate(post.created);
-    dateEl.setAttribute = ('datetime', post.created);
+    dateEl.setAttribute('datetime', post.created);
   }
 
   if (post.media?.url) {
     bannerEl.src = post.media.url;
-    bannerEl.src = post.media.alt || post.title || 'post image';
+    bannerEl.alt = post.media.alt || post.title || 'post image';
     bannerWrapEl.style.display = '';
   } else {
     bannerWrapEl.style.display = 'none';
-    bodyEl.textContent = post.body || '';
   }
+  bodyEl.textContent = post.body || '';
 
   const shareUrl = `${window.location.origin}/post/index.html?id=${post.id}`;
   //Sharable url
