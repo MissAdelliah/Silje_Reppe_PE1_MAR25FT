@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./js/create.js" defer></script>
   </head>
-  <body>
+  <body class="page--white">
     <header>
       <nav class="nav" aria-label="Main navigation">
         <a class="nav__brand" href="/index.html">
@@ -146,21 +146,43 @@
 
     <!-- MOBILE BOTTOM NAV (logged-in footer) -->
     <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a class="mobile-nav__item" href="/index.html" aria-label="Home">Home</a>
-      <a class="mobile-nav__item" href="#" aria-label="Saved">Saved</a>
+      <a class="mobile-nav__item" href="/index.html" aria-label="Home">
+        <img
+          class="mobile-nav__icon"
+          src="/icons/home.png"
+          alt="home icon from flaticon"
+        />
+      </a>
+      <a class="mobile-nav__item" href="#" aria-label="Saved">
+        <img
+          class="mobile-nav__icon"
+          src="/icons/save.png"
+          alt="bookmark icon from flaticon"
+        />
+      </a>
 
       <!-- Create is active/current here -->
-      <a
-        class="mobile-nav__item mobile-nav__item--active"
-        href="/create.html"
-        aria-label="New post"
-        aria-current="page"
-        >Create</a
-      >
-      <a class="mobile-nav__item" href="#" aria-label="Search">Search</a>
-      <a class="mobile-nav__item" href="/profile.html" aria-label="Profile"
-        >Profile</a
-      >
+      <a class="mobile-nav__item" href="/create.html" aria-label="Create">
+        <img
+          class="mobile-nav__icon"
+          src="/icons/create.png"
+          alt="post icon from flaticon"
+        />
+      </a>
+      <a class="mobile-nav__item" href="#" aria-label="Search">
+        <img
+          class="mobile-nav__icon"
+          src="/icons/search.png"
+          alt="search icon from flaticon"
+        />
+      </a>
+      <a class="mobile-nav__item" href="/create.html" aria-label="Create">
+        <img
+          class="mobile-nav__icon"
+          src="/icons/user.png"
+          alt="user icon from flaticon"
+        />
+      </a>
     </nav>
     <footer></footer>
   </body>
