@@ -928,3 +928,10 @@ body {
   width: 335px;
   height: 145px;
 }
+
+.post__content {
+  margin-top: 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
