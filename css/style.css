@@ -828,10 +828,10 @@ body {
 }
 
 .feed-controls {
-  width: min(1100px, 100%); 
-  margin: 0 auto; 
-  padding: 30px; 
-  border-radius: 0; 
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 0;
 }
 
 /******* FOOTER *******/
@@ -861,4 +861,70 @@ body {
   text-decoration: none;
 }
 
-/**** SPES POST PAGE ****
+/**** SPES POST PAGE ****/
+
+.post-page {
+  width: 100%;
+  padding: 16px 12px 30px;
+}
+
+.post {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.post__header {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.post__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.post__author {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.post__date {
+  color: var(--gray-400);
+}
+
+.post__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.post__title {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.post__share {
+  border: 1px solid var(--pink-500);
+  background-color: var(--pink-100);
+  color: var(--pink-500);
+  border-radius: 999px;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.post__content {
+  margin-top: 16px;
+}
+.post__banner-img {
+  width: 335px;
+  height: 145px;
+}
