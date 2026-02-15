@@ -58,6 +58,20 @@ body {
   margin: 0;
 }
 
+.page--pink {
+  background: var(--pink-500);
+}
+
+.page--white {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.mobile-nav__icon {
+  width: 24px;
+  height: 24px;
+}
+
 /******NAV******/
 .nav {
   background-color: var(--pink-100);
@@ -104,25 +118,28 @@ body {
 
 .btn {
   border: none;
-  border-radius: 999px;
+  border-radius: 16px;
   padding: 14px 20px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 0.95rem;
-}
-
-.btn--primary {
-  background: var(--pink-500);
-  color: var(--bg);
+  font-size: var(--fs-button-mobile);
 }
 
 .btn--secondary {
   background: var(--pink-100);
-  color: var(--ink);
+  color: var(--pink-500);
   border: 1px solid var(--gray-200);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  font-style: italic;
+}
+
+.btn--secondary:focus {
+  background-color: var(--pink-500);
+  color: var(--bg);
+  font-style: italic;
 }
 
 .mobile-nav {
@@ -221,7 +238,7 @@ body {
   width: 42px;
   height: 42px;
   border-radius: 999px;
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--pink-100);
   background: var(--bg);
   cursor: pointer;
   font-size: 1.25rem;
@@ -279,7 +296,7 @@ body {
   margin: 0 0 10px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--bg);
+  color: var(--gray-400);
 }
 
 .hero__title {
@@ -289,15 +306,14 @@ body {
   font-weight: 700;
   color: var(--bg);
   padding-bottom: 50px;
+  color: var(--ink);
 }
 
 .hero__meta {
   margin: 0;
   font-size: 0.9rem;
-  color: var(--bg);
+  color: var(--ink);
 }
-
-/* CTA button near bottom */
 
 .btn--primary {
   display: inline-flex;
@@ -442,12 +458,17 @@ body {
   margin: 2.5rem auto 0;
   width: min(280px, 100%);
   height: 64px;
-  font-size: 1.5rem;
+  font-size: 1.25rem; /* 20px */
   color: var(--pink-500);
-  border: 2px solid rgba(184, 66, 105, 0.35);
-  background: rgba(255, 242, 242, 0.8);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--pink-500);
+  background: var(--pink-100);
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.12),
+    0 1px 9.8px 1px rgba(0, 0, 0, 0.3) inset;
   text-decoration: none;
+  border-radius: 999px;
+  background: var(--pink-100);
+  color: var(--pink-500);
 }
 
 .carousel,
@@ -662,7 +683,7 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
-  width: min(385px, 100%);
+  width: min(375px, 100%);
   height: 85px;
   margin: 0 auto;
   padding: 10px 20px;
@@ -714,7 +735,7 @@ body {
 .create__card {
   background-color: var(--pink-100);
   border-radius: 16px;
-  width: min(385px, 100%);
+  width: min(375px, 100%);
   margin: 0 auto;
   padding: 16px;
 }
@@ -759,12 +780,13 @@ body {
 .create__planned {
   display: grid;
   gap: 8px;
+  margin-left: 38px;
+  margin-right: 38px;
 }
 
 .create__planned-title {
-  font-size: 0.5rem;
-  margin: 0;
-  color: var(--gray-400);
+  font-size: var(--fs-leader-mobile);
+  color: var(--ink);
 }
 
 .create__planned-grid {
@@ -775,15 +797,26 @@ body {
 
 .create__planned-pill {
   border: 1px solid var(--gray-200);
-  border-radius: 999px;
+  border-radius: 16px;
   padding: 12px;
   background: var(--bg);
+  text-align: center;
+  border-radius: 16px;
+  background: #f7f7f7;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  font-style: var(-fs-leader-mobil);
+  font-weight: var(--fw-regular);
+  color: var(--gray-400);
 }
 
 .create__actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  margin-top: 20px;
+  margin-left: 38px;
+  margin-right: 38px;
+  margin-bottom: 20px;
 }
 
 .create__message {
@@ -791,13 +824,14 @@ body {
   color: var(--pink-500);
   font-size: 0.9rem;
   min-height: 20px;
+  margin-left: 38px;
 }
 
 .feed-controls {
-  width: min(1100px, 100%); /* same width as your content area */
-  margin: 0 auto; /* centers it */
-  padding: 30px; /* keeps it away from edges on mobile */
-  border-radius: 0; /* if your design is flat */
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 0;
 }
 
 /******* FOOTER *******/
@@ -825,4 +859,79 @@ body {
 .footer__link {
   color: var(--pink-500);
   text-decoration: none;
+}
+
+/**** SPES POST PAGE ****/
+
+.post-page {
+  width: 100%;
+  padding: 16px 12px 30px;
+}
+
+.post {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.post__header {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.post__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.post__author {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.post__date {
+  color: var(--gray-400);
+}
+
+.post__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.post__title {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.post__share {
+  border: 1px solid var(--pink-500);
+  background-color: var(--pink-100);
+  color: var(--pink-500);
+  border-radius: 999px;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.post__content {
+  margin-top: 16px;
+}
+.post__banner-img {
+  width: 335px;
+  height: 145px;
+}
+
+.post__content {
+  margin-top: 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
 }

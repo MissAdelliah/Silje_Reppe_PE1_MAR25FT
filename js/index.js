@@ -102,13 +102,12 @@ function buildTagNav(posts) {
       // Update activeTag
       activeTag = btn.dataset.tag || '';
 
-      // Toggle active class for all buttons
       tagNavEl.querySelectorAll('.filter-btn').forEach((b) => {
         b.classList.remove('filter-btn--active');
       });
       btn.classList.add('filter-btn--active');
 
-      // Re-render ONLY the grid/list
+      // Re-render the grid
       renderFilteredPostList();
     });
 
@@ -157,13 +156,12 @@ function renderCarouselSlide() {
     <article class="hero" aria-label="Carousel post">
       <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
       <div class="hero__overlay" aria-hidden="true"></div>
-      <p class="hero__hint" aria-hidden="true">SWIPE</p>
       <div class="hero__text">
         <p class="hero__category">${category}</p>
         <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
         <p class="hero__meta">Published by: ${author}</p>
       </div>
-      <a class="btn--primary" href="/post.html?id=${post.id}">Read More</a>
+      <a class="btn--primary" href="/post/index.html?id=${post.id}">Read More</a>
     </article>
   `;
 
@@ -221,14 +219,13 @@ function renderPostList(posts) {
       const imgUrl =
         post?.media?.url || 'https://placehold.co/600x400?text=No+image';
       const imgAlt = post?.media?.alt || post?.title || 'Post image';
-
       const author = post?.author?.name || 'Unknown';
       const avatar = post?.author?.avatar?.url || '/avatar-placeholder.png';
       const timeAgo = formatTimeAgo(post?.created);
 
       return `
         <article class="post-card">
-          <a class="post-card__media" href="/post.html?id=${post.id}">
+          <a class="post-card__media" href="/post/index.html?id=${post.id}">
             <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
 
             ${
@@ -279,7 +276,6 @@ async function init() {
     prevBtn?.addEventListener('click', goPrev);
     nextBtn?.addEventListener('click', goNext);
   } catch (error) {
-    console.log(error);
     renderStatus('Could not load posts. Try again.');
   }
 }

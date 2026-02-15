@@ -20,8 +20,6 @@ function showMessage(text) {
 async function loginUser(userDetails) {
   try {
     showMessage('Logging in…');
-    console.log('AUTH_LOGIN_URL:', AUTH_LOGIN_URL);
-    console.log('userDetails:', userDetails);
 
     const response = await fetch(AUTH_LOGIN_URL, {
       method: 'POST',
@@ -33,8 +31,6 @@ async function loginUser(userDetails) {
     });
 
     const json = await response.json();
-    console.log('LOGIN STATUS:', response.status);
-    console.log('LOGIN JSON:', json);
 
     if (!response.ok) {
       showMessage(json?.errors?.[0]?.message || 'Login failed.');
@@ -42,7 +38,6 @@ async function loginUser(userDetails) {
       return;
     }
 
-    // Noroff v2: token is in data.accessToken
     const accessToken = json?.data?.accessToken;
     if (!accessToken) {
       showMessage('Login succeeded but accessToken was missing.');
@@ -50,26 +45,22 @@ async function loginUser(userDetails) {
       return;
     }
 
-    // Save for later authenticated requests
     addToLocalStorage('accessToken', accessToken);
 
-    // Blog endpoints require /blog/posts/<name>
     const profileName = json?.data?.name;
     if (profileName) addToLocalStorage('profileName', profileName);
 
     showMessage('Success! Redirecting…');
 
-    // MPA redirect (small delay so message is visible)
     setTimeout(() => {
       window.location.href = '/index.html';
     }, 300);
   } catch (error) {
-    console.log('Login exception:', error);
     showMessage('Network error. Try again.');
   }
 }
 
-// ---------- Submit handler ----------
+//Submit handler
 function onLoginFormSubmit(event) {
   event.preventDefault();
 
