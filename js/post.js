@@ -7,7 +7,9 @@ const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 // If not logged in, show demo blog
 const DEFAULT_BLOG_NAME = 'fitwithMalene';
 // If logged in, store name
+
 const profileName = getFromLocalStorage('profileName');
+
 //use logged in name, fallback deafault blog
 const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 
