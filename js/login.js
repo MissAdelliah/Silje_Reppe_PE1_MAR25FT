@@ -53,7 +53,7 @@ async function loginUser(userDetails) {
     showMessage('Success! Redirecting…');
 
     setTimeout(() => {
-      window.location.href = 'index.html';
+      window.location.href = '../index.html';
     }, 300);
   } catch (error) {
     showMessage('Network error. Try again.');
