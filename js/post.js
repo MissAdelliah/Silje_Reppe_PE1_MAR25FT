@@ -74,7 +74,7 @@ function renderPost(post) {
   }
   bodyEl.textContent = post.body || '';
 
-  const shareUrl = `${window.location.origin}/post/index.html?id=${post.id}`;
+  const shareUrl = `${window.location.origin}post/index.html?id=${post.id}`;
   //Sharable url
   shareBtn?.addEventListener('click', async () => {
     try {

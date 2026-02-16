@@ -225,7 +225,7 @@ function renderPostList(posts) {
 
       return `
         <article class="post-card">
-          <a class="post-card__media" href="/post/index.html?id=${post.id}">
+          <a class="post-card__media" href="post/index.html?id=${post.id}">
             <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
 
             ${
