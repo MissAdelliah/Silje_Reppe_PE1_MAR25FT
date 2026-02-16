@@ -67,11 +67,6 @@ body {
   color: var(--ink);
 }
 
-.mobile-nav__icon {
-  width: 24px;
-  height: 24px;
-}
-
 /******NAV******/
 .nav {
   background-color: var(--pink-100);
@@ -158,7 +153,16 @@ body {
 .mobile-nav__item {
   text-decoration: none;
   color: var(--ink);
-  font-size: 1.25rem;
+}
+
+.mobile-nav__icon {
+  width: 24px;
+  height: 24px;
+}
+.mobile-nav__user {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .mobile-nav__item--active {
