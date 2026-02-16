@@ -1,22 +1,22 @@
 import { addToLocalStorage } from './utils.js';
 
-// ---------- DOM ----------
+// DOM
 const loginForm = document.querySelector('#login-form');
 const messageBox = document.querySelector('#message');
 
-// ---------- API ----------
+//  API
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const AUTH_LOGIN_URL = `${BASE_API_URL}/auth/login`;
 
 // Teacher requirement: include API key in login/register
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-// ---------- UI helper ----------
+// UI helper
 function showMessage(text) {
   if (messageBox) messageBox.textContent = text;
 }
 
-// ---------- Main login ----------
+// Main login
 async function loginUser(userDetails) {
   try {
     showMessage('Logging in…');
