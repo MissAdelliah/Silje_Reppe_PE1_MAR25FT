@@ -165,10 +165,6 @@ body {
   color: var(--pink-500);
 }
 
-body {
-  padding-bottom: 0;
-}
-
 .status {
   text-align: center;
   color: var(--gray-400);
