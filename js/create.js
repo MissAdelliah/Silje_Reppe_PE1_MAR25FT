@@ -138,8 +138,6 @@ async function publishPost() {
   }
 
   const CREATE_POST_URL = `${BASE_API_URL}/blog/posts/${profileName}`;
-
-  // Noroff post model: title, body, tags[], media{}
   const payload = {
     title: form.title.value.trim(),
     body: form.body.value.trim(),
@@ -174,7 +172,7 @@ async function publishPost() {
     localStorage.removeItem(DRAFT_KEY);
 
     showMessage('Published! Redirecting…');
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
   } catch (error) {
     console.log('Publish exception:', error);
     showMessage('Network error. Try again.');
