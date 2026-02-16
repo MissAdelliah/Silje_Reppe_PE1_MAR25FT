@@ -161,7 +161,7 @@ function renderCarouselSlide() {
         <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
         <p class="hero__meta">Published by: ${author}</p>
       </div>
-      <a class="btn--primary" href="/post/index.html?id=${post.id}">Read More</a>
+      <a class="btn--primary" href="post/index.html?id=${post.id}">Read More</a>
     </article>
   `;
 
