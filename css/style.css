@@ -165,15 +165,8 @@ body {
   color: var(--pink-500);
 }
 
-/* Hide bottom nav on desktop (optional) */
-@media (min-width: 900px) {
-  .mobile-nav {
-    display: none;
-  }
-
-  body {
-    padding-bottom: 0;
-  }
+body {
+  padding-bottom: 0;
 }
 
 .status {
