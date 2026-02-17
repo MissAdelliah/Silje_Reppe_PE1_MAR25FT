@@ -855,6 +855,7 @@ body {
 /**** SPES POST PAGE ****/
 .create__profile-postcard {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   width: min(405px, 100%);
@@ -919,9 +920,6 @@ body {
 }
 
 .post__title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   gap: 12px;
 }
 
@@ -947,7 +945,9 @@ body {
 }
 .post__banner-img {
   width: 335px;
-  height: 145px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .post__content {
