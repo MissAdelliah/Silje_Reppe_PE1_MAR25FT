@@ -36,10 +36,10 @@ function validateField(field) {
     field.style.outline = 'none';
   } else {
     if (value.length === 0) {
-      field.style.border = '1px solid #b84269';
+      field.style.border = 'none';
       field.style.outline = 'none';
     } else {
-      field.style.border = valid ? '2px solid #3CFF00' : '2px solid #FF0000';
+      field.style.border = valid ? '1px solid #3CFF00' : '2px solid #FF0000';
       field.style.outline = 'none';
     }
   }
@@ -53,12 +53,12 @@ function validateForm(form) {
   });
   return ok;
 }
+
 function wireValidation(form) {
+  if (!form) return;
   form.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('input', () => validateField('input'));
-    input.addEventListener('focus', () => {
-      input.style.border = '2px solid #b84269';
-    });
+    input.addEventListener('input', () => validateField(input));
+    input.addEventListener('focus', () => validateField(input));
     input.addEventListener('blur', () => validateField(input));
   });
 }
