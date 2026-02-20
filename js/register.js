@@ -35,7 +35,7 @@ async function registerUser(userDetails) {
 
     setTimeout(() => {
       window.location.href = '/login.html';
-    }, 500);
+    }, 300);
   } catch (error) {
     console.log('Register exception:', error);
     showMessage('Network error. Try again.');

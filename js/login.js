@@ -33,11 +33,14 @@ function validateField(field) {
   // Styling
   if (field === document.activeElement) {
     field.style.border = '2px solid #b84269';
+    field.style.outline = 'none';
   } else {
     if (value.length === 0) {
       field.style.border = '1px solid #b84269';
+      field.style.outline = 'none';
     } else {
       field.style.border = valid ? '2px solid #3CFF00' : '2px solid #FF0000';
+      field.style.outline = 'none';
     }
   }
   return valid;
@@ -126,4 +129,5 @@ function onLoginFormSubmit(event) {
   loginUser(formFields);
 }
 
+wireValidation(loginForm);
 loginForm?.addEventListener('submit', onLoginFormSubmit);
