@@ -1,4 +1,4 @@
-import { addToLocalStorage } from './utils.js';
+import { addToLocalStorage, getFromLocalStorage } from './utils.js';
 
 // DOM
 const loginForm = document.querySelector('#login-form');
@@ -7,8 +7,6 @@ const messageBox = document.querySelector('#message');
 //  API
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const AUTH_LOGIN_URL = `${BASE_API_URL}/auth/login`;
-
-// Teacher requirement: include API key in login/register
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
 // UI helper
@@ -16,6 +14,19 @@ function showMessage(text) {
   if (messageBox) messageBox.textContent = text;
 }
 
+// Validation
+function validateField(field) {
+  const value = field.value.trim();
+  let valid = true;
+
+  if (field.required && !value) valid = false;
+  if (valid && field.type === 'email') {
+    valid = /^[\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+  if (field === document.activeElement) {
+    field.style.border = '2px solid #b84269';
+  }
+}
 // Main login
 async function loginUser(userDetails) {
   try {
