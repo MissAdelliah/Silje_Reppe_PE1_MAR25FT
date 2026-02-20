@@ -20,15 +20,17 @@ function validateField(field) {
   let valid = true;
 
   if (field.required && !value) valid = false;
+
+  //Email
   if (valid && field.type === 'email') {
-    valid = /^[\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
   // Password min lenght
-  if (valid && field.type === 'password' && field.minLenght > 0) {
-    valid = value.lenght >= field.minLenght;
+  if (valid && field.type === 'password' && field.minLength > 0) {
+    valid = value.length >= field.minLength;
   }
-
+  // Styling
   if (field === document.activeElement) {
     field.style.border = '2px solid #b84269';
   } else {
@@ -43,13 +45,13 @@ function validateField(field) {
 
 function validateForm(form) {
   let ok = true;
-  from.querySelectorAll('input').forEach((input) => {
+  form.querySelectorAll('input').forEach((input) => {
     if (!validateField(input)) ok = false;
   });
   return ok;
 }
 function wireValidation(form) {
-  from.querySelectorAll('input').forEach((input) => {
+  form.querySelectorAll('input').forEach((input) => {
     input.addEventListener('input', () => validateField('input'));
     input.addEventListener('focus', () => {
       input.style.border = '2px solid #b84269';
