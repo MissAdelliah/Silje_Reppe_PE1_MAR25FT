@@ -758,10 +758,10 @@ body {
 .create__input,
 .create__textarea {
   width: 100%;
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--pink-100);
   border-radius: 12px;
   padding: 12px;
-  background: var(--bg);
+  background: var(--pink-100);
 }
 
 .create__textarea {
