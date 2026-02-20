@@ -23,8 +23,17 @@ function validateField(field) {
   if (valid && field.type === 'email') {
     valid = /^[\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
+
+  // Password min lenght
+  if()
   if (field === document.activeElement) {
     field.style.border = '2px solid #b84269';
+
+  } else {
+    if (value.length === 0) {
+      {
+      field.style.border = valid ? '2px solid #3CFF00' : '2px solid #FF0000';
+    }
   }
 }
 // Main login
