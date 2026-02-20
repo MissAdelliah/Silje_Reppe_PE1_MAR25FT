@@ -25,18 +25,40 @@ function validateField(field) {
   }
 
   // Password min lenght
-  if()
+  if (valid && field.type === 'password' && field.minLenght > 0) {
+    valid = value.lenght >= field.minLenght;
+  }
+
   if (field === document.activeElement) {
     field.style.border = '2px solid #b84269';
-
   } else {
     if (value.length === 0) {
-      {
+      field.style.border = '1px solid #b84269';
+    } else {
       field.style.border = valid ? '2px solid #3CFF00' : '2px solid #FF0000';
     }
   }
+  return valid;
 }
-// Main login
+
+function validateForm(form) {
+  let ok = true;
+  from.querySelectorAll('input').forEach((input) => {
+    if (!validateField(input)) ok = false;
+  });
+  return ok;
+}
+function wireValidation(form) {
+  from.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('input', () => validateField('input'));
+    input.addEventListener('focus', () => {
+      input.style.border = '2px solid #b84269';
+    });
+    input.addEventListener('blur', () => validateField(input));
+  });
+}
+
+// Auth
 async function loginUser(userDetails) {
   try {
     showMessage('Logging in…');
@@ -59,16 +81,16 @@ async function loginUser(userDetails) {
     }
 
     const accessToken = json?.data?.accessToken;
-    if (!accessToken) {
+    const profileName = json?.data?.name;
+
+    if (!accessToken || !profileName) {
       showMessage('Login succeeded but accessToken was missing.');
       console.log('Missing accessToken:', json);
       return;
     }
 
     addToLocalStorage('accessToken', accessToken);
-
-    const profileName = json?.data?.name;
-    if (profileName) addToLocalStorage('profileName', profileName);
+    addToLocalStorage('profileName', profileName);
 
     showMessage('Success! Redirecting…');
 
@@ -76,6 +98,7 @@ async function loginUser(userDetails) {
       window.location.href = '../index.html';
     }, 300);
   } catch (error) {
+    hideLoader();
     showMessage('Network error. Try again.');
   }
 }
@@ -83,10 +106,19 @@ async function loginUser(userDetails) {
 //Submit handler
 function onLoginFormSubmit(event) {
   event.preventDefault();
+  if (!loginForm) return;
+
+  // validate holt
+  const ok = validateForm(loginForm);
+  if (!ok) {
+    showMessage('Please fill in higlighted fields.');
+    return;
+  }
 
   const formData = new FormData(event.target);
   const formFields = Object.fromEntries(formData);
 
+  //clean
   if (formFields.email) formFields.email = formFields.email.trim();
 
   loginUser(formFields);
