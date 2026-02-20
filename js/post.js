@@ -16,12 +16,12 @@ const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 //DOM
 
 const titleEl = document.getElementById('post-title');
-const authorEl = document.getElementById('post-author');
-const dateEl = document.getElementById('post-date');
 const bannerWrapEl = document.getElementById('post-banner-wrap');
 const bannerEl = document.getElementById('post-banner');
 const bodyEl = document.getElementById('post-body');
 const messageEl = document.getElementById('message');
+const dateEl = document.getElementById('post-date');
+const authorEl = document.getElementById('post-author');
 const shareBtn = document.getElementById('share-btn');
 
 function showMessage(text) {
@@ -74,7 +74,7 @@ function renderPost(post) {
   }
   bodyEl.textContent = post.body || '';
 
-  const shareUrl = `${window.location.origin}post/index.html?id=${post.id}`;
+  const shareUrl = `${window.location.origin}/post/index.html?id=${post.id}`;
   //Sharable url
   shareBtn?.addEventListener('click', async () => {
     try {

@@ -1,11 +1,11 @@
 import { getFromLocalStorage, addToLocalStorage } from './utils.js';
 
 // DOM
-const form = document.getElementById('create-form'); // form used to publish
-const messageBox = document.getElementById('message'); // shows feedback
-const mediaUrlInput = document.getElementById('mediaUrl'); // user pastes image URL
-const mediaPreview = document.getElementById('media-preview'); // preview image
-const draftBtn = document.getElementById('draft-btn'); // saves draft
+const form = document.getElementById('create-form');
+const messageBox = document.getElementById('message');
+const mediaUrlInput = document.getElementById('mediaUrl');
+const mediaPreview = document.getElementById('media-preview');
+const draftBtn = document.getElementById('draft-btn');
 
 // DOM: profile card elements
 const profileAvatarEl = document.getElementById('create-profile-avatar');
@@ -18,8 +18,8 @@ const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
 //  Auth from localStorage
-const accessToken = getFromLocalStorage('accessToken'); // proves login
-const profileName = getFromLocalStorage('profileName'); // used in endpoint /blog/posts/<name>
+const accessToken = getFromLocalStorage('accessToken');
+const profileName = getFromLocalStorage('profileName');
 
 // Draft key
 const DRAFT_KEY = 'createPostDraft';
@@ -37,7 +37,6 @@ function requireLogin() {
   }
 }
 
-// mmm
 function parseTags(tagsString) {
   if (!tagsString) return [];
   return tagsString
@@ -87,7 +86,7 @@ function renderProfileCard() {
   profileAvatarEl.src = avatarUrl || 'https://placehold.co/120x120?text=User';
 }
 
-// if avatar link is broken
+// if link is broken
 profileAvatarEl?.addEventListener('error', () => {
   profileAvatarEl.src = 'https://placehold.co/120x120?text=User';
 });

@@ -22,11 +22,28 @@
         </button>
       </nav>
     </header>
-    <main class="post-page">
+    <main class="create">
+      <section class="create__profile-postcard" aria-label="Profile view">
+        <div class="box__profile-avatar">
+          <img class="create__profile-avatar" id="create-profile-avatar" src="https://placehold.co/120x120?text=User">
+        </div>
+        <div class="create__profile-text">
+          <p class="create__profile-name" id="create-profile-name">MALENE ERIKSEN</p>
+            <p class="create__profile-subtitle" id="create-profile-subtitle">FITNESS INFLUENCER</p>
+        <div class="readers__container">
+          <div class="container-count">45</div>
+          <div class="container-count">25k</div>
+          <div class="container-count">106</div>
+          <div class="container-text">Post</div>
+          <div class="container-text">Readers</div>
+          <div class="container-text">Read posts</div>
+        </div>
+        </div>
+      </section>
+    <section class="post-page">
       <article class="post" aria-label="polite">
         <header class="post__header">
           <div class="post__meta">
-            <p class= "post__author" id="post-author"> </p>
             <figure class="post__banner" id="post-banner-wrap">
               <img class="post__banner-img" id="post-banner" alr="">
             </figure>
@@ -35,14 +52,15 @@
             <h2 class="post__title" id=post-title>
             </h2>
             <div class="post__content" id="post-body"></div>
-              <p class="message" id="message"></p>
+            <p class="message" id="message"></p>
+            <p class= "post__author" id="post-author"> </p>
             <time class="post__date" id="post-date"></time>
             <button class="post__share" id="share-btn" aria-label="Share post"></button>
           </div>
       </article>
-      
+  </section>
             
-      <!-- MOBILE BOTTOM NAV (logged-in footer) -->
+    
     <nav class="mobile-nav" aria-label="Mobile navigation">
       <a class="mobile-nav__item" href="../index.html" aria-label="Home">
         <img
@@ -59,7 +77,7 @@
         />
       </a>
 
-      <!-- Create is active/current here -->
+    
       <a class="mobile-nav__item" href="post/create.html" aria-label="Create">
         <img
           class="mobile-nav__icon"
