@@ -14,7 +14,6 @@ export function removeFromLocalStorage(key) {
 }
 
 //password visability toggle (reusable)
-
 export function initPasswordToggle({
   inputSelector,
   toggleSelector,

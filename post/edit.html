@@ -25,7 +25,6 @@
     </header>
 
     <main class="create">
-      <!-- Profile summary (reuse create page design) -->
       <section class="create__profile-card" aria-label="Profile summary">
         <div class="box__profile-avatar">
           <img
@@ -45,11 +44,9 @@
         </div>
       </section>
 
-      <!-- Edit form (same layout/classes as create page) -->
       <section class="create__post" aria-label="Edit post">
         <div class="create__card">
           <form class="create__form" id="edit-form">
-            <!-- Image -->
             <div class="create__media">
               <img
                 class="create__media-preview"
@@ -68,8 +65,6 @@
               placeholder="Paste image URL…"
               autocomplete="off"
             />
-
-            <!-- Title -->
             <label class="create__label" for="title"></label>
             <input
               class="create__input create__input--title"
@@ -80,8 +75,6 @@
               required
               maxlength="45"
             />
-
-            <!-- Body -->
             <label class="create__label" for="body"></label>
             <textarea
               class="create__textarea"
@@ -92,8 +85,6 @@
               rows="20"
               maxlength="2500"
             ></textarea>
-
-            <!-- Tags -->
             <label class="create__label" for="tags"></label>
             <input
               class="create__input"
@@ -106,8 +97,6 @@
             />
           </form>
         </div>
-
-        <!-- Planned time (UI only) -->
         <div class="create__planned">
           <p class="create__planned-title">PLANNED POST TIME</p>
           <div class="create__planned-grid">
@@ -127,8 +116,6 @@
             />
           </div>
         </div>
-
-        <!-- Buttons -->
         <div class="create__actions">
           <button
             class="btn btn--secondary create__btn"
@@ -154,7 +141,6 @@
       </section>
     </main>
 
-    <!-- Mobile nav (fix paths for /post/* pages) -->
     <nav class="mobile-nav" aria-label="Mobile navigation">
       <a class="mobile-nav__item" href="../index.html" aria-label="Home">
         <img
@@ -172,7 +158,7 @@
         />
       </a>
 
-      <a class="mobile-nav__item" href="./create.html" aria-label="Create">
+      <a class="mobile-nav__item" href="/create.html" aria-label="Create">
         <img
           class="mobile-nav__icon"
           src="../icons/create.png"
