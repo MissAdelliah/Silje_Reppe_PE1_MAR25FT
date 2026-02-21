@@ -1134,3 +1134,31 @@ body {
     padding: 0 30px;
   }
 }
+
+@media (min-width: 1200px) {
+  .post-list {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    padding: 24px;
+    max-width: 1475px;
+    margin: 0 auto;
+  }
+}
+.post-card__media {
+  position: relative;
+  overflow: hidden;
+}
+
+.post-card__img {
+  .post-list {
+    column-count: 4;
+  }
+
+  .post-card__overlay-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+  }
+}
