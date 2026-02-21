@@ -258,8 +258,6 @@ function renderFilteredPostList() {
   renderPostList(filteredSorted);
 }
 
-/***** Startup *****/
-
 async function init() {
   try {
     renderStatus('Loading posts…');
