@@ -666,6 +666,13 @@ body {
   font-weight: var(--fw-medium);
 }
 
+.forgot__text {
+  display: flex;
+  justify-content: end;
+  font-size: var(--fs-body-mobile);
+  color: var(--gray-400);
+}
+
 .continue__text {
   display: flex;
   justify-content: center;
