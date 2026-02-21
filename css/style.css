@@ -573,7 +573,7 @@ body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 140px;
+  gap: 135px;
 }
 /* White transparent bar */
 .post-card__overlay-bar {
@@ -583,7 +583,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 10px 25px;
+  padding: 10px 10px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(2px);
   gap: 10px;
@@ -1030,4 +1030,11 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--ink);
+}
+
+/* desktop*/
+@media (min-width: 900px) {
+  .post-card__meta {
+    gap: 165px;
+  }
 }
