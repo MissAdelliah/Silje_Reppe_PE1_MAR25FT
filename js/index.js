@@ -95,11 +95,9 @@ function buildTagNav(posts) {
     btn.textContent = label;
     btn.dataset.tag = value;
 
-    // Set active class based on activeTag
     if (value === activeTag) btn.classList.add('filter-btn--active');
 
     btn.addEventListener('click', () => {
-      // Update activeTag
       activeTag = btn.dataset.tag || '';
 
       tagNavEl.querySelectorAll('.filter-btn').forEach((b) => {
@@ -107,20 +105,17 @@ function buildTagNav(posts) {
       });
       btn.classList.add('filter-btn--active');
 
-      // Re-render the grid
       renderFilteredPostList();
     });
 
     tagNavEl.appendChild(btn);
   }
 
-  // Default active = "All"
   if (activeTag === null || activeTag === undefined) activeTag = '';
   addTagButton('All', '');
 
   tags.forEach((tag) => addTagButton(tag, tag));
 
-  // If nothing active yet, ensure "All" is active
   if (!tagNavEl.querySelector('.filter-btn--active')) {
     const first = tagNavEl.querySelector('.filter-btn');
     first?.classList.add('filter-btn--active');
@@ -266,8 +261,7 @@ async function init() {
     carouselPosts = sorted.slice(0, 3);
     carouselIndex = 0;
 
-    // Build tag buttons from ALL posts, then render filtered list
-    activeTag = ''; // default "All"
+    activeTag = '';
     buildTagNav(allPosts);
 
     renderCarouselSlide();

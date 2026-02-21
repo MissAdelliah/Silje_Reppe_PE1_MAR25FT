@@ -17,14 +17,10 @@ const profileStatsEl = document.getElementById('create-profile-stats');
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-//  Auth from localStorage
 const accessToken = getFromLocalStorage('accessToken');
 const profileName = getFromLocalStorage('profileName');
-
-// Draft key
 const DRAFT_KEY = 'createPostDraft';
 
-// Helper: show message
 function showMessage(text) {
   if (!messageBox) return;
   messageBox.textContent = text;
@@ -66,15 +62,13 @@ mediaPreview?.addEventListener('error', () => {
 function renderProfileCard() {
   if (!profileNameEl || !profileAvatarEl) return;
 
-  const displayName = getFromLocalStorage('displayName'); // optional
-  const avatarUrl = getFromLocalStorage('avatarUrl'); // optional
+  const displayName = getFromLocalStorage('displayName');
+  const avatarUrl = getFromLocalStorage('avatarUrl');
 
   const safeName = (displayName || profileName || 'User').toString();
   profileNameEl.textContent = safeName.toUpperCase();
 
   // BIO (instead of niche/type)
-  // Try to get a saved bio from localStorage
-  // If none exists, show a default
   const bio = getFromLocalStorage('profileBio');
 
   if (profileSubtitleEl) {
@@ -91,7 +85,6 @@ profileAvatarEl?.addEventListener('error', () => {
   profileAvatarEl.src = 'https://placehold.co/120x120?text=User';
 });
 
-// Load draft from localStorage and fill the form
 function loadDraft() {
   const draftString = getFromLocalStorage(DRAFT_KEY);
   if (!draftString) return;
@@ -167,7 +160,6 @@ async function publishPost() {
       return;
     }
 
-    // Clean up draft after publish
     localStorage.removeItem(DRAFT_KEY);
 
     showMessage('Published! Redirecting…');
@@ -178,19 +170,14 @@ async function publishPost() {
   }
 }
 
-/***** EVENTS****/
-
-// Live preview when user types/pastes URL
 mediaUrlInput?.addEventListener('input', (event) => {
   updateMediaPreview(event.target.value);
 });
 
-// Draft button saves local draft
 draftBtn?.addEventListener('click', () => {
   saveDraft();
 });
 
-// Submit form = publish
 form?.addEventListener('submit', (event) => {
   event.preventDefault();
   publishPost();

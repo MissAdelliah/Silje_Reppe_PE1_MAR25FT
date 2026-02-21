@@ -1,5 +1,3 @@
-/****** GLOBAL RESET + TOKENS *****/
-
 * {
   font-family: 'Inter', sans-serif, Tahoma, Geneva, Verdana;
   box-sizing: border-box;
@@ -59,7 +57,7 @@ body {
 }
 
 .page--pink {
-  background: var(--pink-500);
+  background: var(--pink-100);
 }
 
 .page--white {
@@ -72,6 +70,7 @@ body {
   background-color: var(--pink-100);
   display: flex;
   align-items: center;
+  min-width: 375px;
   justify-content: space-between;
   padding: 8px 12px;
   max-height: 100px;
@@ -94,21 +93,13 @@ body {
   background-color: var(--pink-100);
   color: var(--ink);
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
 }
-
-.nav__hamburger-line {
-  width: 20px;
-  height: 2px;
-  background-color: var(--ink);
-  border-radius: 999px;
-  display: block;
-}
-
-.nav__hamburger-line + .nav__hamburger-line {
-  margin-top: 5px;
+.nav__button--hamburger img {
+  height: 24px;
+  width: 24px;
 }
 
 .btn {
@@ -131,10 +122,11 @@ body {
   font-style: italic;
 }
 
-.btn--secondary:focus {
+.btn--actionsecondary {
   background-color: var(--pink-500);
   color: var(--bg);
   font-style: italic;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .mobile-nav {
@@ -580,7 +572,7 @@ body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 140px;
+  gap: 135px;
 }
 /* White transparent bar */
 .post-card__overlay-bar {
@@ -590,7 +582,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 10px 25px;
+  padding: 10px 10px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(2px);
   gap: 10px;
@@ -622,9 +614,8 @@ body {
 
 .auth {
   display: grid;
-  max-width: 420px;
+  min-width: 350px;
   margin: 0 auto;
-  padding: 20px 12px;
   gap: 12px;
 }
 
@@ -632,14 +623,15 @@ body {
   display: grid;
   border-radius: 16px;
   padding: 16px;
-  gap: 10px;
-  background: var(--pink-100);
+  gap: 25px;
 }
 
 .auth__title {
   margin: 0;
-  color: var(--pink-500);
-  font-size: 1.1rem;
+  color: var(--ink);
+  font-size: var(--fs-h3-mobile);
+  display: flex;
+  justify-content: center;
 }
 
 .auth__input {
@@ -652,13 +644,90 @@ body {
 
 .auth__actions {
   display: flex;
-  gap: 10px;
+  justify-content: center;
 }
 
 .auth__link {
   color: var(--pink-500);
   text-decoration: none;
   font-size: 0.95rem;
+}
+
+.form__text {
+  font-size: var(--fs-body-mobile);
+  font-weight: var(--fw-medium);
+}
+
+.forgot__text {
+  display: flex;
+  justify-content: end;
+  font-size: var(--fs-body-mobile);
+  color: var(--gray-400);
+}
+
+.continue__text {
+  display: flex;
+  justify-content: center;
+  font-size: var(--fs-body-mobile);
+  color: var(--gray-400);
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.password-label-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.auth__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 45px;
+  border-radius: 16px;
+  border-style: none;
+  background-color: var(--gray-200);
+  font-size: var(--fs-button-mobile);
+  font-weight: var(--fw-medium);
+}
+.auth__btn-text {
+  font-size: var(--fs-button-mobile);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+  white-space: nowrap;
+  padding-left: 10px;
+}
+.form__btn {
+  width: 350px;
+  height: 45px;
+  margin-top: 40px;
+  border-radius: 16px;
+  border-style: none;
+  background-color: var(--pink-500);
+  color: var(--bg);
+  font-size: var(--fs-button-mobile);
+  font-weight: var(--fw-medium);
+  border-radius: 999px;
+  background: var(--pink-500);
+  box-shadow:
+    0 4px 30px 3px rgba(0, 0, 0, 0.25),
+    0 1px 9.8px 1px rgba(0, 0, 0, 0.3) inset;
+}
+
+.directions_pages {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  color: var(--pink-500);
 }
 
 /***** CREATE PAGE *****/
@@ -783,7 +852,7 @@ body {
 .create__planned-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 30px;
 }
 
 .create__planned-pill {
@@ -803,8 +872,8 @@ body {
 .create__actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 25px;
+  margin-top: 25px;
   margin-left: 38px;
   margin-right: 38px;
   margin-bottom: 20px;
@@ -852,6 +921,11 @@ body {
   text-decoration: none;
 }
 
+.footer__icons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /**** SPES POST PAGE ****/
 .create__profile-postcard {
   display: flex;
@@ -888,6 +962,7 @@ body {
 .post-page {
   width: 100%;
   padding: 16px 12px 30px;
+  background-color: var(--pink-100);
 }
 
 .post {
@@ -955,4 +1030,11 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--ink);
+}
+
+/* desktop*/
+@media (min-width: 900px) {
+  .post-card__meta {
+    gap: 165px;
+  }
 }

@@ -1,10 +1,20 @@
+import { initPasswordToggle } from './utils.js';
+
 const registerForm = document.querySelector('#register-form');
 const messageBox = document.querySelector('#message');
 
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const AUTH_REGISTER_URL = `${BASE_API_URL}/auth/register`;
-
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
+
+// Hide / shows password
+initPasswordToggle({
+  inputSelector: 'input[name="password"]',
+  toggleSelector: '.password-toggle',
+  iconSelector: '.password-icon',
+  openIcon: '../icons/openeye.png',
+  closedIcon: '../icons/closedeye.png',
+});
 
 function showMessage(text) {
   if (messageBox) messageBox.textContent = text;

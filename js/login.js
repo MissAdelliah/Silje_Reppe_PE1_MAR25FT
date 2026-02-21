@@ -1,4 +1,8 @@
-import { addToLocalStorage, getFromLocalStorage } from './utils.js';
+import {
+  addToLocalStorage,
+  getFromLocalStorage,
+  initPasswordToggle,
+} from './utils.js';
 
 // DOM
 const loginForm = document.querySelector('#login-form');
@@ -8,6 +12,15 @@ const messageBox = document.querySelector('#message');
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const AUTH_LOGIN_URL = `${BASE_API_URL}/auth/login`;
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
+
+// Hide / shows password
+initPasswordToggle({
+  inputSelector: 'input[name="password"]',
+  toggleSelector: '.password-toggle',
+  iconSelector: '.password-icon',
+  openIcon: '../icons/openeye.png',
+  closedIcon: '../icons/closedeye.png',
+});
 
 // UI helper
 function showMessage(text) {

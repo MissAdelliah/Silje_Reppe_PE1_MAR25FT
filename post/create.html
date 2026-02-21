@@ -8,17 +8,17 @@
     <script type="module" src="../js/create.js" defer></script>
   </head>
   <body class="page--white">
-    <header>
+      <header>
       <nav class="nav" aria-label="Main navigation">
         <a class="nav__brand" href="../index.html">
           <img
-          class="nav__logo"
-          src="../logo/logo.png"
-          alt="Brand The Archive logo"
+            class="nav__logo"
+            src="../logo/logo.png"
+            alt="Brand The Archive logo"
           />
         </a>
-        <button class="nav__button--hamburger" type="button" aria-label="Menu">
-          ☰
+          <button class="nav__button--hamburger" type="button" aria-label="Menu">
+          <img src="../icons/menu.png" alt="" aria-hidden="true"/>
         </button>
       </nav>
     </header>
@@ -34,7 +34,6 @@
         </div>
         
         <div class="create__profile-text">
-          <!-- based on the logged-in user -->
           <p class="create__profile-name" id="create-profile-name">Loading…</p>
           <p class="create__profile-subtitle" id="create-profile-subtitle"></p>
           <p class="create__profile-stats" id="create-profile-stats">
@@ -42,14 +41,10 @@
           </p>
         </div>
       </section>
-      
-      <!-- CREATE POST -->
       <section class="create__post" aria-label="Create a new post">
         <div class="create__card">
         <form class="create__form" id="create-form">
-          <!-- Image area -->
           <div class="create__media">
-            <!--JS swaps src when user pastes a URL -->
             <img
             class="create__media-preview"
             id="media-preview"
@@ -66,8 +61,6 @@
           placeholder="Paste image URL…"
           autocomplete="off"
           />
-          
-          <!-- Title -->
           <label class="create__label" for="title"></label>
           <input
           class="create__input create__input--title"
@@ -78,8 +71,6 @@
           required
           maxlength="45"
           />
-          
-          <!-- Body -->
           <label class="create__label" for="body"></label>
           <textarea
           class="create__textarea"
@@ -91,8 +82,6 @@
           required
           maxlength="2500"
           ></textarea>
-          
-          <!-- Tags (optional but useful for your filter chips later) -->
           <label class="create__label" for="tags"></label>
           <input
           class="create__input"
@@ -105,7 +94,6 @@
           maxlength="20"
           />
           </div>
-          <!-- Planned time -->
           <div class="create__planned">
             <p class="create__planned-title">PLANNED POST TIME</p>
             
@@ -126,7 +114,6 @@
             </div>
           </div>
 
-          <!-- Buttons -->
           <div class="create__actions">
             <button
               class="btn btn--secondary create__btn"
@@ -136,18 +123,17 @@
               Draft
             </button>
 
-            <button class="btn btn--secondary create__btn" type="submit">
+            <button class="btn btn--actionsecondary create__btn" type="submit">
               Publish
             </button>
           </div>
 
-          <!-- Message area (same pattern as login/register) -->
+  
           <p class="create__message" id="message"></p>
         </form>
       </section>
     </main>
 
-    <!-- MOBILE BOTTOM NAV (logged-in footer) -->
     <nav class="mobile-nav" aria-label="Mobile navigation">
       <a class="mobile-nav__item" href="../index.html" aria-label="Home">
         <img
@@ -164,8 +150,7 @@
         />
       </a>
 
-      <!-- Create is active/current here -->
-      <a class="mobile-nav__item" href="post/create.html" aria-label="Create">
+      <a class="mobile-nav__item" href="./create.html" aria-label="Create">
         <img
           class="mobile-nav__icon"
           src="../icons/create.png"

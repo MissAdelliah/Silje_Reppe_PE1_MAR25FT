@@ -8,7 +8,7 @@
     <script type="module" src="../js/login.js" defer></script>
   </head>
 
-  <body>
+  <body class="page--pink">
     <header>
       <nav class="nav" aria-label="Main navigation">
         <a class="nav__brand" href="../index.html">
@@ -19,7 +19,7 @@
           />
         </a>
         <button class="nav__button--hamburger" type="button" aria-label="Menu">
-          ☰
+          <img src="../icons/x.png" />
         </button>
       </nav>
     </header>
@@ -29,6 +29,7 @@
         <h1 class="auth__title">Log in</h1>
 
         <form id="login-form" class="auth__form">
+          <p class="form__text">Your email</p>
           <input
             class="auth__input"
             type="email"
@@ -36,6 +37,20 @@
             placeholder="Email"
             required
           />
+          <div class="password-label-row">
+            <p class="form__text">Password</p>
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="show password"
+            >
+              <img
+                class="password-icon"
+                src="../icons/closedeye.png"
+                alt="Toggle password visability"
+              />
+            </button>
+          </div>
           <input
             class="auth__input"
             type="password"
@@ -44,18 +59,32 @@
             required
             minlength="8"
           />
-
+          <p class="forgot__text">Forgot ?</p>
+          <p class="continue__text">or continue with</p>
           <div class="auth__actions">
-            <button class="btn btn--primary" type="submit">Login</button>
-            <a class="btn btn--pink" href="./register.html">Register</a>
+            <button class="auth__btn auth__btn--google" type="button">
+              <img
+                class="google-icon"
+                src="../icons/google.png"
+                alt="Goodle logo"
+                aria-hidden="true"
+              />
+              <span class="auth__btn-text">Log in with Google</span>
+            </button>
           </div>
-
+          <div class="auth__actions">
+            <button class="form__btn" type="submit">Log in</button>
+          </div>
+          <div>
+            <a class="directions_pages" href="./register.html"
+              >Create new account</a
+            >
+          </div>
           <p class="message" id="message"></p>
         </form>
       </section>
     </main>
 
-    <!-- Logged-out bottom footer can be different later (keeping empty for exam simplicity) -->
     <footer class="footer">
       <div class="footer__middle">
         <a class="nav__brand" href="#/">
@@ -68,7 +97,11 @@
         <p>Terms & conditions</p>
         <p>Contact us</p>
         <p>Archivesupport@gmail.com</p>
-        <p>Placeholder for SoMe icons</p>
+        <div class="footer__icons">
+          <img src="../icons/insta.png" alt="Instagram" />
+          <img src="../icons/tiktok.png" alt="Instagram" />
+          <img src="../icons/facebook.png" alt="Instagram" />
+        </div>
         <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
       </div>
     </footer>
