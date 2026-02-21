@@ -72,6 +72,7 @@ body {
   background-color: var(--pink-100);
   display: flex;
   align-items: center;
+  min-width: 375px;
   justify-content: space-between;
   padding: 8px 12px;
   max-height: 100px;
@@ -94,21 +95,13 @@ body {
   background-color: var(--pink-100);
   color: var(--ink);
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
 }
-
-.nav__hamburger-line {
-  width: 20px;
-  height: 2px;
-  background-color: var(--ink);
-  border-radius: 999px;
-  display: block;
-}
-
-.nav__hamburger-line + .nav__hamburger-line {
-  margin-top: 5px;
+.nav__button--hamburger img {
+  height: 24px;
+  width: 24px;
 }
 
 .btn {
@@ -696,6 +689,9 @@ body {
 }
 
 .auth__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 350px;
   height: 45px;
   border-radius: 16px;
@@ -704,7 +700,13 @@ body {
   font-size: var(--fs-button-mobile);
   font-weight: var(--fw-medium);
 }
-
+.auth__btn-text {
+  font-size: var(--fs-button-mobile);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+  white-space: nowrap;
+  padding-left: 10px;
+}
 .form__btn {
   width: 350px;
   height: 45px;
@@ -918,6 +920,11 @@ body {
 .footer__link {
   color: var(--pink-500);
   text-decoration: none;
+}
+
+.footer__icons {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /**** SPES POST PAGE ****/

@@ -20,7 +20,7 @@ export function initPasswordToggle({
   toggleSelector,
   iconSelector,
   openIcon,
-  ClosedIcon,
+  closedIcon,
 }) {
   const input = document.querySelector(inputSelector);
   const toggle = document.querySelector(toggleSelector);

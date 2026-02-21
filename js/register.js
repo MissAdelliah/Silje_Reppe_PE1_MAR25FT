@@ -13,7 +13,7 @@ initPasswordToggle({
   toggleSelector: '.password-toggle',
   iconSelector: '.password-icon',
   openIcon: '../icons/openeye.png',
-  ClosedIcon: '../icons/closedeye.png',
+  closedIcon: '../icons/closedeye.png',
 });
 
 function showMessage(text) {
