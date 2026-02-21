@@ -11,7 +11,6 @@ const isLoggedOut = !isLoggedIn;
 
 console.log('Logged in:', isLoggedIn);
 console.log('Logged out:', isLoggedOut);
-/**** DOM ****/
 
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
@@ -75,8 +74,6 @@ async function fetchPosts() {
   return json?.data || [];
 }
 
-/***** TAG FILTER NAV ****/
-
 function buildTagNav(posts) {
   if (!tagNavEl) return;
 
@@ -134,8 +131,6 @@ function getFilteredPostsSorted() {
 
   return sorted.filter((post) => (post?.tags || []).includes(activeTag));
 }
-
-/***** CAROUSEL *****/
 
 function renderCarouselSlide() {
   if (!carouselEl) return;
@@ -206,8 +201,6 @@ function goPrev() {
     (carouselIndex - 1 + carouselPosts.length) % carouselPosts.length;
   renderCarouselSlide();
 }
-
-/****** POST LIST ******/
 
 function renderPostList(posts) {
   if (!postListEl) return;
