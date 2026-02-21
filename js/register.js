@@ -9,7 +9,56 @@ const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 function showMessage(text) {
   if (messageBox) messageBox.textContent = text;
 }
+// Validation
+function validateField(field) {
+  const value = field.value.trim();
+  let valid = true;
 
+  if (field.required && !value) valid = false;
+
+  //Email
+  if (valid && field.type === 'email') {
+    valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  // Password min lenght
+  if (valid && field.type === 'password' && field.minLength > 0) {
+    valid = value.length >= field.minLength;
+  }
+  // Styling
+  if (field === document.activeElement) {
+    field.style.border = '2px solid #b84269';
+    field.style.outline = 'none';
+  } else {
+    if (value.length === 0) {
+      field.style.border = 'none';
+      field.style.outline = 'none';
+    } else {
+      field.style.border = valid ? '1px solid #3CFF00' : '2px solid #FF0000';
+      field.style.outline = 'none';
+    }
+  }
+  return valid;
+}
+
+function validateForm(form) {
+  let ok = true;
+  form.querySelectorAll('input').forEach((input) => {
+    if (!validateField(input)) ok = false;
+  });
+  return ok;
+}
+
+function wireValidation(form) {
+  if (!form) return;
+  form.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('input', () => validateField(input));
+    input.addEventListener('focus', () => validateField(input));
+    input.addEventListener('blur', () => validateField(input));
+  });
+}
+
+// Register
 async function registerUser(userDetails) {
   try {
     showMessage('Creating account...');
@@ -44,7 +93,11 @@ async function registerUser(userDetails) {
 
 function onRegisterFormSubmit(event) {
   event.preventDefault();
-
+  if (!registerForm) return;
+  const ok = validateForm(registerForm);
+  if (!ok) {
+    showMessage('Please fill in higlighted fields.');
+  }
   const formData = new FormData(event.target);
   const formFields = Object.fromEntries(formData);
 
@@ -59,4 +112,5 @@ function onRegisterFormSubmit(event) {
   registerUser(formFields);
 }
 
+wireValidation(registerForm);
 registerForm?.addEventListener('submit', onRegisterFormSubmit);
