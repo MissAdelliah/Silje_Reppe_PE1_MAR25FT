@@ -682,6 +682,19 @@ body {
   margin-bottom: 30px;
 }
 
+.password-label-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .auth__btn {
   width: 350px;
   height: 45px;

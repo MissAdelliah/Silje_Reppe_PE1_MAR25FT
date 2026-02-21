@@ -27,7 +27,6 @@
     <main class="auth">
       <section class="auth__card" aria-label="Register form">
         <h1 class="auth__title">Create account</h1>
-
         <form id="register-form">
           <p class="form__text">Name blog account</p>
           <input
@@ -45,7 +44,16 @@
             placeholder="Email"
             required
           />
-          <p class="form__text">Create password</p>
+          <div class="password-label-row">
+            <p class="form__text">Create password</p>
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="show password"
+            >
+              <img src="/icons/closedeye.png" />
+            </button>
+          </div>
           <input
             class="auth__input"
             type="password"
