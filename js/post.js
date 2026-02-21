@@ -44,7 +44,6 @@ function formatDate(isoString) {
 async function fetchPost(id) {
   //GET /blog/post/<name>/<id>
   const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}/${id}`;
-
   const res = await fetch(url, {
     headers: {
       'X-Noroff-API-Key': NOROFF_API_KEY,
@@ -75,7 +74,8 @@ function renderPost(post) {
   bodyEl.textContent = post.body || '';
 
   const shareUrl = `${window.location.origin}/post/index.html?id=${post.id}`;
-  //Sharable url
+
+  //Sharable url NEED FIX**********************************************************************
   shareBtn?.addEventListener('click', async () => {
     try {
       if (navigator.share) {
@@ -94,7 +94,7 @@ function renderPost(post) {
 }
 
 (async function init() {
-  //Get post id from url
+  //Get post id from url ***********************************************************************
   const id = getIdFromUrl();
   // if no id
   if (!id) {
