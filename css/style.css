@@ -59,7 +59,7 @@ body {
 }
 
 .page--pink {
-  background: var(--pink-500);
+  background: var(--pink-100);
 }
 
 .page--white {
@@ -644,6 +644,8 @@ body {
   margin: 0;
   color: var(--ink);
   font-size: var(--fs-h3-mobile);
+  display: flex;
+  justify-content: center;
 }
 
 .auth__input {

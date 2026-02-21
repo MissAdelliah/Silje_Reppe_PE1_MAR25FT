@@ -8,7 +8,7 @@
     <script type="module" src="../js/register.js" defer></script>
   </head>
 
-  <body>
+  <body class="page--pink">
     <header>
       <nav class="nav" aria-label="Main navigation">
         <a class="nav__brand" href="../index.html">
@@ -29,6 +29,7 @@
         <h1 class="auth__title">Create account</h1>
 
         <form id="register-form">
+          <p class="form__text">Name blog account</p>
           <input
             class="auth__input"
             type="text"
@@ -36,6 +37,7 @@
             placeholder="Username"
             required
           />
+          <p class="form__text">Your email</p>
           <input
             class="auth__input"
             type="email"
@@ -43,6 +45,7 @@
             placeholder="Email"
             required
           />
+          <p class="form__text">Create password</p>
           <input
             class="auth__input"
             type="password"
