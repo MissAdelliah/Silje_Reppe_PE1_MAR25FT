@@ -78,8 +78,6 @@ function setupEditButton(post) {
 
   if (accessToken && profileName && isOwner) {
     editBtn.hidden = false;
-
-    // Prevent multiple listeners if render runs again
     editBtn.replaceWith(editBtn.cloneNode(true));
     const freshBtn = document.getElementById('edit-btn');
 
