@@ -30,7 +30,9 @@ export function initPasswordToggle({
 
   toggle.addEventListener('click', () => {
     const isHidden = input.type === 'password';
+    //hide /show ps
     input.type = isHidden ? 'text' : 'password';
-    icon.src = isHidden ? closedIcon : openIcon;
+    //UI feedback
+    icon.src = isHidden ? openIcon : closedIcon;
   });
 }
