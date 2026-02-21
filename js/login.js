@@ -1,4 +1,8 @@
-import { addToLocalStorage, getFromLocalStorage } from './utils.js';
+import {
+  addToLocalStorage,
+  getFromLocalStorage,
+  initPasswordToggle,
+} from './utils.js';
 
 // DOM
 const loginForm = document.querySelector('#login-form');
