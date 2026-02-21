@@ -1,8 +1,5 @@
 import { getFromLocalStorage } from './utils.js';
 
-/* =========================================================
-   API constants
-   ========================================================= */
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
@@ -10,9 +7,6 @@ const DEFAULT_BLOG_NAME = 'fitwithMalene';
 const storedProfileName = getFromLocalStorage('profileName');
 const BLOG_NAME = storedProfileName || DEFAULT_BLOG_NAME;
 
-/* =========================================================
-   DOM
-   ========================================================= */
 const titleEl = document.getElementById('post-title');
 const bannerWrapEl = document.getElementById('post-banner-wrap');
 const bannerEl = document.getElementById('post-banner');
@@ -24,9 +18,6 @@ const authorEl = document.getElementById('post-author');
 const editBtn = document.getElementById('edit-btn');
 const shareBtn = document.getElementById('share-btn');
 
-/* =========================================================
-   Helpers
-   ========================================================= */
 function showMessage(text) {
   if (messageEl) messageEl.textContent = text;
 }
@@ -53,17 +44,12 @@ function formatDate(isoString) {
 }
 
 function buildShareUrl(postId) {
-  // Works on GitHub Pages + local:
-  // takes current URL and replaces to /post/index.html?id=...
   const url = new URL(window.location.href);
   url.pathname = url.pathname.replace(/\/post\/.*$/, '/post/index.html');
   url.search = `?id=${postId}`;
   return url.toString();
 }
 
-/* =========================================================
-   API
-   ========================================================= */
 async function fetchPost(id) {
   const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}/${id}`;
 
@@ -81,9 +67,6 @@ async function fetchPost(id) {
   return json.data;
 }
 
-/* =========================================================
-   Render
-   ========================================================= */
 function setupEditButton(post) {
   if (!editBtn) return;
 
@@ -111,7 +94,6 @@ function setupShareButton(post) {
 
   const shareUrl = buildShareUrl(post.id);
 
-  // Prevent multiple listeners
   shareBtn.replaceWith(shareBtn.cloneNode(true));
   const freshShare = document.getElementById('share-btn');
 
@@ -155,9 +137,6 @@ function renderPost(post) {
   setupShareButton(post);
 }
 
-/* =========================================================
-   Init
-   ========================================================= */
 (async function init() {
   const id = getIdFromUrl();
 
