@@ -3,11 +3,8 @@ import { getFromLocalStorage } from './utils.js';
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-const DEFAULT_BLOG_NAME = 'fitwithMalene';
-const profileName = getFromLocalStorage('profileName');
-const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
-
-/**** DOM ****/
+const accessToken = getFromLocalStorage('accessToken');
+const BLOG_NAME = getFromLocalStorage('profileName');
 
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
@@ -52,6 +49,18 @@ function sortNewestFirst(posts) {
   });
 }
 
+function isLoggedIn() {
+  return Boolean(accessToken && currentUser === ADMIN_NAME && accessToken);
+}
+
+function canManagePost(post) {
+if (!currentUser || !accessToken) return false;
+if (currentUser === ADMIN_NAME) return true;
+return post?.author?.name === currentUser;
+}
+function getDeletedEndpointName(post){
+  if
+}
 async function fetchPosts() {
   const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 
