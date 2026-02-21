@@ -624,7 +624,6 @@ body {
   display: grid;
   min-width: 350px;
   margin: 0 auto;
-  padding: 20px 12px;
   gap: 12px;
 }
 
@@ -632,7 +631,7 @@ body {
   display: grid;
   border-radius: 16px;
   padding: 16px;
-  gap: 10px;
+  gap: 25px;
 }
 
 .auth__title {
@@ -653,7 +652,7 @@ body {
 
 .auth__actions {
   display: flex;
-  gap: 10px;
+  justify-content: center;
 }
 
 .auth__link {
@@ -668,10 +667,12 @@ body {
 }
 
 .continue__text {
-  font-size: var(--fs-body-mobile);
-  color: var(--gray-400);
   display: flex;
   justify-content: center;
+  font-size: var(--fs-body-mobile);
+  color: var(--gray-400);
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .auth__btn {
@@ -700,11 +701,14 @@ body {
     0 4px 30px 3px rgba(0, 0, 0, 0.25),
     0 1px 9.8px 1px rgba(0, 0, 0, 0.3) inset;
 }
+
 .directions_pages {
   display: flex;
   justify-content: center;
   padding-top: 40px;
+  color: var(--pink-500);
 }
+
 /***** CREATE PAGE *****/
 
 .create {
