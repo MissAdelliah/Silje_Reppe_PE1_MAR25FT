@@ -3,7 +3,12 @@ import { getFromLocalStorage } from './utils.js';
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-const accessToken = getFromLocalStorage('accessToken');
+const DEFAULT_BLOG_NAME = 'fitwithMalene';
+const profileName = getFromLocalStorage('profileName');
+const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
+
+/**** DOM ****/
+
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
 const prevBtn = document.getElementById('carousel-prev');
@@ -47,23 +52,10 @@ function sortNewestFirst(posts) {
   });
 }
 
-function isLoggedIn() {
-  return Boolean(accessToken && BLOG_NAME);
-}
+async function fetchPosts() {
+  const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 
-function isOwner(post) {
-  if (!isLoggedIn()) return false;
-  return post?.author?.name === BLOG_NAME;
-}
-
-async function fetchAllPosts() {
-  const url = `${BASE_API_URL}/blog/posts`;
-  url.searchParams.set('limit', '30');
-  url.searchParams.set('_author', 'true');
-  url.searchParams.set('sort', 'created');
-  url.searchParams.set('sortOrder', 'desc');
-
-  const response = await fetch(url.toString(), {
+  const response = await fetch(url, {
     headers: {
       'X-Noroff-API-Key': NOROFF_API_KEY,
     },
@@ -78,6 +70,8 @@ async function fetchAllPosts() {
 
   return json?.data || [];
 }
+
+/***** TAG FILTER NAV ****/
 
 function buildTagNav(posts) {
   if (!tagNavEl) return;
@@ -101,11 +95,9 @@ function buildTagNav(posts) {
     btn.textContent = label;
     btn.dataset.tag = value;
 
-    // Set active class based on activeTag
     if (value === activeTag) btn.classList.add('filter-btn--active');
 
     btn.addEventListener('click', () => {
-      // Update activeTag
       activeTag = btn.dataset.tag || '';
 
       tagNavEl.querySelectorAll('.filter-btn').forEach((b) => {
@@ -113,20 +105,17 @@ function buildTagNav(posts) {
       });
       btn.classList.add('filter-btn--active');
 
-      // Re-render the grid
       renderFilteredPostList();
     });
 
     tagNavEl.appendChild(btn);
   }
 
-  // Default active = "All"
   if (activeTag === null || activeTag === undefined) activeTag = '';
   addTagButton('All', '');
 
   tags.forEach((tag) => addTagButton(tag, tag));
 
-  // If nothing active yet, ensure "All" is active
   if (!tagNavEl.querySelector('.filter-btn--active')) {
     const first = tagNavEl.querySelector('.filter-btn');
     first?.classList.add('filter-btn--active');
@@ -272,8 +261,7 @@ async function init() {
     carouselPosts = sorted.slice(0, 3);
     carouselIndex = 0;
 
-    // Build tag buttons from ALL posts, then render filtered list
-    activeTag = ''; // default "All"
+    activeTag = '';
     buildTagNav(allPosts);
 
     renderCarouselSlide();
