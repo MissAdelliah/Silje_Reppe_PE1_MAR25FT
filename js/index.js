@@ -4,8 +4,6 @@ const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
 const accessToken = getFromLocalStorage('accessToken');
-const BLOG_NAME = getFromLocalStorage('profileName');
-
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
 const prevBtn = document.getElementById('carousel-prev');
@@ -50,21 +48,22 @@ function sortNewestFirst(posts) {
 }
 
 function isLoggedIn() {
-  return Boolean(accessToken && currentUser === ADMIN_NAME && accessToken);
+  return Boolean(accessToken && BLOG_NAME);
 }
 
-function canManagePost(post) {
-if (!currentUser || !accessToken) return false;
-if (currentUser === ADMIN_NAME) return true;
-return post?.author?.name === currentUser;
+function isOwner(post) {
+  if (!isLoggedIn()) return false;
+  return post?.author?.name === BLOG_NAME;
 }
-function getDeletedEndpointName(post){
-  if
-}
-async function fetchPosts() {
-  const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}`;
 
-  const response = await fetch(url, {
+async function fetchAllPosts() {
+  const url = `${BASE_API_URL}/blog/posts`;
+  url.searchParams.set('limit', '30');
+  url.searchParams.set('_author', 'true');
+  url.searchParams.set('sort', 'created');
+  url.searchParams.set('sortOrder', 'desc');
+
+  const response = await fetch(url.toString(), {
     headers: {
       'X-Noroff-API-Key': NOROFF_API_KEY,
     },
@@ -79,8 +78,6 @@ async function fetchPosts() {
 
   return json?.data || [];
 }
-
-/***** TAG FILTER NAV ****/
 
 function buildTagNav(posts) {
   if (!tagNavEl) return;
