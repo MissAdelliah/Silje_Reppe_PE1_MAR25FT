@@ -54,11 +54,21 @@
             <p class="message" id="message"></p>
             <p class= "post__author" id="post-author"> </p>
             <time class="post__date" id="post-date"></time>
-            <button class="post__share" id="share-btn" aria-label="Share post"></button>
           </div>
       </article>
-  </section>
-            
+    </section>
+    <div class="create__actions">
+        <button class="btn btn--actionsecondary create__btn" type="submit">
+              Edit post
+            </button>
+         <button
+           class="btn btn--secondary create__btn"
+           id="draft-btn"
+           type="button"
+         >
+          Share post
+         </button>
+            </div>
     
     <nav class="mobile-nav" aria-label="Mobile navigation">
       <a class="mobile-nav__item" href="../index.html" aria-label="Home">
@@ -100,7 +110,7 @@
         </a>
     </nav>
       </main>
-        <footer class="footer">
+          <footer class="footer">
       <div class="footer__middle">
         <a class="nav__brand" href="#/">
           <img
@@ -112,9 +122,13 @@
         <p>Terms & conditions</p>
         <p>Contact us</p>
         <p>Archivesupport@gmail.com</p>
-        <p>Placeholder for SoMe icons</p>
+        <div class="footer__icons">
+          <img src="../icons/insta.png" alt="Instagram" />
+          <img src="../icons/tiktok.png" alt="tiktok" />
+          <img src="../icons/facebook.png" alt="facebook" />
+        </div>
         <p class="website__rights--text">&copy; 2025 THE ARCHIVE</p>
       </div>
-        </footer>
+    </footer>
   </body>
 </html>

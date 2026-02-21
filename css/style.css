@@ -1,5 +1,3 @@
-/****** GLOBAL RESET + TOKENS *****/
-
 * {
   font-family: 'Inter', sans-serif, Tahoma, Geneva, Verdana;
   box-sizing: border-box;
@@ -124,10 +122,11 @@ body {
   font-style: italic;
 }
 
-.btn--secondary:focus {
+.btn--actionsecondary {
   background-color: var(--pink-500);
   color: var(--bg);
   font-style: italic;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .mobile-nav {
@@ -853,7 +852,7 @@ body {
 .create__planned-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 30px;
 }
 
 .create__planned-pill {
@@ -873,8 +872,8 @@ body {
 .create__actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 25px;
+  margin-top: 25px;
   margin-left: 38px;
   margin-right: 38px;
   margin-bottom: 20px;
@@ -963,6 +962,7 @@ body {
 .post-page {
   width: 100%;
   padding: 16px 12px 30px;
+  background-color: var(--pink-100);
 }
 
 .post {
