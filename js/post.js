@@ -1,20 +1,18 @@
-// Import helper,  check if user is logged in
 import { getFromLocalStorage } from './utils.js';
 
+/* =========================================================
+   API constants
+   ========================================================= */
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-// If not logged in, show demo blog
 const DEFAULT_BLOG_NAME = 'fitwithMalene';
-// If logged in, store name
+const storedProfileName = getFromLocalStorage('profileName');
+const BLOG_NAME = storedProfileName || DEFAULT_BLOG_NAME;
 
-const profileName = getFromLocalStorage('profileName');
-
-//use logged in name, fallback deafault blog
-const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
-
-//DOM
-
+/* =========================================================
+   DOM
+   ========================================================= */
 const titleEl = document.getElementById('post-title');
 const bannerWrapEl = document.getElementById('post-banner-wrap');
 const bannerEl = document.getElementById('post-banner');
@@ -22,18 +20,31 @@ const bodyEl = document.getElementById('post-body');
 const messageEl = document.getElementById('message');
 const dateEl = document.getElementById('post-date');
 const authorEl = document.getElementById('post-author');
+
+const editBtn = document.getElementById('edit-btn');
 const shareBtn = document.getElementById('share-btn');
 
+/* =========================================================
+   Helpers
+   ========================================================= */
 function showMessage(text) {
   if (messageEl) messageEl.textContent = text;
 }
+
 function getIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
 }
+
+function getAuth() {
+  return {
+    accessToken: getFromLocalStorage('accessToken'),
+    profileName: getFromLocalStorage('profileName'),
+  };
+}
+
 function formatDate(isoString) {
   const d = new Date(isoString);
-
   return d.toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -41,68 +52,127 @@ function formatDate(isoString) {
   });
 }
 
+function buildShareUrl(postId) {
+  // Works on GitHub Pages + local:
+  // takes current URL and replaces to /post/index.html?id=...
+  const url = new URL(window.location.href);
+  url.pathname = url.pathname.replace(/\/post\/.*$/, '/post/index.html');
+  url.search = `?id=${postId}`;
+  return url.toString();
+}
+
+/* =========================================================
+   API
+   ========================================================= */
 async function fetchPost(id) {
-  //GET /blog/post/<name>/<id>
   const url = `${BASE_API_URL}/blog/posts/${BLOG_NAME}/${id}`;
+
   const res = await fetch(url, {
-    headers: {
-      'X-Noroff-API-Key': NOROFF_API_KEY,
-    },
+    headers: { 'X-Noroff-API-Key': NOROFF_API_KEY },
   });
 
   const json = await res.json();
+
+  if (!res.ok) {
+    const msg = json?.errors?.[0]?.message || 'Could not load post.';
+    throw new Error(msg);
+  }
+
   return json.data;
 }
 
-//render
-function renderPost(post) {
-  titleEl.textContent = post.title || 'untitled';
-  authorEl.textContent = post.author?.name || 'unknown';
+/* =========================================================
+   Render
+   ========================================================= */
+function setupEditButton(post) {
+  if (!editBtn) return;
 
-  if (post.created) {
-    dateEl.textContent = formatDate(post.created);
-    dateEl.setAttribute('datetime', post.created);
+  // Hide by default
+  editBtn.hidden = true;
+
+  const { accessToken, profileName } = getAuth();
+  const isOwner = profileName && post?.author?.name === profileName;
+
+  if (accessToken && profileName && isOwner) {
+    editBtn.hidden = false;
+
+    // Prevent multiple listeners if render runs again
+    editBtn.replaceWith(editBtn.cloneNode(true));
+    const freshBtn = document.getElementById('edit-btn');
+
+    freshBtn.addEventListener('click', () => {
+      window.location.href = `./edit.html?id=${post.id}`;
+    });
   }
+}
 
-  if (post.media?.url) {
-    bannerEl.src = post.media.url;
-    bannerEl.alt = post.media.alt || post.title || 'post image';
-    bannerWrapEl.style.display = '';
-  } else {
-    bannerWrapEl.style.display = 'none';
-  }
-  bodyEl.textContent = post.body || '';
+function setupShareButton(post) {
+  if (!shareBtn) return;
 
-  const shareUrl = `${window.location.origin}/post/index.html?id=${post.id}`;
+  const shareUrl = buildShareUrl(post.id);
 
-  //Sharable url NEED FIX**********************************************************************
-  shareBtn?.addEventListener('click', async () => {
+  // Prevent multiple listeners
+  shareBtn.replaceWith(shareBtn.cloneNode(true));
+  const freshShare = document.getElementById('share-btn');
+
+  freshShare.addEventListener('click', async () => {
     try {
       if (navigator.share) {
-        await navigator.share({
-          title: post.title,
-          url: shareUrl,
-        });
+        await navigator.share({ title: post.title, url: shareUrl });
       } else {
         await navigator.clipboard.writeText(shareUrl);
-        showMessage('link copied');
+        showMessage('Link copied');
       }
-    } catch {
-      showMessage('could not share');
+    } catch (err) {
+      showMessage('Could not share');
+      console.log(err);
     }
   });
 }
 
+function renderPost(post) {
+  if (titleEl) titleEl.textContent = post.title || 'Untitled';
+  if (authorEl) authorEl.textContent = post.author?.name || 'Unknown';
+
+  if (post.created && dateEl) {
+    dateEl.textContent = formatDate(post.created);
+    dateEl.setAttribute('datetime', post.created);
+  }
+
+  if (bannerWrapEl && bannerEl) {
+    if (post.media?.url) {
+      bannerEl.src = post.media.url;
+      bannerEl.alt = post.media.alt || post.title || 'Post image';
+      bannerWrapEl.style.display = '';
+    } else {
+      bannerWrapEl.style.display = 'none';
+    }
+  }
+
+  if (bodyEl) bodyEl.textContent = post.body || '';
+
+  setupEditButton(post);
+  setupShareButton(post);
+}
+
+/* =========================================================
+   Init
+   ========================================================= */
 (async function init() {
-  //Get post id from url ***********************************************************************
   const id = getIdFromUrl();
-  // if no id
+
   if (!id) {
     showMessage('Missing id');
     return;
   }
-  showMessage('Loading...');
-  const post = await fetchPost(id);
-  showMessage('');
-  renderPost(post);
+
+  try {
+    showMessage('Loading…');
+    const post = await fetchPost(id);
+    showMessage('');
+    renderPost(post);
+  } catch (err) {
+    showMessage(err?.message || 'Something went wrong.');
+    console.log(err);
+  }
 })();
