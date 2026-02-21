@@ -152,17 +152,23 @@ function renderCarouselSlide() {
   const category = tag || 'Travel';
 
   carouselEl.innerHTML = `
-    <article class="hero" aria-label="Carousel post">
-      <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
-      <div class="hero__overlay" aria-hidden="true"></div>
-      <div class="hero__text">
+  <article class="hero" aria-label="Carousel post">
+    <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <div class="hero__text">
+      <div class="hero__card">
         <p class="hero__category">${category}</p>
         <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
         <p class="hero__meta">Published by: ${author}</p>
       </div>
-      <a class="btn--primary" href="post/index.html?id=${post.id}">Read More</a>
-    </article>
-  `;
+    </div>
+
+    <a class="btn--primary hero__cta" href="post/index.html?id=${post.id}">
+      Read More
+    </a>
+  </article>
+`;
 
   renderDots();
 }

@@ -238,49 +238,76 @@ body {
   min-height: 956px;
 }
 
-/* HERO slide */
+/* HERO container (mobile-first) */
 .hero {
   position: relative;
-  min-height: 520px;
-  background: var(--gray-050);
-  min-height: 956px;
+  min-height: 956px; /* keep your current height */
+  overflow: hidden;
+
+  /* Stable layout: top card / middle space / bottom button */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 40px 18px 70px;
 }
 
-/* Full image */
+/* Background image */
 .hero__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 0;
 }
 
-/* SWIPE hint */
-.hero__hint {
+/* Soft overlay for readability */
+.hero__overlay {
   position: absolute;
-  right: 16px;
-  top: 46%;
-  transform: translateY(-50%);
-  color: rgba(41, 41, 41, 0.45);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.08);
+  z-index: 1;
 }
 
-/* Centered text block */
+/* Card wrapper (top row) */
 .hero__text {
-  position: absolute;
-  left: 50%;
-  top: 22%;
-  transform: translateX(-50%);
-  width: min(300px, 85%);
-  text-align: center;
+  position: relative; /* NOT absolute */
   z-index: 2;
+  display: grid;
+  justify-items: center;
+}
+
+/* The white card */
+.hero__card {
+  min-width: 340px;
+  min-height: 370px;
+  background: rgba(250, 250, 250, 0.95);
+  border-radius: 24px;
+  padding: 28px 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+/* Button (bottom row) */
+.hero__cta.btn--primary {
+  position: relative; /* cancels absolute behavior */
+  z-index: 2;
+
+  left: auto;
+  bottom: auto;
+  transform: none;
+
+  width: min(280px, 80vw);
+  margin: 0 auto;
+  justify-self: center;
 }
 
 .hero__category {
   margin: 0 0 10px;
   font-size: 0.85rem;
   font-weight: 700;
+  padding-top: 40px;
+  padding-bottom: 20px;
   color: var(--gray-400);
 }
 
@@ -1067,5 +1094,43 @@ body {
 @media (min-width: 900px) {
   .post-card__meta {
     gap: 165px;
+  }
+
+  .carousel__viewport {
+    min-height: 727px;
+  }
+
+  .hero {
+    padding: 40px 40px 90px;
+  }
+
+  .hero__text {
+    justify-items: start;
+  }
+
+  .hero__card {
+    min-width: 450px;
+    min-height: 630px;
+    text-align: center;
+    margin-left: 70px;
+    padding: 25px 50px;
+  }
+
+  .hero__cta.btn--primary {
+    margin: 0;
+    justify-self: start;
+    margin-left: 130px;
+  }
+
+  .hero__category {
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    color: var(--gray-400);
+  }
+
+  .carousel__controls {
+    padding: 0 30px;
   }
 }
