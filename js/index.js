@@ -6,7 +6,11 @@ const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 const DEFAULT_BLOG_NAME = 'fitwithMalene';
 const profileName = getFromLocalStorage('profileName');
 const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
+const isLoggedIn = !!getFromLocalStorage('accessToken');
+const isLoggedOut = !isLoggedIn;
 
+console.log('Logged in:', isLoggedIn);
+console.log('Logged out:', isLoggedOut);
 /**** DOM ****/
 
 const carouselEl = document.getElementById('carousel');
