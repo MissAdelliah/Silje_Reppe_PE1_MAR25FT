@@ -194,12 +194,6 @@ mediaPreview?.addEventListener('error', () => {
   mediaPreview.src = 'https://placehold.co/900x400?text=Invalid+image+URL';
 });
 
-cancelBtn?.addEventListener('click', () => {
-  const id = getIdFromUrl();
-  if (id) window.location.href = `./index.html?id=${id}`;
-  else window.location.href = '../index.html';
-});
-
 deleteBtn?.addEventListener('click', () => {
   const id = getIdFromUrl();
   if (!id) {
