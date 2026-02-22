@@ -1152,7 +1152,9 @@ body {
     display: flex;
     max-width: 450px;
     min-height: 630px;
-    background-color: white;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px 2px rgba(0, 0, 0, 0.3);
     margin-left: 70px;
     padding: 25px 30px;
   }

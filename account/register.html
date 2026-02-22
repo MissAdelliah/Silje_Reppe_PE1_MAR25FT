@@ -33,70 +33,72 @@
     </header>
 
     <main class="auth">
-      <section class="auth__card" aria-label="Register form">
-        <h1 class="auth__title">Create account</h1>
-        <form id="register-form">
-          <p class="form__text">Name blog account</p>
-          <input
-            class="auth__input"
-            type="text"
-            name="name"
-            placeholder="Username"
-            required
-          />
-          <p class="form__text">Your email</p>
-          <input
-            class="auth__input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <div class="password-label-row">
-            <p class="form__text">Create password</p>
-            <button
-              type="button"
-              class="password-toggle"
-              aria-label="show password"
-            >
-              <img
-                class="password-icon"
-                src="../icons/closedeye.png"
-                alt="Toggle password visability"
-              />
-            </button>
-          </div>
-          <input
-            class="auth__input"
-            type="password"
-            name="password"
-            placeholder="Password (min 8)"
-            required
-            minlength="8"
-          />
-          <p class="continue__text">or continue with</p>
-          <div class="auth__actions">
-            <button class="auth__btn auth__btn--google" type="button">
-              <img
-                class="google-icon"
-                src="../icons/google.png"
-                alt="Goodle logo"
-                aria-hidden="true"
-              />
-              <span class="auth__btn-text">Sign up with Google</span>
-            </button>
-          </div>
-          <div class="auth__actions">
-            <button class="form__btn" type="submit">Submit</button>
-          </div>
-          <div>
-            <a class="directions_pages" href="./login.html"
-              >I have an account</a
-            >
-          </div>
-          <p class="message" id="message"></p>
-        </form>
-      </section>
+      <div class="account__card">
+        <section class="auth__card" aria-label="Register form">
+          <h1 class="auth__title">Create account</h1>
+          <form id="register-form">
+            <p class="form__text">Name blog account</p>
+            <input
+              class="auth__input"
+              type="text"
+              name="name"
+              placeholder="Username"
+              required
+            />
+            <p class="form__text">Your email</p>
+            <input
+              class="auth__input"
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <div class="password-label-row">
+              <p class="form__text">Create password</p>
+              <button
+                type="button"
+                class="password-toggle"
+                aria-label="show password"
+              >
+                <img
+                  class="password-icon"
+                  src="../icons/closedeye.png"
+                  alt="Toggle password visability"
+                />
+              </button>
+            </div>
+            <input
+              class="auth__input"
+              type="password"
+              name="password"
+              placeholder="Password (min 8)"
+              required
+              minlength="8"
+            />
+            <p class="continue__text">or continue with</p>
+            <div class="auth__actions">
+              <button class="auth__btn auth__btn--google" type="button">
+                <img
+                  class="google-icon"
+                  src="../icons/google.png"
+                  alt="Goodle logo"
+                  aria-hidden="true"
+                />
+                <span class="auth__btn-text">Sign up with Google</span>
+              </button>
+            </div>
+            <div class="auth__actions">
+              <button class="form__btn" type="submit">Submit</button>
+            </div>
+            <div>
+              <a class="directions_pages" href="./login.html"
+                >I have an account</a
+              >
+            </div>
+            <p class="message" id="message"></p>
+          </form>
+        </section>
+      </div>
     </main>
     <footer class="footer">
       <div class="footer__middle">
