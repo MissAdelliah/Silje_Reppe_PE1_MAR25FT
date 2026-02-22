@@ -1,13 +1,16 @@
-import { getFromLocalStorage } from './utils.js';
+import { getFromLocalStorage, initNavMenu } from './utils.js';
+
+initNavMenu();
 
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-const DEFAULT_BLOG_NAME = 'fitwithMalene';
+const DEFAULT_BLOG_NAME = 'FitwithMalene';
 const profileName = getFromLocalStorage('profileName');
-const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
+const isLoggedIn = !!getFromLocalStorage('accessToken');
+const BLOG_NAME = isLoggedIn && profileName ? profileName : DEFAULT_BLOG_NAME;
 
-/**** DOM ****/
+console.log('BLOG_NAME used:', BLOG_NAME);
 
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
@@ -71,8 +74,6 @@ async function fetchPosts() {
   return json?.data || [];
 }
 
-/***** TAG FILTER NAV ****/
-
 function buildTagNav(posts) {
   if (!tagNavEl) return;
 
@@ -131,8 +132,6 @@ function getFilteredPostsSorted() {
   return sorted.filter((post) => (post?.tags || []).includes(activeTag));
 }
 
-/***** CAROUSEL *****/
-
 function renderCarouselSlide() {
   if (!carouselEl) return;
   if (carouselPosts.length === 0) return;
@@ -148,17 +147,23 @@ function renderCarouselSlide() {
   const category = tag || 'Travel';
 
   carouselEl.innerHTML = `
-    <article class="hero" aria-label="Carousel post">
-      <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
-      <div class="hero__overlay" aria-hidden="true"></div>
-      <div class="hero__text">
+  <article class="hero" aria-label="Carousel post">
+    <img class="hero__img" src="${imgUrl}" alt="${imgAlt}">
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <div class="hero__text">
+      <div class="hero__card">
         <p class="hero__category">${category}</p>
         <h3 class="hero__title">${post?.title || 'Untitled'}</h3>
         <p class="hero__meta">Published by: ${author}</p>
       </div>
-      <a class="btn--primary" href="post/index.html?id=${post.id}">Read More</a>
-    </article>
-  `;
+    </div>
+
+    <a class="btn--primary hero__cta" href="post/index.html?id=${post.id}&blog=${BLOG_NAME}">
+      Read More
+    </a>
+  </article>
+`;
 
   renderDots();
 }
@@ -197,8 +202,6 @@ function goPrev() {
   renderCarouselSlide();
 }
 
-/****** POST LIST ******/
-
 function renderPostList(posts) {
   if (!postListEl) return;
 
@@ -220,7 +223,7 @@ function renderPostList(posts) {
 
       return `
         <article class="post-card">
-          <a class="post-card__media" href="post/index.html?id=${post.id}">
+          <a class="post-card__media" href="post/index.html?id=${post.id}&blog=${BLOG_NAME}">
             <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
 
             ${
@@ -247,8 +250,6 @@ function renderFilteredPostList() {
   const filteredSorted = getFilteredPostsSorted();
   renderPostList(filteredSorted);
 }
-
-/***** Startup *****/
 
 async function init() {
   try {

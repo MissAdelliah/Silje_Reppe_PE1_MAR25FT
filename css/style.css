@@ -102,6 +102,14 @@ body {
   width: 24px;
 }
 
+.nav {
+  position: relative;
+}
+
+.nav-dropdown[hidden] {
+  display: none;
+}
+
 .btn {
   border: none;
   border-radius: 16px;
@@ -238,49 +246,76 @@ body {
   min-height: 956px;
 }
 
-/* HERO slide */
+/* HERO container (mobile-first) */
 .hero {
   position: relative;
-  min-height: 520px;
-  background: var(--gray-050);
-  min-height: 956px;
+  min-height: 956px; /* keep your current height */
+  overflow: hidden;
+
+  /* Stable layout: top card / middle space / bottom button */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 40px 18px 70px;
 }
 
-/* Full image */
+/* Background image */
 .hero__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 0;
 }
 
-/* SWIPE hint */
-.hero__hint {
+/* Soft overlay for readability */
+.hero__overlay {
   position: absolute;
-  right: 16px;
-  top: 46%;
-  transform: translateY(-50%);
-  color: rgba(41, 41, 41, 0.45);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.08);
+  z-index: 1;
 }
 
-/* Centered text block */
+/* Card wrapper (top row) */
 .hero__text {
-  position: absolute;
-  left: 50%;
-  top: 22%;
-  transform: translateX(-50%);
-  width: min(300px, 85%);
-  text-align: center;
+  position: relative; /* NOT absolute */
   z-index: 2;
+  display: grid;
+  justify-items: center;
+}
+
+/* The white card */
+.hero__card {
+  min-width: 340px;
+  min-height: 370px;
+  background: rgba(250, 250, 250, 0.95);
+  border-radius: 24px;
+  padding: 28px 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+/* Button (bottom row) */
+.hero__cta.btn--primary {
+  position: relative; /* cancels absolute behavior */
+  z-index: 2;
+
+  left: auto;
+  bottom: auto;
+  transform: none;
+
+  width: min(280px, 80vw);
+  margin: 0 auto;
+  justify-self: center;
 }
 
 .hero__category {
   margin: 0 0 10px;
   font-size: 0.85rem;
   font-weight: 700;
+  padding-top: 40px;
+  padding-bottom: 20px;
   color: var(--gray-400);
 }
 
@@ -527,12 +562,12 @@ body {
   max-width: 420px;
   margin: 0 auto;
   display: grid;
+  column-count: 1;
   gap: 14px;
 }
 
 .post-card {
   background: rgba(250, 250, 250, 0.8);
-  display: grid;
   gap: 10px;
 }
 
@@ -572,29 +607,32 @@ body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 135px;
 }
 /* White transparent bar */
 .post-card__overlay-bar {
-  display: flex;
-  align-items: center;
   position: absolute;
-  bottom: 0;
   left: 0;
-  width: 100%;
-  padding: 10px 10px;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+
+  gap: 10px;
+  padding: 10px 12px;
+
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(2px);
-  gap: 10px;
 }
 
 /**** Profile image *****/
 .post-card__avatar {
-  border-radius: 50%;
-  object-fit: cover;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  object-fit: cover;
 }
 
 .post-card__author {
@@ -1031,10 +1069,145 @@ body {
   line-height: 1.6;
   color: var(--ink);
 }
+.nav-dropdown {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  min-width: 180px;
+  background: white;
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  display: grid;
+  gap: 6px;
+  background-color: var(--pink-100);
+  z-index: 1000;
+}
 
-/* desktop*/
+.nav-dropdown__item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.nav-dropdown__item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.nav-dropdown__logout {
+  color: var(--pink-500);
+}
+
 @media (min-width: 900px) {
-  .post-card__meta {
-    gap: 165px;
+  .carousel__viewport {
+    min-height: 727px;
+  }
+
+  h1 {
+    width: 300px;
+    position: absolute;
+    right: 78px;
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-h1-desk);
+    color: var(--pink-500);
+  }
+
+  .hero {
+    padding: 40px 40px 90px;
+  }
+
+  .hero__text {
+    justify-items: start;
+  }
+
+  .hero__card {
+    min-width: 450px;
+    min-height: 630px;
+    text-align: center;
+    margin-left: 70px;
+    padding: 25px 30px;
+  }
+
+  .hero__cta.btn--primary {
+    margin: 0;
+    justify-self: start;
+    margin-left: 130px;
+  }
+
+  .hero__category {
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: var(--gray-400);
+  }
+
+  .carousel__controls {
+    padding: 0 30px;
+  }
+
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1475px;
+    margin: 0 auto;
+    column-gap: 10px;
+    padding: 24px;
+  }
+  .account__card {
+    display: flex;
+    max-width: 450px;
+    min-height: 630px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px 2px rgba(0, 0, 0, 0.3);
+    margin-left: 70px;
+    padding: 25px 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .auth {
+    background-image: url('https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    max-width: 1200px;
+    min-height: 50vh;
+    width: 100%;
+    margin: 30px auto 30px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: 50% 70%; /* more of the person */
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .auth__title {
+    font-size: var(--fs-h2-desk);
+  }
+}
+
+@media (min-width: 1200px) {
+  .post-list {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    padding: 24px;
+    max-width: 1475px;
+    margin: 0 auto;
+  }
+
+  .post-card__media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-card__overlay-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
   }
 }

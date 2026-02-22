@@ -35,3 +35,82 @@ export function initPasswordToggle({
     icon.src = isHidden ? openIcon : closedIcon;
   });
 }
+export function initNavMenu() {
+  const menuBtn = document.getElementById('nav-menu-btn');
+  const dropdown = document.getElementById('nav-dropdown');
+
+  if (!menuBtn || !dropdown) return;
+
+  function isLoggedIn() {
+    return !!localStorage.getItem('accessToken');
+  }
+
+  function closeMenu() {
+    dropdown.setAttribute('hidden', '');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function buildMenu() {
+    const loggedIn = isLoggedIn();
+    const inPostFolder = window.location.pathname.includes('/post/');
+    const homeHref = inPostFolder ? '../index.html' : './index.html';
+    const loginHref = inPostFolder
+      ? '../account/login.html'
+      : './account/login.html';
+    const registerHref = inPostFolder
+      ? '../account/register.html'
+      : './account/register.html';
+
+    const homeLink = `<a class="nav-dropdown__item" href="${homeHref}">Home</a>`;
+
+    if (!loggedIn) {
+      dropdown.innerHTML = `
+        ${homeLink}
+        <a class="nav-dropdown__item" href="${loginHref}">Log in</a>
+        <a class="nav-dropdown__item" href="${registerHref}">Register</a>
+      `;
+      return;
+    }
+
+    dropdown.innerHTML = `
+      ${homeLink}
+      <button class="nav-dropdown__item nav-dropdown__logout" id="logout-btn" type="button">
+        Log out
+      </button>
+    `;
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('profileName');
+      closeMenu();
+      window.location.href = homeHref;
+    });
+  }
+
+  function openMenu() {
+    buildMenu();
+    dropdown.removeAttribute('hidden');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  }
+
+  // Toggle on click
+  menuBtn.addEventListener('click', () => {
+    const isOpen = !dropdown.hasAttribute('hidden');
+    if (isOpen) closeMenu();
+    else openMenu();
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!dropdown.hasAttribute('hidden')) {
+      const clickedInside =
+        dropdown.contains(e.target) || menuBtn.contains(e.target);
+      if (!clickedInside) closeMenu();
+    }
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+}

@@ -1,4 +1,5 @@
-import { getFromLocalStorage } from './utils.js';
+import { getFromLocalStorage, initNavMenu } from './utils.js';
+initNavMenu();
 
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
@@ -14,6 +15,7 @@ const messageBox = document.getElementById('message');
 const mediaUrlInput = document.getElementById('mediaUrl');
 const mediaPreview = document.getElementById('media-preview');
 const cancelBtn = document.getElementById('cancel-btn');
+const deleteBtn = document.getElementById('delete-btn');
 
 const profileAvatarEl = document.getElementById('create-profile-avatar');
 const profileNameEl = document.getElementById('create-profile-name');
@@ -27,7 +29,7 @@ function showMessage(text) {
 
 function requireLogin() {
   if (!accessToken || !profileName) {
-    window.location.href = '../login.html';
+    window.location.href = '../account/login.html';
   }
 }
 
@@ -59,7 +61,7 @@ function updateMediaPreview(url) {
   mediaPreview.src = url;
 }
 
-//Profile card
+// Profile card
 function renderProfileCard() {
   if (!profileNameEl || !profileAvatarEl) return;
 
@@ -153,6 +155,38 @@ async function updatePost(id) {
   window.location.href = `./index.html?id=${id}`;
 }
 
+// Delete post
+async function deletePost(id) {
+  const ok = confirm('Delete this post? This cannot be undone.');
+  if (!ok) return;
+
+  const url = `${BASE_API_URL}/blog/posts/${profileName}/${id}`;
+
+  try {
+    showMessage('Deleting…');
+
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'X-Noroff-API-Key': NOROFF_API_KEY,
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!res.ok) {
+      const json = await res.json();
+      showMessage(json?.errors?.[0]?.message || 'Could not delete post.');
+      return;
+    }
+
+    showMessage('Deleted. Redirecting…');
+    window.location.href = '../index.html';
+  } catch (err) {
+    console.log('Delete error:', err);
+    showMessage('Network error. Try again.');
+  }
+}
+
 mediaUrlInput?.addEventListener('input', (event) => {
   updateMediaPreview(event.target.value);
 });
@@ -165,6 +199,15 @@ cancelBtn?.addEventListener('click', () => {
   const id = getIdFromUrl();
   if (id) window.location.href = `./index.html?id=${id}`;
   else window.location.href = '../index.html';
+});
+
+deleteBtn?.addEventListener('click', () => {
+  const id = getIdFromUrl();
+  if (!id) {
+    showMessage('Missing id in URL.');
+    return;
+  }
+  deletePost(id);
 });
 
 form?.addEventListener('submit', (event) => {
@@ -191,6 +234,11 @@ form?.addEventListener('submit', (event) => {
     showMessage('Loading…');
     const post = await fetchPost(id);
     fillFormFromPost(post);
+
+    //hide delete if not owner
+    const isOwner = post?.author?.name === profileName;
+    if (deleteBtn) deleteBtn.hidden = !isOwner;
+
     showMessage('');
   } catch (err) {
     showMessage(err.message || 'Could not load post.');
