@@ -11,19 +11,26 @@
   <body class="page--white">
     <header>
       <nav class="nav" aria-label="Main navigation">
-        <a class="nav__brand" href="../index.html">
+        <a class="nav__brand" href="/index.html">
           <img
             class="nav__logo"
-            src="../logo/logo.png"
+            src="./logo/logo.png"
             alt="Brand The Archive logo"
           />
         </a>
-        <button class="nav__button--hamburger" type="button" aria-label="Menu">
-          <img src="../icons/menu.png" alt="" aria-hidden="true" />
+        <button
+          class="nav__button--hamburger"
+          id="nav-menu-btn"
+          type="button"
+          aria-label="Menu"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img src="./icons/menu.png" alt="" aria-hidden="true" />
         </button>
       </nav>
+      <div class="nav-dropdown" id="nav-dropdown" hidden></div>
     </header>
-
     <main class="create">
       <section class="create__profile-card" aria-label="Profile summary">
         <div class="box__profile-avatar">
