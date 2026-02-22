@@ -52,12 +52,16 @@ export function initNavMenu() {
 
   function buildMenu() {
     const loggedIn = isLoggedIn();
-    const inPostFolder = window.location.pathname.includes('/post/');
-    const homeHref = inPostFolder ? '../index.html' : './index.html';
-    const loginHref = inPostFolder
+
+    const inSubFolder =
+      window.location.pathname.includes('/post/') ||
+      window.location.pathname.includes('/account/');
+
+    const homeHref = inSubFolder ? '../index.html' : './index.html';
+    const loginHref = inSubFolder
       ? '../account/login.html'
       : './account/login.html';
-    const registerHref = inPostFolder
+    const registerHref = inSubFolder
       ? '../account/register.html'
       : './account/register.html';
 
@@ -65,19 +69,19 @@ export function initNavMenu() {
 
     if (!loggedIn) {
       dropdown.innerHTML = `
-        ${homeLink}
-        <a class="nav-dropdown__item" href="${loginHref}">Log in</a>
-        <a class="nav-dropdown__item" href="${registerHref}">Register</a>
-      `;
+      ${homeLink}
+      <a class="nav-dropdown__item" href="${loginHref}">Log in</a>
+      <a class="nav-dropdown__item" href="${registerHref}">Register</a>
+    `;
       return;
     }
 
     dropdown.innerHTML = `
-      ${homeLink}
-      <button class="nav-dropdown__item nav-dropdown__logout" id="logout-btn" type="button">
-        Log out
-      </button>
-    `;
+    ${homeLink}
+    <button class="nav-dropdown__item nav-dropdown__logout" id="logout-btn" type="button">
+      Log out
+    </button>
+  `;
 
     document.getElementById('logout-btn')?.addEventListener('click', () => {
       localStorage.removeItem('accessToken');
