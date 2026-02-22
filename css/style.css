@@ -1107,7 +1107,7 @@ body {
     min-height: 727px;
   }
 
-  h1 {
+  .motto {
     width: 300px;
     position: absolute;
     right: 78px;
@@ -1186,6 +1186,18 @@ body {
 
   .auth__title {
     font-size: var(--fs-h2-desk);
+  }
+  .about h1 {
+    font-weight: var(--fw-light);
+    font-size: var(--fs-h1-desk);
+  }
+  .about p {
+    font-size: var(--fs-body-desk);
+  }
+  .about {
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
   }
 }
 
