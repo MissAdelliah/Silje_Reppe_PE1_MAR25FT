@@ -1,4 +1,5 @@
-import { getFromLocalStorage } from './utils.js';
+import { getFromLocalStorage, initNavMenu } from './utils.js';
+initNavMenu();
 
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';

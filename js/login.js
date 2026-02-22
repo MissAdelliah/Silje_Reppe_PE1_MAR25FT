@@ -2,8 +2,10 @@ import {
   addToLocalStorage,
   getFromLocalStorage,
   initPasswordToggle,
+  initNavMenu,
 } from './utils.js';
 
+initNavMenu();
 // DOM
 const loginForm = document.querySelector('#login-form');
 const messageBox = document.querySelector('#message');

@@ -1,5 +1,9 @@
-import { getFromLocalStorage, addToLocalStorage } from './utils.js';
-
+import {
+  getFromLocalStorage,
+  addToLocalStorage,
+  initNavMenu,
+} from './utils.js';
+initNavMenu();
 // DOM
 const form = document.getElementById('create-form');
 const messageBox = document.getElementById('message');
@@ -29,9 +33,11 @@ function showMessage(text) {
 // Protect page: if logged out, user should not reach create page
 function requireLogin() {
   if (!accessToken || !profileName) {
-    window.location.href = '/login.html';
+    window.location.href = '/account/login.html';
   }
 }
+console.log('avatarUrl key:', getFromLocalStorage('avatarUrl'));
+console.log('avatar key:', getFromLocalStorage('avatar'));
 
 function parseTags(tagsString) {
   if (!tagsString) return [];
@@ -46,7 +52,7 @@ function updateMediaPreview(url) {
   if (!mediaPreview) return;
 
   if (!url) {
-    mediaPreview.src = 'https://placehold.co/900x400?text=Drop+image+or+shorts';
+    mediaPreview.src = 'https://placehold.co/900x400?text=emty';
     return;
   }
 
@@ -76,7 +82,7 @@ function renderProfileCard() {
   }
   if (profileStatsEl) profileStatsEl.textContent = '25K READERS';
 
-  // Avatar from localStorage, else placeholder
+  // Avatar from localStorage, placeholder
   profileAvatarEl.src = avatarUrl || 'https://placehold.co/120x120?text=User';
 }
 

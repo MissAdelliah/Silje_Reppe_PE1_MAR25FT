@@ -1,5 +1,5 @@
-import { initPasswordToggle } from './utils.js';
-
+import { initPasswordToggle, initNavMenu } from './utils.js';
+initNavMenu();
 const registerForm = document.querySelector('#register-form');
 const messageBox = document.querySelector('#message');
 
