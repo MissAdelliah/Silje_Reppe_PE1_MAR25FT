@@ -1133,6 +1133,13 @@ body {
   .carousel__controls {
     padding: 0 30px;
   }
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1475px;
+    margin: 0 auto;
+    column-gap: 10px;
+    padding: 24px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -1152,13 +1159,15 @@ body {
 .post-card__img {
   .post-list {
     column-count: 4;
+    max-width: 400px;
+    height: auto;
   }
+}
 
-  .post-card__overlay-bar {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 2;
-  }
+.post-card__overlay-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
 }
