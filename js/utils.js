@@ -97,7 +97,6 @@ export function initNavMenu() {
     menuBtn.setAttribute('aria-expanded', 'true');
   }
 
-  // Toggle on click
   menuBtn.addEventListener('click', () => {
     const isOpen = !dropdown.hasAttribute('hidden');
     if (isOpen) closeMenu();

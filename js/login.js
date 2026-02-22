@@ -96,7 +96,6 @@ async function loginUser(userDetails) {
 
     if (!response.ok) {
       showMessage(json?.errors?.[0]?.message || 'Login failed.');
-      console.log('Login error:', json);
       return;
     }
 
@@ -105,7 +104,6 @@ async function loginUser(userDetails) {
 
     if (!accessToken || !profileName) {
       showMessage('Login succeeded but accessToken was missing.');
-      console.log('Missing accessToken:', json);
       return;
     }
 

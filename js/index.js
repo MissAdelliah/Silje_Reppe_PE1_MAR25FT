@@ -10,8 +10,6 @@ const profileName = getFromLocalStorage('profileName');
 const isLoggedIn = !!getFromLocalStorage('accessToken');
 const BLOG_NAME = isLoggedIn && profileName ? profileName : DEFAULT_BLOG_NAME;
 
-console.log('BLOG_NAME used:', BLOG_NAME);
-
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
 const prevBtn = document.getElementById('carousel-prev');
@@ -67,7 +65,6 @@ async function fetchPosts() {
   const json = await response.json();
 
   if (!response.ok) {
-    console.log('Fetch posts error:', json);
     throw new Error(json?.errors?.[0]?.message || 'Failed to load posts');
   }
 

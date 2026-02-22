@@ -14,13 +14,13 @@ const messageBox = document.getElementById('message');
 
 const mediaUrlInput = document.getElementById('mediaUrl');
 const mediaPreview = document.getElementById('media-preview');
-const cancelBtn = document.getElementById('cancel-btn');
 const deleteBtn = document.getElementById('delete-btn');
 
 const profileAvatarEl = document.getElementById('create-profile-avatar');
 const profileNameEl = document.getElementById('create-profile-name');
 const profileSubtitleEl = document.getElementById('create-profile-subtitle');
 const profileStatsEl = document.getElementById('create-profile-stats');
+const publishBtn = document.getElementById('publish-btn');
 
 function showMessage(text) {
   if (!messageBox) return;
@@ -152,7 +152,7 @@ async function updatePost(id) {
   }
 
   showMessage('Saved! Redirecting…');
-  window.location.href = `./index.html?id=${id}`;
+  window.location.href = `../index.html`;
 }
 
 // Delete post
@@ -182,7 +182,6 @@ async function deletePost(id) {
     showMessage('Deleted. Redirecting…');
     window.location.href = '../index.html';
   } catch (err) {
-    console.log('Delete error:', err);
     showMessage('Network error. Try again.');
   }
 }
@@ -237,7 +236,14 @@ form?.addEventListener('submit', (event) => {
 
     //hide delete if not owner
     const isOwner = post?.author?.name === profileName;
+
     if (deleteBtn) deleteBtn.hidden = !isOwner;
+    if (!isOwner) {
+      showMessage('You are not allowed to edit this post.');
+      publishBtn?.setAttribute('disabled', 'true');
+      publishBtn?.classList.add('is-disabled');
+      return;
+    }
 
     showMessage('');
   } catch (err) {

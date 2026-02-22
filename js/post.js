@@ -8,8 +8,6 @@ const DEFAULT_BLOG_NAME = 'FitwithMalene';
 const params = new URLSearchParams(window.location.search);
 const BLOG_NAME = params.get('blog') || DEFAULT_BLOG_NAME;
 
-console.log('Post page BLOG_NAME:', BLOG_NAME);
-
 const titleEl = document.getElementById('post-title');
 const bannerWrapEl = document.getElementById('post-banner-wrap');
 const bannerEl = document.getElementById('post-banner');
@@ -108,7 +106,6 @@ function setupShareButton(post) {
       }
     } catch (err) {
       showMessage('Could not share');
-      console.log(err);
     }
   });
 }
@@ -153,6 +150,5 @@ function renderPost(post) {
     renderPost(post);
   } catch (err) {
     showMessage(err?.message || 'Something went wrong.');
-    console.log(err);
   }
 })();
