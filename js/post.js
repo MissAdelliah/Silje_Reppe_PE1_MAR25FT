@@ -4,9 +4,11 @@ initNavMenu();
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-const DEFAULT_BLOG_NAME = 'fitwithMalene';
-const storedProfileName = getFromLocalStorage('profileName');
-const BLOG_NAME = storedProfileName || DEFAULT_BLOG_NAME;
+const DEFAULT_BLOG_NAME = 'FitwithMalene';
+const params = new URLSearchParams(window.location.search);
+const BLOG_NAME = params.get('blog') || DEFAULT_BLOG_NAME;
+
+console.log('Post page BLOG_NAME:', BLOG_NAME);
 
 const titleEl = document.getElementById('post-title');
 const bannerWrapEl = document.getElementById('post-banner-wrap');
@@ -47,7 +49,7 @@ function formatDate(isoString) {
 function buildShareUrl(postId) {
   const url = new URL(window.location.href);
   url.pathname = url.pathname.replace(/\/post\/.*$/, '/post/index.html');
-  url.search = `?id=${postId}`;
+  url.search = `?id=${postId}&blog=${encodeURIComponent(BLOG_NAME)}`;
   return url.toString();
 }
 

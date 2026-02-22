@@ -39,7 +39,6 @@ export function initNavMenu() {
   const menuBtn = document.getElementById('nav-menu-btn');
   const dropdown = document.getElementById('nav-dropdown');
 
-  // Safe: if a page doesn’t have the nav markup, do nothing
   if (!menuBtn || !dropdown) return;
 
   function isLoggedIn() {
@@ -53,11 +52,7 @@ export function initNavMenu() {
 
   function buildMenu() {
     const loggedIn = isLoggedIn();
-
-    // Detect if we’re inside /post/ pages
     const inPostFolder = window.location.pathname.includes('/post/');
-
-    // Correct relative paths depending on folder
     const homeHref = inPostFolder ? '../index.html' : './index.html';
     const loginHref = inPostFolder
       ? '../account/login.html'

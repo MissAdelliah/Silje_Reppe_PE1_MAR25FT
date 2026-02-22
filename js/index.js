@@ -5,14 +5,12 @@ initNavMenu();
 const BASE_API_URL = 'https://v2.api.noroff.dev';
 const NOROFF_API_KEY = '1324424e-7f11-49f7-9eb6-68a83f0cdd43';
 
-const DEFAULT_BLOG_NAME = 'fitwithMalene';
+const DEFAULT_BLOG_NAME = 'FitwithMalene';
 const profileName = getFromLocalStorage('profileName');
-const BLOG_NAME = profileName || DEFAULT_BLOG_NAME;
 const isLoggedIn = !!getFromLocalStorage('accessToken');
-const isLoggedOut = !isLoggedIn;
+const BLOG_NAME = isLoggedIn && profileName ? profileName : DEFAULT_BLOG_NAME;
 
-console.log('Logged in:', isLoggedIn);
-console.log('Logged out:', isLoggedOut);
+console.log('BLOG_NAME used:', BLOG_NAME);
 
 const carouselEl = document.getElementById('carousel');
 const postListEl = document.getElementById('post-list');
@@ -161,7 +159,7 @@ function renderCarouselSlide() {
       </div>
     </div>
 
-    <a class="btn--primary hero__cta" href="post/index.html?id=${post.id}">
+    <a class="btn--primary hero__cta" href="post/index.html?id=${post.id}&blog=${BLOG_NAME}">
       Read More
     </a>
   </article>
@@ -225,7 +223,7 @@ function renderPostList(posts) {
 
       return `
         <article class="post-card">
-          <a class="post-card__media" href="post/index.html?id=${post.id}">
+          <a class="post-card__media" href="post/index.html?id=${post.id}&blog=${BLOG_NAME}">
             <img class="post-card__img" src="${imgUrl}" alt="${imgAlt}">
 
             ${

@@ -4,6 +4,7 @@ import {
   initNavMenu,
 } from './utils.js';
 initNavMenu();
+
 // DOM
 const form = document.getElementById('create-form');
 const messageBox = document.getElementById('message');
