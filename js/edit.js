@@ -152,7 +152,7 @@ async function updatePost(id) {
   }
 
   showMessage('Saved! Redirecting…');
-  window.location.href = `./index.html?id=${id}`;
+  window.location.href = `../index.html`;
 }
 
 // Delete post
@@ -237,6 +237,16 @@ form?.addEventListener('submit', (event) => {
 
     //hide delete if not owner
     const isOwner = post?.author?.name === profileName;
+    if (deleteBtn) deleteBtn.hidden = !isOwner;
+
+    if (!isOwner) {
+      showMessage('You are not allowed to edit this post.');
+      form
+        ?.querySelector('button[type="submit"]')
+        ?.setAttribute('disabled', 'true');
+      return;
+    }
+
     if (deleteBtn) deleteBtn.hidden = !isOwner;
 
     showMessage('');
