@@ -37,8 +37,6 @@ function requireLogin() {
     window.location.href = '/account/login.html';
   }
 }
-console.log('avatarUrl key:', getFromLocalStorage('avatarUrl'));
-console.log('avatar key:', getFromLocalStorage('avatar'));
 
 function parseTags(tagsString) {
   if (!tagsString) return [];
@@ -110,7 +108,7 @@ function loadDraft() {
     updateMediaPreview(draft.mediaUrl || '');
     showMessage('Saved to drafts');
   } catch (error) {
-    console.log('Draft parse error:', error);
+    showMessage('Could not save to draft');
   }
 }
 
@@ -172,7 +170,6 @@ async function publishPost() {
     showMessage('Published! Redirecting…');
     window.location.href = 'index.html';
   } catch (error) {
-    console.log('Publish exception:', error);
     showMessage('Network error. Try again.');
   }
 }

@@ -86,7 +86,6 @@ async function registerUser(userDetails) {
 
     if (!response.ok) {
       showMessage(json?.errors?.[0]?.message || 'Registration failed.');
-      console.log('Register error:', json);
       return;
     }
 
@@ -96,7 +95,6 @@ async function registerUser(userDetails) {
       window.location.href = '/login.html';
     }, 300);
   } catch (error) {
-    console.log('Register exception:', error);
     showMessage('Network error. Try again.');
   }
 }
