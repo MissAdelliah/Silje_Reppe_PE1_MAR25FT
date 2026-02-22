@@ -1107,6 +1107,15 @@ body {
     min-height: 727px;
   }
 
+  h1 {
+    width: 300px;
+    position: absolute;
+    right: 78px;
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-h1-desk);
+    color: var(--pink-500);
+  }
+
   .hero {
     padding: 40px 40px 90px;
   }
@@ -1157,6 +1166,26 @@ body {
     box-shadow: 0 10px 30px 2px rgba(0, 0, 0, 0.3);
     margin-left: 70px;
     padding: 25px 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .auth {
+    background-image: url('https://images.unsplash.com/photo-1531854253260-44f0d06e3d26?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    max-width: 1200px;
+    min-height: 50vh;
+    width: 100%;
+    margin: 30px auto 30px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: 50% 70%; /* more of the person */
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .auth__title {
+    font-size: var(--fs-h2-desk);
   }
 }
 
