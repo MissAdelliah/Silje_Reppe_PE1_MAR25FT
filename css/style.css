@@ -1148,6 +1148,14 @@ body {
     column-gap: 10px;
     padding: 24px;
   }
+  .account__card {
+    display: flex;
+    max-width: 450px;
+    min-height: 630px;
+    background-color: white;
+    margin-left: 70px;
+    padding: 25px 30px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -1158,16 +1166,17 @@ body {
     max-width: 1475px;
     margin: 0 auto;
   }
-}
-.post-card__media {
-  position: relative;
-  overflow: hidden;
-}
 
-.post-card__overlay-bar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 2;
+  .post-card__media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-card__overlay-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+  }
 }
