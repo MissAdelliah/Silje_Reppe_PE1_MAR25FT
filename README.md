@@ -1,7 +1,8 @@
 UPDATED README FOR PORTFOILIO 1
 
 ## Apis
-
+BASE_API_URL = 'https://v2.api.noroff.dev';
+AUTH_LOGIN_URL = `${BASE_API_URL}/auth/login`;
 ## USED
 Javascript
 HTML
@@ -100,4 +101,5 @@ Real life	Web app
 You show your passport at airport	You send a token to the API
 The airport verifies your passport	The API verifies your token
 Then you’re allowed to board	Then you’re allowed to access protected data
+
 
