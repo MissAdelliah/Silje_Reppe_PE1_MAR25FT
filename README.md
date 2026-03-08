@@ -1,3 +1,16 @@
+UPDATED README FOR PORTFOILIO 1
+
+## Apis
+
+## USED
+Javascript
+HTML
+CSS
+
+## Author
+MissAdelliah / Silje Reppe
+
+WRITTEN ON THE EXAM:
 ### Here is what gpt was used for 
 - blog post text
   ### example Me & My Better Half (With Four Legs 🐾)
@@ -87,3 +100,4 @@ Real life	Web app
 You show your passport at airport	You send a token to the API
 The airport verifies your passport	The API verifies your token
 Then you’re allowed to board	Then you’re allowed to access protected data
+
